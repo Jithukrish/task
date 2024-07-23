@@ -1,0 +1,958 @@
+{% extends 'Dashboard/Dashboard.html' %}
+{% load widget_tweaks %}
+{% load static %}
+<!------------------------------------------Title section------------------------------------------------>
+{% block title %}
+{% endblock %}
+
+{% block style %}
+<style>
+    #profile-form label.error {
+        font-size: 17px;
+        color: red;
+    }
+    label.valid {
+        height: 21px;
+        width: 21px;
+        display: block;
+        padding-left: 21px;
+    }
+ 
+    .ever {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        margin-top:200px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .ever h2 {
+        text-align: center;
+        color: black;
+        font-size: 40px;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #555;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    
+    .btn-primary {
+        width: 100%;
+        padding: 10px;
+        background-color: #007BFF;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    </style>
+
+  
+{% endblock %}
+
+
+
+<!------------------------------------------header section start------------------------------------------------>
+{% block header %}
+{% if request.user.is_jobseeker%}
+  
+
+  
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'img/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">{{ request.user.jobseeker_profile.first_name }} {{ request.user.jobseeker_profile.last_name }}</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+
+<div class="search-bar">
+  <form class="search-form d-flex align-items-center" method="POST" action="#">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+  </form>
+</div><!-- End Search Bar -->
+
+  
+   
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-1.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-2.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-3.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% if request.user.jobseeker_profile.profile_picture %}
+                   <img src="{{ request.user.jobseeker_profile.profile_picture.url }}" alt="Profile" class="rounded-circle">
+            {% else %}
+                   <img src="{% static 'images/faces/face28.png' %}" alt="Default Profile Picture">
+            {% endif %}
+            
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.jobseeker_profile.first_name }}
+              
+            </span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ request.user.jobseeker_profile.first_name }} {{ request.user.jobseeker_profile.last_name }}</h6>
+              <span>{{ request.user.jobseeker_profile.title}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile_job" %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile_job" %}">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "logoutdone" %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  {% elif request.user.is_employer %}
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'img/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">{{ request.user.profile.first_name }} {{ request.user.profile.last_name }}</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+{% block search %}
+<div class="search-bar">
+  <form class="search-form d-flex align-items-center" method="POST" action="#">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+  </form>
+</div><!-- End Search Bar -->
+{% endblock search %}
+  
+   
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-1.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-2.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-3.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% if request.user.profile.profile_picture %}
+                   <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile" class="rounded-circle">
+            {% else %}
+                   <img src="{% static 'images/faces/face28.png' %}" alt="Default Profile Picture">
+            {% endif %}
+            
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.profile.first_name }} {{ request.user.profile.last_name }}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ request.user.email}}</h6>
+              <span>{{ request.user.profile.title}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile" %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "logoutdone" %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+  {% endif %}
+
+  {% endblock header %}
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block sidebar %}
+{% if request.user.is_jobseeker %} 
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_resume" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Upload Resume</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "seeker_view_all_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>View All jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "applied_job" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Applied job</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Status Tracker</span>
+        </a>
+
+      </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
+          </a>
+        </li>
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile_job" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End F.A.Q Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-contact.html">
+        <i class="bi bi-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End Contact Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_seeker" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li>
+    <!-- End Error 404 Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li>
+    <!-- End Blank Page Nav -->
+
+  </ul>
+
+</aside>
+<!-- ------------------------------------------- Sidebar employer---------------------------------------------- -->
+{% elif request.user.is_employer %}
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_company" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Company</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "create_job_post" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job post</span>
+        </a>
+
+      </li>
+   
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "manage_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Manage Jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "job_application_list_stats" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job Application List</span>
+        </a>
+
+      </li>
+     
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
+          </a>
+        </li>
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End F.A.Q Page Nav -->
+
+   
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_employer" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li><!-- End Error 404 Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li><!-- End Blank Page Nav -->
+
+  </ul>
+
+</aside>
+{% endif %}
+{% endblock sidebar %}
+
+<!------------------------------------------Main Section------------------------------------------------>
+{% block main %}
+
+{% if messages %}
+<div class="container">
+    {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+</div>
+{% endif %}
+<section class="section profile">
+<div class="ever">
+   
+    <h2 style="text-align: center; color: black; font-size: 40px;">Resume</h2>
+    <form id="profile-form" class="needs-validation" method="POST" enctype="multipart/form-data"  novalidate>
+        {% csrf_token %}
+
+        <div>
+            <label for="id_name">Job Title</label>
+            {% comment %} {% render_field form.title class="form-control" id="id_title" %} {% endcomment %}
+            <input type="text" class="form-control" id="id_title" name="title"  required>
+            <div class="invalid-feedback"></div>
+        </div>
+       
+        
+        <div>
+            <label for="id_start_date">Upload Resume</label>
+            {% comment %} {% render_field form.resume class="form-control" id="id_resume" %} {% endcomment %}
+            <input type="file" class="form-control" id="id_resume" name="resume" accept=".pdf,.doc,.docx" required>
+            <div class="invalid-feedback"></div>
+            {% comment %} <input type="text" class="form-control datepicker" id="id_start_date" name="start_date"> {% endcomment %}
+        </div>
+        <div>
+            <label for="id_country">Cover letter</label>
+            <input type="file" class="form-control" id="id_coverletter" name="cover_letter" accept=".pdf,.doc,.docx" required>
+            <div class="invalid-feedback"></div>
+            {% comment %} {% render_field form.cover_letter class="form-control" id="id_coverletter" %} {% endcomment %}
+        </div>
+    
+       
+        <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+    </form>
+</div>
+</section>
+</main>        
+             
+
+                 
+
+
+
+
+{% endblock main %}
+
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block footer %}
+{% endblock footer %}
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+
+{% block script %}
+<script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'js/quill/quill.js'  %}"></script>
+  <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'js/php-email-form/validate.js' %} "></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/js/main.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+ 
+  {% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+  <script>
+    $(document).ready(function() {
+        $('#profile-form').validate({
+            rules: {
+              title:{
+                required: true,
+                extension: "pdf | doc |docx"
+              },
+               
+                resume:{
+                  required: true,
+                  extension: "pdf | doc |docx"
+                },
+                cover_letter:{
+                  required: true,
+                  extension: "pdf | doc |docx"
+                },
+                
+                
+               
+            },
+            messages: {
+              title: {
+                required: "Please enter valid title.",
+
+              },
+              
+              resume: {
+                required: "Please upload a PDF, DOC, or DOCX file.",
+                extension: "Please upload a PDF, DOC, or DOCX file."
+               },
+               cover_letter: {
+                required: "Please upload a PDF, DOC, or DOCX file.",
+                extension: "Please upload a PDF, DOC, or DOCX file."
+               },
+              
+               
+            },
+            submitHandler: function(form) {
+                
+                form.submit();
+            }
+        });
+
+        $('#datepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true,
+            yearRange: '-100:2010',
+            maxDate: new Date(2010, 11, 31)
+        });
+    });
+  </script>
+                     
+                 
+                  
+          
+    
+          
+
+
+{% endblock script %}
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+
+
+
+
+

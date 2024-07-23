@@ -1,0 +1,678 @@
+{% extends 'Dashboard/Dashboard.html' %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% load static %}
+<!------------------------------------------Title section------------------------------------------------>
+{% block title %}
+{% endblock %}
+{% block style %}
+
+<style>
+
+.section.profile {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.section.profile h2 {
+    text-align: center;
+    color: black;
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+.section.profile .ever {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.section.profile .form-group {
+    margin-bottom: 15px;
+}
+
+.section.profile .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.section.profile .btn.btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.section.profile .btn.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.section.profile p {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+}
+
+.section.profile p[style*="color: #0056b3"] {
+    color: #0056b3;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+
+</style>    
+ 
+   
+    
+   
+    
+
+
+  
+{% endblock %}
+<!------------------------------------------header section start------------------------------------------------>
+{% block header %}
+{% if request.user.is_jobseeker%}
+  
+  
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'img/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">{{ request.user.jobseeker_profile.first_name }} {{ request.user.jobseeker_profile.last_name }}</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+
+    {% block search1 %}
+    <div class="search-bar" >
+        <form class="search-form d-flex align-items-center" method="GET" action="#">
+          <input type="text" id="search-input" name="search" placeholder="Search by title, company, or skills" ">
+          <input type="text" id="location-input" name="location" placeholder="Location" >
+        
+          <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+        </form>
+      </div>
+    {% endblock search1 %}
+
+
+
+  
+   
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-1.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-2.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-3.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% if request.user.jobseeker_profile.profile_picture %}
+                   <img src="{{ request.user.jobseeker_profile.profile_picture.url }}" alt="Profile" class="rounded-circle">
+            {% else %}
+                   <img src="{% static 'images/faces/face28.png' %}" alt="Default Profile Picture">
+            {% endif %}
+            
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.jobseeker_profile.first_name }}
+              
+            </span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ request.user.jobseeker_profile.first_name }} {{ request.user.jobseeker_profile.last_name }}</h6>
+              <span>{{ request.user.jobseeker_profile.title}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile_job" %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile_job" %}">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "logoutdone" %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+
+  {% endif %}
+
+  {% endblock header %}
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block sidebar %}
+{% if request.user.is_jobseeker %} 
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_resume" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Upload Resume</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "seeker_view_all_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>View All jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "applied_job" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Applied job</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Status Tracker</span>
+        </a>
+
+      </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
+          </a>
+        </li>
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile_job" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End F.A.Q Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-contact.html">
+        <i class="bi bi-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End Contact Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_seeker" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li>
+    <!-- End Error 404 Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li>
+    <!-- End Blank Page Nav -->
+
+  </ul>
+
+</aside>
+<!-- ------------------------------------------- Sidebar employer---------------------------------------------- -->
+{% elif request.user.is_employer %}
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_company" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Company</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "create_job_post" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job post</span>
+        </a>
+
+      </li>
+   
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "manage_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Manage Jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "job_application_list_stats" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job Application List</span>
+        </a>
+
+      </li>
+     
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
+          </a>
+        </li>
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End F.A.Q Page Nav -->
+
+   
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_employer" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li><!-- End Error 404 Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li><!-- End Blank Page Nav -->
+
+  </ul>
+
+</aside>
+{% endif %}
+{% endblock sidebar %}
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block main %}
+<main id="main" class="main">
+
+    
+
+    <section class="section profile">
+        <h2 style="text-align: center; color: black ; font-size: 40px;">Apply Job Confirm</h2>
+            <div class="ever">
+               
+             
+    {% if has_applied %}
+    <p>You have already applied for this job.</p>
+    {% else %}
+    <form action="{% url 'job_application' job.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="company_name">Company Name: {{ job.company.name }}</label>
+        </div>
+        <div class="form-group">
+            <label for="job_title">Job Title: {{ job.title }}</label>
+        </div>
+       
+       
+       
+        {% if not has_apply %}
+        <button type="submit" class="btn btn-primary">Apply for Job</button>
+            {% else %}
+        <p style="font-size: 20px; color: #0056b3; font-weight: 400;" >Your already applied </p>
+        {% endif %}
+    </form>
+    {% endif %}
+</div> 
+     
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock main %}
+
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block footer %}
+{% endblock footer %}
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+
+{% block script %}
+<script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'js/quill/quill.js'  %}"></script>
+  <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'js/php-email-form/validate.js' %} "></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/js/main.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+ 
+  {% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script>
+        <script>
+            $(document).ready(function() {
+                $('#search-form').on('submit', function(event) {
+                    event.preventDefault();
+                    var searchValue = $('#search-input').val();
+                    var locationValue = $('#location-input').val();
+                    $.ajax({
+                        type: 'GET',
+                        url: '{% url "search_results" %}',
+                        data: {
+                            'search': searchValue,
+                            'location': locationValue
+
+                        },
+                        success: function(response) {
+                            $('#search-results').html(response);
+                        },
+                        error: function(xhr, errmsg, err) {
+                            console.log(xhr.status + ": " + xhr.responseText);
+                        }
+                    });
+                });
+            });
+        </script>       
+    </script>
+
+
+{% endblock script %}
+
+
+
+
+
+
+

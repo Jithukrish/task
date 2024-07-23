@@ -1,0 +1,1036 @@
+
+{% extends 'Dashboard/Dashboard.html' %}
+{% load widget_tweaks %}
+{% load static %}
+<!------------------------------------------Title section------------------------------------------------>
+{% block title %}
+
+{% endblock %}
+{% block style %}
+<style>
+ 
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        margin-left: 555px;
+        height: 500px;
+      }
+      
+      .chat {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        overflow: hidden;
+        margin-top: 78px;
+        width: 1000px;
+        height: 600px;
+      }
+      
+      .chat-header {
+        padding: 10px;
+        border-bottom: 1px solid #ccc;
+        background-color: #f0f0f0;
+        display: flex;
+        align-items: center;
+      }
+      
+      .chat-header img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+      
+      .chat-about {
+        flex: 1;
+      }
+      
+      .chat-with {
+        font-weight: bold;
+      }
+      
+      .chat-num-messages {
+        color: #777;
+      }
+      
+      .chat-history {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 10px;
+      }
+      
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      
+      ul li {
+        margin-bottom: 10px;
+      }
+      
+      .message-data {
+        margin-bottom: 10px;
+      }
+      
+      .message-data-name {
+        font-weight: bold;
+        margin-right: 10px;
+      }
+      
+      .message-data-time {
+        color: #777;
+      }
+      .align-right {
+        text-align: right;
+      }
+      
+      .message {
+        padding: 10px;
+        border-radius: 5px;
+        max-width: 80%;
+      }
+      
+      .other-message {
+        background-color: #f1f0f0;
+      }
+      
+      .my-message {
+        background-color: #dff0d8;
+        align-self: flex-end;
+      }
+      
+      .chat-message {
+        padding: 10px;
+        border-top: 1px solid #ccc;
+        display: flex;
+        align-items: center;
+      }
+      
+      .chat-message textarea {
+        flex: 1;
+        resize: none;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 8px;
+      }
+      
+      .chat-message button {
+        margin-left: 10px;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      
+      .chat-message button:hover {
+        background-color: #0056b3;
+      }
+      
+</style>
+
+  
+{% endblock %}
+
+
+<!------------------------------------------header section start------------------------------------------------>
+{% block header %}
+{% if request.user.is_jobseeker%}
+  
+
+  
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'img/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">{{ request.user.jobseeker_profile.first_name }} {{ request.user.jobseeker_profile.last_name }}</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+
+<div class="search-bar">
+  <form class="search-form d-flex align-items-center" method="POST" action="#">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+  </form>
+</div><!-- End Search Bar -->
+
+  
+   
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-1.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-2.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-3.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% if request.user.jobseeker_profile.profile_picture %}
+                   <img src="{{ request.user.jobseeker_profile.profile_picture.url }}" alt="Profile" class="rounded-circle">
+            {% else %}
+                   <img src="{% static 'images/faces/face28.png' %}" alt="Default Profile Picture">
+            {% endif %}
+            
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.jobseeker_profile.first_name }}
+              {{ request.user.email}}
+            </span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ request.user.jobseeker_profile.first_name }} {{ request.user.jobseeker_profile.last_name }}</h6>
+              <span>{{ request.user.jobseeker_profile.title}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile_job" %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile_job" %}">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "logoutdone" %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  {% elif request.user.is_employer %}
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'img/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">{{ request.user.profile.first_name }} {{ request.user.profile.last_name }}</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+ {% comment %} {% block search %}
+<div class="search-bar">
+  <form class="search-form d-flex align-items-center" method="POST" action="#">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+  </form>
+</div><!-- End Search Bar -->
+{% endblock search %} {% endcomment %}
+
+ {% block search %}
+ <form id="search-form" method="GET"  action="{% url 'search_manage' %}">
+  <input type="text" id="search-input" name="search" placeholder="Search by title, company, or skills" >
+  <input type="text" id="location-input" name="location" placeholder="Location" >
+</form>
+{% endblock search %} 
+
+
+
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-1.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-2.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-3.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% if request.user.profile.profile_picture %}
+                   <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile" class="rounded-circle">
+            {% else %}
+                   <img src="{% static 'images/faces/face28.png' %}" alt="Default Profile Picture">
+            {% endif %}
+            
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.profile.first_name }} {{ request.user.profile.last_name }}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ request.user.email}}</h6>
+              <span>{{ request.user.profile.title}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile" %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "logoutdone" %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+  {% endif %}
+
+  {% endblock header %}
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block sidebar %}
+{% if request.user.is_jobseeker %} 
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_resume" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Upload Resume</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "seeker_view_all_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>View All jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "applied_job" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Applied job</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Status Tracker</span>
+        </a>
+
+      </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
+          </a>
+        </li>
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile_job" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End F.A.Q Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-contact.html">
+        <i class="bi bi-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End Contact Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_seeker" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li>
+    <!-- End Error 404 Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li>
+    <!-- End Blank Page Nav -->
+
+  </ul>
+
+</aside>
+<!-- ------------------------------------------- Sidebar employer---------------------------------------------- -->
+{% elif request.user.is_employer %}
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_company" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Company</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "create_job_post" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job post</span>
+        </a>
+
+      </li>
+   
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "manage_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Manage Jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "job_application_list_stats" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job Application List</span>
+        </a>
+
+      </li>
+     
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
+          </a>
+        </li>
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End F.A.Q Page Nav -->
+
+   
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_employer" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li><!-- End Error 404 Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li><!-- End Blank Page Nav -->
+
+  </ul>
+
+</aside>
+{% endif %}
+{% endblock sidebar %}
+
+<!------------------------------------------Title section End------------------------------------------------>
+
+
+  
+
+
+
+
+{% block main %}
+<div class="container clearfix">
+    <div class="chat">
+        <div class="chat-header clearfix">
+            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/chat_avatar_01_green.jpg" alt="avatar" />
+            <div class="chat-about">
+                <div class="chat-with">Chat with {{ friend.username }}</div>
+                <div class="chat-num-messages">Already {{ messages|length }} messages</div>
+            </div>
+            <i class="fa fa-star"></i>
+        </div>
+        <div class="chat-history">
+            <ul>
+                {% for msg in messages %}
+                    {% if msg.sender == request.user %}
+                        <li class="clearfix">
+                            <div class="message-data align-right">
+                                <span class="message-data-time">{{ msg.timestamp|date:"h:i A" }}, {{ msg.timestamp|date:"N j, Y" }}</span> &nbsp; &nbsp;
+                                <span class="message-data-name">{{ msg.sender.profile.first_name }}</span> <i class="fa fa-circle me"></i>
+                            </div>
+                            <div class="message other-message float-right">
+                                {{ msg.message }}
+                            </div>
+                        </li>
+                    {% else %}
+                        <li>
+                            <div class="message-data">
+                                <span class="message-data-name"><i class="fa fa-circle online"></i> {{ msg.sender.profile.first_name }}</span>
+                                <span class="message-data-time">{{ msg.timestamp|date:"h:i A" }}, {{ msg.timestamp|date:"N j, Y" }}</span>
+                            </div>
+                            <div class="message my-message">
+                                {{ msg.message }}
+                            </div>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="chat-message clearfix">
+            <textarea name="message-to-send" id="message-to-send" placeholder="Type your message" rows="3"></textarea>
+            <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+            <i class="fa fa-file-image-o"></i>
+            <button id="send-message-btn">Send</button>
+            <button id="sendMessage" data-pk="{{ friend.pk }}">Send</button>
+        </div>
+    </div>
+</div>
+
+<script id="message-template" type="text/x-handlebars-template">
+    <li class="clearfix">
+        <div class="message-data">
+            <span class="message-data-name">{{ name }}</span>
+            <span class="message-data-time">{{ time }}</span>
+        </div>
+        <div class="message my-message">
+            {{ messageOutput }}
+        </div>
+    </li>
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+
+<script>
+(function() {
+    var chat = {
+        messageToSend: '',
+        recivern: "{{ friend.username }}", 
+        init: function() {
+            this.cacheDOM();
+            this.bindEvents();
+            this.render();
+        },
+        cacheDOM: function() {
+            this.$chatHistory = $('.chat-history');
+            this.$button = $('#send-message-btn');
+            this.$textarea = $('#message-to-send');
+            this.$chatHistoryList = this.$chatHistory.find('ul');
+        },
+        bindEvents: function() {
+            this.$button.on('click', this.addMessage.bind(this));
+            this.$textarea.on('keyup', this.addMessageEnter.bind(this));
+        },
+        render: function() {
+            this.scrollToBottom();
+            if (this.messageToSend.trim() !== '') {
+                var template = Handlebars.compile($("#message-template").html());
+                var context = {
+                    messageOutput: this.messageToSend,
+                    time: this.getCurrentTime(),
+                    name: 'You'
+                };
+                this.$chatHistoryList.append(template(context));
+                this.scrollToBottom();
+                this.$textarea.val('');
+                this.sendMessageToServer(this.messageToSend);
+            }
+        },
+        addMessage: function() {
+            this.messageToSend = this.$textarea.val();
+            this.render();
+        },
+        addMessageEnter: function(event) {
+            if (event.keyCode === 13) {
+                this.addMessage();
+            }
+        },
+        scrollToBottom: function() {
+            this.$chatHistory.scrollTop(this.$chatHistory[0].scrollHeight);
+        },
+        getCurrentTime: function() {
+            return new Date().toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
+        },
+        sendMessageToServer: function(message) {
+          var self = this;
+          var pk = $('#sendMessage').data('pk');  
+          $.ajax({
+              url: '{% url "message_list" %}',  // Ensure this URL pattern is correct
+              type: 'POST',
+              data: {
+                  'message': message,
+                  'receiver': pk,  // Ensure this is the correct parameter name
+                  'csrfmiddlewaretoken': '{{ csrf_token }}'
+              },
+              success: function(response) {
+                  if (response.status === 'success') {
+                      self.renderMessage(message);
+                  } else {
+                      alert(response.message);
+                  }
+              },
+              error: function(response) {
+                  alert('An error occurred. Please try again.');
+              }
+          });
+      },
+    };
+
+    chat.init();
+})();
+</script>
+{% endblock %}
+      
+
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block footer %}
+{% endblock footer %}
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+
+{% block script %}
+
+
+{% endblock  %}
+
+
+
+
+

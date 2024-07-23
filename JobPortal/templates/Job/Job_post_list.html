@@ -1,0 +1,17 @@
+<div id="search-results">
+    {% for job in jobs %}
+    <div class="job-details">
+        <h2 style=" color: black; font-size: 40px;">{{ job.title }}</h2>
+        <p><strong>Company:</strong> {{ job.company.name }}</p>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p><strong>Skills:</strong>
+            {% for skill in job.skills.all %}
+            {{ skill.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+        </p>
+        <p><strong>Education:</strong> {{ job.education }}</p>
+        <p><strong>Active:</strong> {{ job.timestamp|naturaltime }}</p>
+        <a href="{% url 'seeker_viewmore' id=job.id %}" class="apply-now">View More</a>
+    </div>
+    {% endfor %}
+</div>

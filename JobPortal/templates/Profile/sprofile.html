@@ -1,0 +1,1202 @@
+{% extends 'Dashboard/Dashboard.html' %}
+{% load widget_tweaks %}
+{% load static %}
+<!------------------------------------------Title section------------------------------------------------>
+{% block title %}
+{% endblock %}
+
+<!------------------------------------------header section start------------------------------------------------>
+{% block header %}
+{% if request.user.is_jobseeker%}
+  
+
+  
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'img/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">{{ request.user.jobseeker_profile.first_name }} {{ request.user.jobseeker_profile.last_name }}</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+  
+
+  
+{% block search1 %}
+<div class="search-bar">
+  <form class="search-form d-flex align-items-center" method="POST" action="#">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+  </form>
+</div><!-- End Search Bar -->
+
+{% endblock search1 %}
+
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-1.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-2.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-3.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% if request.user.jobseeker_profile.profile_picture %}
+                   <img src="{{ request.user.jobseeker_profile.profile_picture.url }}" alt="Profile" class="rounded-circle">
+            {% else %}
+                   <img src="{% static 'images/faces/face28.png' %}" alt="Default Profile Picture">
+            {% endif %}
+            
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.jobseeker_profile.first_name }}
+              
+            </span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ request.user.jobseeker_profile.first_name }} {{ request.user.jobseeker_profile.last_name }}</h6>
+              <span>{{ request.user.jobseeker_profile.title}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile_job" %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile_job" %}">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "logoutdone" %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  {% elif request.user.is_employer %}
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'img/img/logo.png' %}" alt="">
+        <span class="d-none d-lg-block">{{ request.user.profile.first_name }} {{ request.user.profile.last_name }}</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+{% block search %}
+<div class="search-bar">
+  <form class="search-form d-flex align-items-center" method="POST" action="#">
+    <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+    <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+  </form>
+</div><!-- End Search Bar -->
+{% endblock search %}
+  
+   
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 4 new notifications
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-exclamation-circle text-warning"></i>
+              <div>
+                <h4>Lorem Ipsum</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>30 min. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Atque rerum nesciunt</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <h4>Sit rerum fuga</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>2 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Dicta reprehenderit</h4>
+                <p>Quae dolorem earum veritatis oditseno</p>
+                <p>4 hrs. ago</p>
+              </div>
+            </li>
+
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li class="dropdown-footer">
+              <a href="#">Show all notifications</a>
+            </li>
+
+          </ul><!-- End Notification Dropdown Items -->
+
+        </li><!-- End Notification Nav -->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-chat-left-text"></i>
+            <span class="badge bg-success badge-number">3</span>
+          </a><!-- End Messages Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+            <li class="dropdown-header">
+              You have 3 new messages
+              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-1.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Maria Hudson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>4 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-2.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>Anna Nelson</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>6 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="message-item">
+              <a href="#">
+                <img src="{% static 'img/img/messages-3.jpg' %}" alt="" class="rounded-circle">
+                <div>
+                  <h4>David Muldon</h4>
+                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
+                  <p>8 hrs. ago</p>
+                </div>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li class="dropdown-footer">
+              <a href="#">Show all messages</a>
+            </li>
+
+          </ul><!-- End Messages Dropdown Items -->
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            {% if request.user.profile.profile_picture %}
+                   <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile" class="rounded-circle">
+            {% else %}
+                   <img src="{% static 'images/faces/face28.png' %}" alt="Default Profile Picture">
+            {% endif %}
+            
+            <span class="d-none d-md-block dropdown-toggle ps-2">{{ request.user.profile.first_name }} {{ request.user.profile.last_name }}</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>{{ request.user.email}}</h6>
+              <span>{{ request.user.profile.title}}</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile" %}">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="{% url "logoutdone" %}">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header>
+  {% endif %}
+
+  {% endblock header %}
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block sidebar %}
+{% if request.user.is_jobseeker %} 
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_resume" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Upload Resume</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "seeker_view_all_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>View All jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "applied_job" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Applied job</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Status Tracker</span>
+        </a>
+
+      </li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
+          </a>
+        </li>
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile_job" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End F.A.Q Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-contact.html">
+        <i class="bi bi-envelope"></i>
+        <span>Contact</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End Contact Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_seeker" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li>
+    <!-- End Error 404 Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li>
+    <!-- End Blank Page Nav -->
+
+  </ul>
+
+</aside>
+<!-- ------------------------------------------- Sidebar employer---------------------------------------------- -->
+{% elif request.user.is_employer %}
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_company" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Company</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "create_job_post" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job post</span>
+        </a>
+
+      </li>
+   
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "manage_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Manage Jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "job_application_list_stats" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job Application List</span>
+        </a>
+
+      </li>
+     
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
+          </a>
+        </li>
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    {% comment %} <li class="nav-item">
+      <a class="nav-link collapsed" href="pages-faq.html">
+        <i class="bi bi-question-circle"></i>
+        <span>F.A.Q</span>
+      </a>
+    </li> {% endcomment %}
+    <!-- End F.A.Q Page Nav -->
+
+   
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_employer" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-dash-circle"></i>
+        <span>Error 404</span>
+      </a>
+    </li><!-- End Error 404 Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="#">
+        <i class="bi bi-file-earmark"></i>
+        <span>Blank</span>
+      </a>
+    </li><!-- End Blank Page Nav -->
+
+  </ul>
+
+</aside>
+{% endif %}
+{% endblock sidebar %}
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block main %}
+<main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Profile</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item">Users</li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ol>
+      </nav>
+    </div>
+    <!-- End Page Title -->
+
+    <section class="section profile">
+      <div class="row">
+        <div class="col-xl-4">
+
+          <div class="card">
+            {% if request.user.is_jobseeker %}
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+              {% if request.user.jobseeker_profile.profile_picture %}
+              <img src="{{ request.user.jobseeker_profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid">
+          {% endif %}
+
+              <h2>{{ request.user.jobseeker_profile.first_name}}{{ request.user.jobseeker_profile.last_name}}</h2>
+              <h3>{{ request.user.jobseeker_profile.title}}</h3>
+              <div class="social-links mt-2">
+                <a href="{{ request.user.jobseeker_profile.x }}" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="{{ request.user.jobseeker_profile.facebook }}" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="{{ request.user.jobseeker_profile.insta }}" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="{{ request.user.jobseeker_profile.linkedin }}" class="linkedin"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            {% elif request.user.is_employer %}
+            <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+              {% if request.user.profile.profile_picture %}
+              <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid">
+             {% endif %}
+                {% comment %} <img src="{{request.user.profile.profile_picture.url}}" alt="Profile" class="rounded-circle">             {% endcomment %}
+                <h2>{{ request.user.profile.first_name}}{{ request.user.profile.last_name}}</h2>
+                <h3>{{ request.user.profile.title}}</h3>
+                <div class="social-links mt-2">
+                  <a href="{{ request.user.profile.x }}" class="twitter"><i class="bi bi-twitter"></i></a>
+                  <a href="{{ request.user.profile.facebook }}" class="facebook"><i class="bi bi-facebook"></i></a>
+                  <a href="{{ request.user.profile.insta }}" class="instagram"><i class="bi bi-instagram"></i></a>
+                  <a href="{{ request.user.profile.linkedin }}" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              {% endif %}
+          </div>
+
+        </div>
+
+        {% if request.user.is_jobseeker %}
+        <div class="col-xl-8">
+
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+              <ul class="nav nav-tabs nav-tabs-bordered" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
+                </li>
+
+                <li class="nav-item">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
+                </li>
+               
+
+                
+              </ul>
+              <div class="tab-content pt-2">
+
+                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                  <h5 class="card-title">About</h5>
+                  <p class="small fst-italic">{{ request.user.jobseeker_profile.about}}</p>
+
+                  <h5 class="card-title">Profile Details</h5>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label ">Full Name</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.jobseeker_profile.first_name}}{{ request.user.jobseeker_profile.last_name}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Company</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.jobseeker_profile.date_of_birth|date:"d/m/Y"}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Job</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.jobseeker_profile.job}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Country</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.jobseeker_profile.country}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Address</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.jobseeker_profile.address}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Phone</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.jobseeker_profile.phone_number}}</div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Gender</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.jobseeker_profile.gender}}</div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-3 col-md-4 label">Email</div>
+                    <div class="col-lg-9 col-md-8">{{ request.user.email}}</div>
+                  </div>
+
+                </div>
+
+                <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
+
+                  <!-- Profile Edit Form -->
+                  <form id="profile-form" action="{% url "update_profile_job" %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile Image</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% if form.instance.profile_picture %}
+                        <img src="{{ form.instance.profile_picture.url }}" alt="Profile">
+                        {% endif %}
+                        {% comment %} ----------------------------------------- {% endcomment %}
+                        
+                        <div class="pt-2">
+
+                          <a href="#" name="profile_picture" class="btn btn-primary btn-sm" title="Upload new profile image"><i class="bi bi-upload"></i></a>
+                          <a href="#"  class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                          
+                        </div> 
+                        {% comment %} <div class="pt-2">
+                          <input type="file" name="profile_picture" id="profile_picture" style="display: none;">
+                          <a href="#" id="uploadButton" class="btn btn-primary btn-sm" title="Upload new profile image">
+                              <i class="bi bi-upload"></i> Upload
+                          </a>
+                          
+
+                        </div> {% endcomment %}
+                        {% comment %} -------------------------------------- {% endcomment %}
+                        {% render_field form.profile_picture class="form-control" id="id_profile"  %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">First Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.first_name class="form-control" %}
+                        {% comment %} <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson"> {% endcomment %}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.last_name class="form-control" %}
+                        {% comment %} <input name="fullName" type="text" class="form-control" id="fullName" value="Kevin Anderson"> {% endcomment %}
+                      </div>
+                    </div>
+                    {% comment %} <div class="row mb-3">
+                      <label for="company" class="col-md-4 col-lg-3 col-form-label">About</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.about class="form-control" name="about" id="id_phone_number" %}
+                        <input name="about" type="text" class="form-control" id="about" value="{{ request.user.jobseeker_profile.about }}">
+                      </div>
+                    </div> {% endcomment %}
+                    <div class="row mb-3">
+                      <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.about class="form-control" %}
+                      </div>
+                    </div>
+                  
+
+                    <div class="row mb-3">
+                      <label for="company" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.phone_number class="form-control" name="phone" id="id_phone_number" %}
+                        {% comment %} <input name="company" type="text" class="form-control" id="company" value="{{ request.user.company.name }}"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Job" class="col-md-4 col-lg-3 col-form-label">Address</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.address class="form-control" id="id_address" %}
+                        {% comment %} <input name="job" type="text" class="form-control" id="Job" value="Web Designer"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Country" class="col-md-4 col-lg-3 col-form-label">Date of Birth</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.date_of_birth class="form-control" id="datepicker" %}
+                        {% comment %} <input name="country" type="text" class="form-control" id="Country" value="USA"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Address" class="col-md-4 col-lg-3 col-form-label">Education</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.education class="form-control" id="id_education" %}
+                        {% comment %} <input name="address" type="text" class="form-control" id="Address" value="A108 Adam Street, New York, NY 535022"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="gender" class="col-md-4 col-lg-3 col-form-label">Gender</label>
+                      <div class="col-md-8 col-lg-9">
+                        <div class="radio-group">
+                <label for="gender_male">
+                    <input type="radio" id="gender_male" name="gender" value="male" {% if form.gender.value == 'male' %}checked{% endif %}> Male
+                </label>
+                <label for="gender_female">
+                    <input type="radio" id="gender_female" name="gender" value="female" {% if form.gender.value == 'female' %}checked{% endif %}> Female
+                </label>
+                <label for="gender_other">
+                    <input type="radio" id="gender_other" name="gender" value="other" {% if form.gender.value == 'other' %}checked{% endif %}> Other
+                </label>
+            </div>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Job title</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.job class="form-control" id="id_job" %}
+                        {% comment %} <input name="phone" type="text" class="form-control" id="Phone" value="(+91) 9956545654"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
+                      <div class="col-md-8 col-lg-9">
+                        
+                        <input name="email" type="email" class="form-control" id="Email" value="{{ request.user.email}}">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="Email" class="col-md-4 col-lg-3 col-form-label">Skill</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.skills class="form-control" %}
+                        {% comment %} <input name="email" type="email" class="form-control" id="Email" value="{{ request.user.email}}"> {% endcomment %}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Country</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.country class="form-control" %}
+                        {% comment %} <input name="x" type="text" class="form-control" id="x" value="https://twitter.com/#"> {% endcomment %}
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.x class="form-control" %}
+                        {% comment %} <input name="x" type="text" class="form-control" id="x" value="https://twitter.com/#"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.facebook class="form-control" %}
+                        {% comment %} <input name="facebook" type="text" class="form-control" id="Facebook" value="https://facebook.com/#"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.insta class="form-control" %}
+                        {% comment %} <input name="instagram" type="text" class="form-control" id="Instagram" value="https://instagram.com/#"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin Profile</label>
+                      <div class="col-md-8 col-lg-9">
+                        {% render_field form.linkedin class="form-control" %}
+                        {% comment %} <input name="linkedin" type="text" class="form-control" id="Linkedin" value="https://linkedin.com/#"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </div>
+                  </form><!-- End Profile Edit Form -->
+
+                </div>
+
+              
+
+                <div class="tab-pane fade pt-3" id="profile-change-password">
+                  <!-- Change Password Form -->
+                  <form method="post" action="{% url 'change_password' %}">
+                    {% csrf_token %}
+                    <div class="row mb-3">
+                      <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        {{ form.old_password }}
+                        {% render_field form.old_password class="form-control" %}
+                        {% comment %} <input name="password" type="password" class="form-control" id="currentPassword"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        {{ form.new_password1 }}
+                        {% comment %} <input name="newpassword" type="password" class="form-control" id="newPassword"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
+                      <div class="col-md-8 col-lg-9">
+                        {{ form.new_password2 }}
+                        {% comment %} <input name="renewpassword" type="password" class="form-control" id="renewPassword"> {% endcomment %}
+                      </div>
+                    </div>
+
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-primary">Change Password</button>
+                    </div>
+                  </form><!-- End Change Password Form -->
+
+                </div>
+
+              </div><!-- End Bordered Tabs -->
+
+            </div>
+          </div>
+
+        </div>
+        {% endif %}
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+{% endblock main %}
+
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+{% block footer %}
+{% endblock footer %}
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+
+{% block script %}
+<script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'js/quill/quill.js'  %}"></script>
+  <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'js/php-email-form/validate.js' %} "></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/js/main.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+ 
+  {% comment %} <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> {% endcomment %}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#profile-form').validate({
+                rules: {
+                    first_name: "required",
+                    last_name: "required",
+                    phone_number: {
+                        required: true,
+                        number: true,
+                        minlength: 10,
+                        maxlength: 10
+                    },
+                    address: "required",
+                    education: "required",
+                    job: "required",
+                    country: "required",
+                    profile_picture: "required",
+                    gender: "required",
+                    date_of_birth: "required",
+                    skills: "required",
+                    x: "required",
+                    facebook: "required",
+                    linkedin: "required"
+                            
+                },
+                messages: {
+                    first_name: "Please enter your first name",
+                    last_name: "Please enter your last name",
+                    phone_number: {
+                        required: "We need your phone number to contact you",
+                        number: "Please enter a valid phone number",
+                        minlength: "Your phone number must be exactly 10 digits",
+                        maxlength: "Your phone number must be exactly 10 digits"
+                    },
+                    address: "Please enter your valid address",
+                    education: "Please enter your qualification",
+                    job: "Please enter your valid job",
+                    country: "Please enter your country",
+                    profile_picture: "Please add your profile image",
+                    gender: "Please select your gender",
+                    date_of_birth: "Please select a date",
+                    skills: "Please enter skills",
+                    x: "Please enter your valid twitter url",
+                    facebook: "Please enter your valid facebook url",
+                    linkedin: "Please enter your valid linkdin url",
+
+                },
+                submitHandler: function(form) {
+                    
+                    form.submit();
+                }
+            });
+    
+            $('#datepicker').datepicker({
+                dateFormat: 'yy-mm-dd',
+                changeMonth: true,
+                changeYear: true,
+                yearRange: '-100:2010',
+                maxDate: new Date(2010, 11, 31)
+            });
+        });
+    </script>
+    
+    
+
+
+
+{% endblock script %}
+
+
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+<!------------------------------------------Title section End------------------------------------------------>
+
+
+
+
+

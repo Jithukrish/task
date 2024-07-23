@@ -1,0 +1,45 @@
+    <tbody id="job-table-body">
+        <tr>
+            <th>Job title</th>
+            <th>Location</th>
+            <th>Salary</th>
+            <th>No. of applicants</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>Remove</th>
+        </tr>
+        {% for job in jobs %}
+        <tr>
+            <td data-th="Job title">{{ job.title }}</td>
+            <td data-th="Location">{{ job.location }}</td>
+            <td data-th="Salary">${{ job.salary }}</td>
+            <td data-th="No. of applicants">
+                {{ job.apply_job_set.count }} <a href="{% url 'all_applications' id=job.id %}" class="apply-now">Check List</a>
+            </td>
+            <td data-th="Status">
+                {% if job.is_active %}
+                <button style="color: #ffffff; background-color: #28a745; border-color: #28a745;" class="btn btn-sm btn-success">Active</button>
+                {% else %}
+                <button style="color: #ffffff; background-color: #dc3545; border-color: #dc3545;" class="btn btn-sm btn-danger">Inactive</button>
+                {% endif %}
+            </td>
+            <td data-th="Action">
+                <a href="{% url 'update_jobs' job.id %}" class="btn btn-sm btn-primary">Update</a>
+            </td>
+            <td data-th="Action">
+                <a href="{% url 'delete_job' job.id %}" class="btn btn-sm btn-danger">Remove</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" style="text-align: center;">No jobs found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+
+
+
+
+    
