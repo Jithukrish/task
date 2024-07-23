@@ -437,7 +437,9 @@
                   <!-- Messages will be dynamically inserted here -->
               </div>
               <li class="dropdown-footer">
-                  <a href="{% url 'chat' %}">Show all messages</a>
+                  {% comment %} <a href="{% url 'chat' %}">Show all messages</a> {% endcomment %}
+                  <a href="{% url 'create_chat_room' user_id=user.id %}">Start Chat</a>
+
               </li>
           </ul><!-- End Messages Dropdown Items -->
       </li>

@@ -100,3 +100,5 @@ class Message(models.Model):
      message = models.TextField()
      timestamp = models.DateTimeField(auto_now_add=True)
      unread = models.BooleanField(default = True)
+
+     

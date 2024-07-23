@@ -992,144 +992,153 @@ button img {
 
 {% block main %}
 <div id="container">
-  {% if request.user.is_authenticated %}
-  <input type="hidden" value ="{{ request.user.id }}">
-  {% endif %}
- <aside>
-		<header>
-			<input type="text" placeholder="search">
-		</header>
-		<ul>
-      {% for thread in Threads %}
-      <li class="{% if forloop.first %}active{% endif %} contact-li" chat-id="chat_{{ thread.id }}" style="cursor: pointer">
-          <img src="{{ thread.first_person.jobseeker_profile.profile_picture.url }}" alt="" style="width: 50px; height: 50px;">
-          <div>
-              {% if thread.first_person == user %}
-              <h2>{{ thread.second_person.profile.first_name }} {{ thread.second_person.profile.last_name }}</h2>
+  <input type="hidden" id="currentUserId" value="{{ request.user.id }}">
+
+  <aside>
+      <header>
+          <input type="text" id="search" placeholder="Search">
+      </header>
+      <ul id="user-list">
+          {% for user in users %}
+          <li class="contact-li" data-user-id="{{ user.id }}" style="cursor: pointer;">
+              {% if user.jobseeker_profile.profile_picture %}
+              <img src="{{ user.jobseeker_profile.profile_picture.url }}" alt="Profile Picture" style="width: 50px; height: 50px;">
               {% else %}
-              <h2>{{ thread.first_person.jobseeker_profile.first_name }} {{ thread.first_person.jobseeker_profile.last_name }}</h2>
+              <img src="/path/to/default/profile/picture.png" alt="Default Profile Picture" style="width: 50px; height: 50px;">
               {% endif %}
-              <h3>
-                  <span class="status {% if thread.second_person.is_online %}green{% else %}orange{% endif %}"></span>
-                  {% if thread.second_person.is_online %}Online{% else %}Offline{% endif %}
-              </h3>
+              <div>
+                  <h2>{{ user.jobseeker_profile.first_name }} {{ user.jobseeker_profile.last_name }}</h2>
+                  <h3>
+                      <span class="status {% if user.is_online %}green{% else %}orange{% endif %}"></span>
+                      {% if user.is_online %}Online{% else %}Offline{% endif %}
+                  </h3>
+              </div>
+          </li>
+          {% endfor %}
+      </ul>
+  </aside>
+
+  <main>
+      <header>
+          <img id="userProfilePicture" src="/path/to/default/profile/picture.png" alt="Profile Picture">
+          <div>
+              <h2 id="chatWith">Select a user to chat</h2>
+              <h3 id="messageCount">Already 0 messages</h3>
           </div>
-      </li>
-      {% endfor %}
-  </ul>
-  
-	</aside>
-	<main>
-		<header>
-      {% for thread in Threads %} 
-      
-       {% if thread.first_person == user %}
-      <img src="{{ thread.first_person.jobseeker_profile.profile_picture.url }}" alt="">
+      </header>
 
-      <div>
-        <h2 id="chatWith">{{ thread.first_person.jobseeker_profile.first_name }}{{ thread.first_person.jobseeker_profile.last_name }}</h2>
-        <h3 id="messageCount">already {{ thread.message_count  }} messages</h3>
-			</div>
-      {% else %} 
-       <img src="{{ thread.first_person.jobseeker_profile.profile_picture.url }}" alt="" style="width: 50px; height: 50px;">
-			<div>
-        <h2 id="chatWith">{{ thread.first_person.jobseeker_profile.first_name }}{{ thread.first_person.jobseeker_profile.last_name }}</h2>
-        <h3 id="messageCount">already {{ thread.message_count  }} messages</h3>
-			</div>
-      {% endif %}
-      {% endfor %} 
-      
-	 </header>
-   <div class="messages-wrapper  {% if forloop.first %}hide is_active{% else %}hide{% endif %}" chat-id="chat_{{ thread.id }}" other-user-id="
-                                        {% if thread.first_person == user %}
-                                            {{ thread.second_person.id }}
-                                        {% else %}
-                                            {{ thread.first_person.id }}
-                                        {% endif %}
-                                    ">
-		<ul id="chat" class="msg_card_body" >
-      {% for chat in thread.chatmessage_thread.all %}
-      {% if chat.user == user %}
-        <li class="{% if message.sender == user %}me{% else %}you{% endif %}">
-          <div class="entete">
-            <span class="status {% if message.sender.is_online %}green{% else %}orange{% endif %}"></span>
-            <h2>{{ chat.first_person.message }}</h2> 
-             <h3>{{ chat.first_person.message.timestamp|date:"h:iA, d M Y" }}</h3>
-          </div>
-          <div class="triangle"></div>
-          <div class="message">
-            {{ message.content }}
-          </div>
-        </li> 
-       {% endif %}
-      {% endfor %} 
+      <div class="messages-wrapper hide" id="messagesWrapper">
+          <ul id="chat-box"></ul>
+      </div>
 
-		
-		 <li class="me">
-				<div class="entete">
-					<h3>10:12AM, Today</h3>
-					<h2>Alen</h2>
-					<span class="status blue"></span>
-				</div>
-				<div class="triangle"></div>
-				<div class="message">
-					OK
-				</div>
-			</li>
-			<li class="you">
-				<div class="entete">
-					<span class="status green"></span>
-					<h2>Vincent</h2>
-					<h3>10:12AM, Today</h3>
-				</div>
-				<div class="triangle"></div>
-				<div class="message">
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-				</div>
-			</li>
-			<li class="me">
-				<div class="entete">
-					<h3>10:12AM, Today</h3>
-					<h2>Alen</h2>
-					<span class="status blue"></span>
-				</div>
-				<div class="triangle"></div>
-				<div class="message">
-					Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
-				</div>
-			</li>
-			<li class="me">
-				<div class="entete">
-					<h3>10:12AM, Today</h3>
-					<h2>alen</h2>
-					<span class="status blue"></span>
-				</div>
-				<div class="triangle"></div>
-				<div class="message">
-					OK
-				</div>
-			</li>  
-	 </ul>
-  </div>
-
-
-		<footer>
-      <form id="messageForm">
-       
-        <input type="text" name="message" id="message" class="form-control type-message" placeholder="Type your messages....">
-        <button type="button" id="attachImage">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt="Attach Image"> 
-         </button>
-        <button type="button" id="attachFile">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png" alt="Attach File">
-        </button>
-        <button type="submit" id="sendMessage">Send</button>
-    </form>
-		</footer>
-    <script src="{% static 'js/message.js' %}"></script> 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
- </main>
+      <footer>
+          <form id="messageForm">
+              <input type="text" name="message" id="message-input" class="form-control type-message" placeholder="Type your messages....">
+              <button type="button" id="attachImage">
+                  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt="Attach Image">
+              </button>
+              <button type="button" id="attachFile">
+                  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_file.png" alt="Attach File">
+              </button>
+              <button type="submit" id="send-button">Send</button>
+          </form>
+      </footer>
+  </main>
 </div>
+<script>
+  let selectedUserId = null;
+  let chatRoomId = null;
+
+  $(document).ready(function() {
+      $('.contact-li').on('click', async function () {
+          selectedUserId = $(this).data('user-id');
+          await updateHeader(selectedUserId);
+          await loadMessages(selectedUserId);
+          $('#messagesWrapper').removeClass('hide');
+      });
+
+      $('#send-button').on('click', function (event) {
+          event.preventDefault();
+          sendMessage();
+      });
+
+      async function updateHeader(userId) {
+          try {
+              const response = await fetch(`/chat/${userId}/`);
+              if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              const data = await response.json();
+              $('#userProfilePicture').attr('src', data.profile_picture);
+              $('#chatWith').text(`${data.first_name} ${data.last_name}`);
+              $('#messageCount').text(`Already ${data.message_count} messages`);
+              chatRoomId = data.room_id;
+          } catch (error) {
+              console.error('Error updating header:', error);
+          }
+      }
+
+      async function loadMessages(userId) {
+          try {
+              const response = await fetch(`/load_messages/${userId}/`);
+              if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              const data = await response.json();
+              const chatBox = $('#chat-box');
+              chatBox.empty();
+              data.messages.forEach(msg => {
+                  const messageElement = $('<div>').addClass('message').addClass(msg.sender === userId ? 'received' : 'sent').text(msg.message);
+                  chatBox.append(messageElement);
+              });
+              chatBox.scrollTop(chatBox[0].scrollHeight);
+          } catch (error) {
+              console.error('Error loading messages:', error);
+          }
+      }
+
+      async function sendMessage() {
+          const messageInput = $('#message-input');
+          const message = messageInput.val().trim();
+          if (message === '' || !chatRoomId) {
+              return;
+          }
+
+          try {
+              const response = await fetch('/send_message/', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': '{{ csrf_token }}'
+                  },
+                  body: JSON.stringify({ room_id: chatRoomId, message: message })
+              });
+              if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+              }
+              const data = await response.json();
+              if (data.status === 'Message sent') {
+                  const chatBox = $('#chat-box');
+                  const messageElement = $('<div>').addClass('message sent').text(message);
+                  chatBox.append(messageElement);
+                  messageInput.val('');
+
+                  const messageCountElement = $('#messageCount');
+                  const currentMessageCount = parseInt(messageCountElement.text().match(/\d+/)[0]);
+                  messageCountElement.text(`Already ${currentMessageCount + 1} messages`);
+
+                  chatBox.scrollTop(chatBox[0].scrollHeight);
+              } else {
+                  console.error('Error sending message:', data.error);
+              }
+          } catch (error) {
+              console.error('Error sending message:', error);
+          }
+      }
+  });
+</script>
+
+
 {% endblock %} 
 
 

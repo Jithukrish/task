@@ -20,5 +20,5 @@ application = ProtocolTypeRouter({
         URLRouter(
             Notifications.routing.websocket_urlpatterns
         )
-    )
-}) 
+    ),
+})

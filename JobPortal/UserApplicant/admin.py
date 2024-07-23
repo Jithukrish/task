@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from Notifications.models import ChatMessage, Thread
+from Notifications.models import ChatMessage, ChatModel, ChatRoom, Thread
 from .models import User,Skill,jobseeker_Profile,Profile
 from Company.models import Company
 from Resume.models import Resume
@@ -50,4 +50,5 @@ admin.site.register(JobPost)
 admin.site.register(Apply_Job)
 admin.site.register(Message)
 admin.site.register(Thread)
-admin.site.register(ChatMessage)
+admin.site.register(ChatModel)
+admin.site.register(ChatRoom)
