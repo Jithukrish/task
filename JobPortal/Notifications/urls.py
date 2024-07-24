@@ -13,9 +13,8 @@ urlpatterns = [
     # path('job_application_list_stat',views.job_application_list_stat,name="job_application_list_stat"),
     # path('', views.Chatview.as_view(), name='chat_room'),
     path('create_chat_room/<int:user_id>/', views.ChatView.as_view(), name='create_chat_room'),
-    path('send_message/', views.SendMessageView.as_view(), name='send_message'),
-    path('get_messages/', views.GetMessageView.as_view(), name='get_messages'),
-    path('user_info/<int:user_id>/', views.UserInfoView.as_view(), name='user_info'),
-    path('get_messages/<int:room_id>/', views.GetMessageView.as_view(), name='get_messages'),
-    path('load_messages/<int:room_id>/', views.LoadMessagesView.as_view(), name='get_messages'),
+    path('send-message/', views.SendMessageView.as_view(), name='send_message'),
+    path('get-messages/<int:room_id>/<int:user_id>/', views.GetMessageView.as_view(), name='get_messages'),
+    path('user-info/<int:user_id>/', views.UserInfoView.as_view(), name='user_info'),
+    path('load-messages/<int:user_id>/', views.LoadMessagesView.as_view(), name='load_messages')
 ]

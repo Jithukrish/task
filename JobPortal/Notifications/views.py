@@ -72,14 +72,13 @@ class SendMessageView(LoginRequiredMixin, View):
         room_id = data.get('room_id')
         message = data.get('message')
         if not room_id or not message:
-            return JsonResponse({'error': 'Check ID or message'}, status=400)
+            return JsonResponse({'error': 'Check message'}, status=400)
         try:
             room = ChatRoom.objects.get(id=room_id)
         except ChatRoom.DoesNotExist:
             return JsonResponse({'error': 'Chat room does not exist'}, status=404)
-        if room.user1 != request.user and room.user2 != request.user:
+        if request.user not in [room.user1, room.user2]:
             return JsonResponse({'error': 'Not allowed'}, status=403)
-
         ChatModel.objects.create(
             room=room,
             user=request.user,
@@ -87,60 +86,58 @@ class SendMessageView(LoginRequiredMixin, View):
         )
         return JsonResponse({'status': 'Message sent'})
 
-
 class GetMessageView(LoginRequiredMixin, View):
-    def get(self, request, *args, **kwargs):
-        room_id = self.kwargs.get('room_id')
-        try:
-            room = ChatRoom.objects.get(id=room_id)
-        except ChatRoom.DoesNotExist:
-            return JsonResponse({'error': 'Chat room does not exist'}, status=404)
-        if room.user1 != request.user and room.user2 != request.user:
-            return JsonResponse({'error': 'Not allowed'}, status=403)
-        messages = ChatModel.objects.filter(room=room).order_by('timestamp')
-        messages_data = [
-            {
-                'user': msg.user.username,
-                'message': msg.message,
-                'timestamp': msg.timestamp.strftime('%Y-%m-%d %H:%M:%S')
-            }
-            for msg in messages
-        ]
-        return JsonResponse({'messages': messages_data})
+     def get(self, request, room_id, user_id, *args, **kwargs):
+          print(f"Room ID: {room_id}, User ID: {user_id}")  
+          try:
+               room = ChatRoom.objects.get(id=room_id)
+          except ChatRoom.DoesNotExist:
+               return JsonResponse({'error': 'Chat room does not exist'}, status=404)
+          if request.user not in [room.user1, room.user2]:
+               return JsonResponse({'error': 'Not allowed'}, status=403)
+          messages = ChatModel.objects.filter(room=room).order_by('timestamp')
+          if user_id:
+               messages = messages.filter(user_id=user_id) 
+          messages_data = [
+               {
+                    'user': msg.user.username,
+                    'message': msg.message,
+                    'timestamp': msg.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+                    'user_id': msg.user.id 
+               }
+               for msg in messages
+          ]
+          return JsonResponse({'messages': messages_data})
 
+       
 
 class UserInfoView(View):
     def get(self, request, user_id):
-        try:
-            user = User.objects.get(pk=user_id)
-            profile = user.jobseeker_profile
-            profile_picture = profile.profile_picture.url if profile.profile_picture else '/path/to/default/profile/picture.png'
-            chat_rooms = ChatRoom.objects.filter(Q(user1=user) | Q(user2=user))
-            message_count = ChatModel.objects.filter(room__in=chat_rooms, user=user).count()
-            data = {
-                'profile_picture': profile_picture,
-                'first_name': profile.first_name,
-                'last_name': profile.last_name,
-                'message_count': message_count,
-                'room_id': profile.room_id if profile.room_id else None,
-            }
-            return JsonResponse(data)
-        except User.DoesNotExist:
-            return JsonResponse({'error': 'User does not exist'}, status=404)
-        except AttributeError:
+        user = User.objects.get(pk=user_id)
+        if not hasattr(user, 'jobseeker_profile'):
             return JsonResponse({'error': 'Profile information is missing'}, status=500)
-
-
+        profile_picture = user.jobseeker_profile.profile_picture.url if user.jobseeker_profile.profile_picture else '/path/to/default/user.jobseeker_profile/picture.png'
+        chat_rooms = ChatRoom.objects.filter(Q(user1=user) | Q(user2=user))
+        message_count = ChatModel.objects.filter(room__in=chat_rooms, user=user).count()
+        data = {
+            'profile_picture': profile_picture,
+            'first_name': user.jobseeker_profile.first_name,
+            'last_name': user.jobseeker_profile.last_name,
+            'message_count': message_count,
+            'room_id': chat_rooms.first().id if chat_rooms.exists() else None,
+        }
+        return JsonResponse(data)
+   
+           
 class LoadMessagesView(View):
     def get(self, request, user_id):
         messages = ChatModel.objects.filter(
             Q(user_id=user_id) | Q(room__in=ChatRoom.objects.filter(Q(user1=user_id) | Q(user2=user_id)))
-        )
+        ).order_by('timestamp')
         data = {
-            'messages': [{'message': msg.message, 'sender': msg.user.username} for msg in messages]
+            'messages': [{'message': msg.message, 'sender': msg.user.username, 'timestamp': msg.timestamp.strftime('%Y-%m-%d %H:%M:%S')} for msg in messages]
         }
         return JsonResponse(data)
-
 
 
 

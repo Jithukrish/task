@@ -1000,11 +1000,11 @@ button img {
       </header>
       <ul id="user-list">
           {% for user in users %}
-          <li class="contact-li" data-user-id="{{ user.id }}" style="cursor: pointer;">
+          <li class="contact-li" data-user-id="{{ user.id }}">
               {% if user.jobseeker_profile.profile_picture %}
               <img src="{{ user.jobseeker_profile.profile_picture.url }}" alt="Profile Picture" style="width: 50px; height: 50px;">
               {% else %}
-              <img src="/path/to/default/profile/picture.png" alt="Default Profile Picture" style="width: 50px; height: 50px;">
+              <img src="{% static 'images/default_profile_picture.png' %}" alt="Default Profile Picture" style="width: 50px; height: 50px;">
               {% endif %}
               <div>
                   <h2>{{ user.jobseeker_profile.first_name }} {{ user.jobseeker_profile.last_name }}</h2>
@@ -1020,7 +1020,7 @@ button img {
 
   <main>
       <header>
-          <img id="userProfilePicture" src="/path/to/default/profile/picture.png" alt="Profile Picture">
+          <img id="userProfilePicture" src="{% static 'images/default_profile_picture.png' %}" alt="Profile Picture">
           <div>
               <h2 id="chatWith">Select a user to chat</h2>
               <h3 id="messageCount">Already 0 messages</h3>
@@ -1033,6 +1033,7 @@ button img {
 
       <footer>
           <form id="messageForm">
+            {% csrf_token %}
               <input type="text" name="message" id="message-input" class="form-control type-message" placeholder="Type your messages....">
               <button type="button" id="attachImage">
                   <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_picture.png" alt="Attach Image">
@@ -1045,26 +1046,27 @@ button img {
       </footer>
   </main>
 </div>
-<script>
-  let selectedUserId = null;
-  let chatRoomId = null;
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% comment %} <script>
   $(document).ready(function() {
-      $('.contact-li').on('click', async function () {
-          selectedUserId = $(this).data('user-id');
-          await updateHeader(selectedUserId);
-          await loadMessages(selectedUserId);
+      $(document).on('click', '.contact-li', async function() {
+          const userId = $(this).data('user-id');
+          console.log('User selected:', userId); 
+
+          selectedUserId = userId;
+          await updateHeader(userId);
+          await loadMessages(userId);
           $('#messagesWrapper').removeClass('hide');
       });
 
-      $('#send-button').on('click', function (event) {
+      $('#send-button').on('click', function(event) {
           event.preventDefault();
           sendMessage();
       });
 
       async function updateHeader(userId) {
           try {
-              const response = await fetch(`/chat/${userId}/`);
+              const response = await fetch(`/create_chat_room/${userId}/`);
               if (!response.ok) {
                   throw new Error(`HTTP error! Status: ${response.status}`);
               }
@@ -1136,7 +1138,110 @@ button img {
           }
       }
   });
-</script>
+</script> {% endcomment %}
+
+
+ <script>
+  $(document).ready(function() {
+    $(document).on('click', '.contact-li', async function() {
+        const userId = $(this).data('user-id');
+        console.log('User selected:', userId); 
+
+        selectedUserId = userId;
+        await updateHeader(userId);
+        await loadMessages(userId);
+        $('#messagesWrapper').removeClass('hide');
+    });
+
+    $('#send-button').on('click', function(event) {
+        event.preventDefault();
+        sendMessage();
+    });
+
+    async function updateHeader(userId) {
+        try {
+            const response = await fetch(`/create_chat_room/${userId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({})  
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            $('#userProfilePicture').attr('src', data.profile_picture);
+            $('#chatWith').text(`${data.first_name} ${data.last_name}`);
+            $('#messageCount').text(`Already ${data.message_count} messages`);
+            chatRoomId = data.room_id;
+        } catch (error) {
+            console.error('Error updating header:', error);
+        }
+    }
+
+    async function loadMessages(userId) {
+        try {
+            const response = await fetch(`/load-messages/${userId}/`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            const chatBox = $('#chat-box');
+            chatBox.empty();
+            data.messages.forEach(msg => {
+                const messageElement = $('<div>').addClass('message').addClass(msg.sender === userId ? 'received' : 'sent').text(msg.message);
+                chatBox.append(messageElement);
+            });
+            chatBox.scrollTop(chatBox[0].scrollHeight);
+        } catch (error) {
+            console.error('Error loading messages:', error);
+        }
+    }
+
+    async function sendMessage() {
+        const messageInput = $('#message-input');
+        const message = messageInput.val().trim();
+        if (message === '' || !chatRoomId) {
+            return;
+        }
+
+        try {
+            const response = await fetch('/send-message/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ room_id: chatRoomId, message: message })
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            const data = await response.json();
+            if (data.status === 'Message sent') {
+                const chatBox = $('#chat-box');
+                const messageElement = $('<div>').addClass('message sent').text(message);
+                chatBox.append(messageElement);
+                messageInput.val('');
+
+                const messageCountElement = $('#messageCount');
+                const currentMessageCount = parseInt(messageCountElement.text().match(/\d+/)[0]);
+                messageCountElement.text(`Already ${currentMessageCount + 1} messages`);
+
+                chatBox.scrollTop(chatBox[0].scrollHeight);
+            } else {
+                console.error('Error sending message:', data.error);
+            }
+        } catch (error) {
+            console.error('Error sending message:', error);
+        }
+    }
+});
+
+</script> 
+
 
 
 {% endblock %} 
