@@ -1,555 +1,991 @@
-
 {% load static %}
 {% load humanize %}
-{% comment %} <!doctype html> {% endcomment %}
-<html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Jober Desk | Responsive Job Portal Template</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		
-        <!-- All Plugin Css --> 
-		<link rel="stylesheet" href="{% static 'css/plugins.css' %}">
-		
-		<!-- Style & Common Css --> 
-		<link rel="stylesheet" href="{% static 'css/common.css' %}">
-        <link rel="stylesheet" href="{% static 'css/main.css' %}">
+<html lang="en">
 
-    </head>
-	
-    <body>
-	
-		<!-- Navigation Start  -->
-		<nav class="navbar navbar-default navbar-sticky bootsnav">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Job Portal | World Wide website</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-			<div class="container">      
-				<!-- Start Header Navigation -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
-						<i class="fa fa-bars"></i>
-					</button>
-					<a class="navbar-brand" href="index.html"><img src="{% static 'img/logo.png' %}" class="logo" alt=""></a>
-				</div>
-				<!-- End Header Navigation -->
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="navbar-menu">
-					<ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
-							<li><a href="#">Home</a></li> 
-							<li><a href="{% url "login_user" %}">Login</a></li>
-							
-						</ul>
-				</div><!-- /.navbar-collapse -->
-			</div>   
-		</nav>
-		<!-- Navigation End  -->
-		
-		<!-- Main jumbotron for a primary marketing message or call to action -->
-		<section class="main-banner" style="background:#242c36 url(img/slider-01.jpg) no-repeat">
-			<div class="container">
-				<div class="caption">
-					<h2>Build Your Career</h2>
-					<form>
-						<fieldset>
-							<div class="col-md-4 col-sm-4 no-pad">
-								{% comment %} {% render_field filter.form.title class="form-control" placeholder="Search Projects.." aria-describedby="search" %} {% endcomment %}
-								{% comment %} <button type="submit">Filter</button> {% endcomment %}
-							</div>
-							<div class="col-md-3 col-sm-3 no-pad">
-								{% comment %} <input type="text" class="form-control border-right" placeholder="location" /> {% endcomment %}
-							</div>
-							{% comment %} <div class="col-md-3 col-sm-3 no-pad">
-								<select class="selectpicker">
-								  <option>Select Category</option>
-								  <option>Accounf & Finance</option>
-								  <option>Information & Technology</option>
-								  <option>Marketing</option>
-								  <option>Food & Restaurent</option>
-								</select>
-							</div> {% endcomment %}
-							<div class="col-md-2 col-sm-2 no-pad">
-								{% comment %} <input type="submit" class="btn seub-btn" value="submit" /> {% endcomment %}
-							</div>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</section>
-		
-		<section class="features">
-			<div class="container">
-				<div class="col-md-4 col-sm-4">
-					<div class="features-content">
-						<span class="box1"><span aria-hidden="true" class="icon-dial"></span></span>
-						<h3>Create An Account</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua.</p>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-4">
-					<div class="features-content">
-						<span class="box1"><span aria-hidden="true" class="icon-search"></span></span>
-						<h3>Search Desired Job</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua.</p>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-4">
-					<div class="features-content">
-						<span class="box1"><span aria-hidden="true" class="icon-printer"></span></span>
-						<h3>Send Your Resume</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua.</p>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-4">
-					<div class="features-content">
-						<span class="box1"><span aria-hidden="true" class="icon-dial"></span></span>
-						<h3>Create An Account</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua.</p>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-4">
-					<div class="features-content">
-						<span class="box1"><span aria-hidden="true" class="icon-search"></span></span>
-						<h3>Search Desired Job</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua.</p>
-					</div>
-				</div>
-				
-				<div class="col-md-4 col-sm-4">
-					<div class="features-content">
-						<span class="box1"><span aria-hidden="true" class="icon-printer"></span></span>
-						<h3>Send Your Resume</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incidid ut labore et dolore magna aliqua.</p>
-					</div>
-				</div>
-			
-			</div>
-		</section>
-		
-		<section class="counter">
-			<div class="container">
-				<div class="col-md-3 col-sm-3">
-					<div class="counter-text">
-						<span aria-hidden="true" class="icon-briefcase"></span>
-						<h3>1000</h3>
-						<p>Jobs Posted</p>
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-3">
-					<div class="counter-text">
-						<span class="box1"><span aria-hidden="true" class="icon-expand"></span></span>
-						<h3>207</h3>
-						<p>All Companies</p>
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-3">
-					<div class="counter-text">
-						<span class="box1"><span aria-hidden="true" class="icon-profile-male"></span></span>
-						<h3>700+</h3>
-						<p>Total Members</p>
-					</div>
-				</div>
-				
-				<div class="col-md-3 col-sm-3">
-					<div class="counter-text">
-					<span class="box1"><span aria-hidden="true" class="icon-sad"></span></span>
-						<h3>802+</h3>
-						<p>Happy Members</p>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section class="jobs">
-			<div class="container">
-				<div class="row heading">
-					<h2>Find Popular Jobs</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</p>
-				</div>
-				<div class="companies">
-					{% for i in jobs %}
-					<div class="company-list">
-						<div class="row">
-							<div class="col-md-2 col-sm-2">
-								<div class="company-logo">
-									<img src="{% static 'img/google.png' %}" class="img-responsive" alt="" />
-								</div>
-							</div>
-							<div class="col-md-10 col-sm-10">
-								<div class="company-content">
-									<h3>{{ i.title }}<span class="full-time">{{ i.title }}</span></h3>
-									<p><span class="company-name"><i class="fa fa-briefcase"></i>{{ i.company.name }}</span><span class="company-location"><i class="fa fa-map-marker"></i>{{ i.location }}</span><span class="package"><i class="fa fa-money"></i>{{ i.salary }}</span>
-										<span class="company-location"><i class="fa fa-map-marker"></i>{{ i.timestamp|naturaltime }}</span>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					{% endfor %}
-					
-					{% comment %} <div class="company-list">
-						<div class="row">
-							<div class="col-md-2 col-sm-2">
-								<div class="company-logo">
-									<img src="{% static 'img/microsoft.png' %}" class="img-responsive" alt="" />
-								</div>
-							</div>
-							<div class="col-md-10 col-sm-10">
-								<div class="company-content">
-									<h3>Back-End developer<span class="part-time">Part Time</span></h3>
-									<p><span class="company-name"><i class="fa fa-briefcase"></i>Microsoft</span><span class="company-location"><i class="fa fa-map-marker"></i> 7th Avenue, New York, NY, United States</span><span class="package"><i class="fa fa-money"></i>$20,000-$52,000</span></p>
-								</div>
-							</div>
-						</div>
-					</div> {% endcomment %}
-					
-					{% comment %} <div class="company-list">
-						<div class="row">
-							<div class="col-md-2 col-sm-2">
-								<div class="company-logo">
-									<img src="{% static 'img/apple.png' %}" class="img-responsive" alt="" />
-								</div>
-							</div>
-							<div class="col-md-10 col-sm-10">
-								<div class="company-content">
-									<h3>UI/UX Designer<span class="freelance">Freelance</span></h3>
-									<p><span class="company-name"><i class="fa fa-briefcase"></i>Apple</span><span class="company-location"><i class="fa fa-map-marker"></i> 7th Avenue, New York, NY, United States</span><span class="package"><i class="fa fa-money"></i>$22,000-$50,000</span></p>
-								</div>
-							</div>
-						</div>
-					</div> {% endcomment %}
-					
-					{% comment %} <div class="company-list">
-						<div class="row">
-							<div class="col-md-2 col-sm-2">
-								<div class="company-logo">
-									<img src="{% static 'img/wipro.png' %}" class="img-responsive" alt="" />
-								</div>
-							</div>
-							<div class="col-md-10 col-sm-10">
-								<div class="company-content">
-									<h3>IOS developer<span class="internship">Intership</span></h3>
-									<p><span class="company-name"><i class="fa fa-briefcase"></i>Wipro</span><span class="company-location"><i class="fa fa-map-marker"></i> 8th Avenue, New York, NY, United States</span><span class="package"><i class="fa fa-money"></i>$24,000-$52,000</span></p>
-								</div>
-							</div>
-						</div>
-					</div> {% endcomment %}
-					
-					{% comment %} <div class="company-list">
-						<div class="row">
-							<div class="col-md-2 col-sm-2">
-								<div class="company-logo">
-									<img src="{% static 'img/twitter.png' %}" class="img-responsive" alt="" />
-								</div>
-							</div>
-							<div class="col-md-10 col-sm-10">
-								<div class="company-content">
-									<h3>Marketing Holder<span class="full-time">Full Time</span></h3>
-									<p><span class="company-name"><i class="fa fa-briefcase"></i>Twitter</span><span class="company-location"><i class="fa fa-map-marker"></i> 4th Avenue, New York, NY, United States</span><span class="package"><i class="fa fa-money"></i>$24,000-$48,000</span></p>
-								</div>
-							</div>
-						</div>
-					</div> {% endcomment %}
-				</div>
-				<div class="row">
-					{% comment %} <input type="button" href="{% url "login_user" %} class="btn brows-btn" value="Brows All Jobs"> {% endcomment %}
-					<a class="btn brows-btn" href="{% url "login_user" %}">Browse All</a> 
-				{% comment %} </input> {% endcomment %}
-					{% comment %} <a href="{% url "login_user" %}">Login</a> {% endcomment %}
-				</div>
-			</div>
-		</section>
-		
-		<section class="testimonials dark">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-						<div id="testimonial-slider" class="owl-carousel">
-							<div class="testimonial">
-								<div class="pic">
-									<img src="{% static 'img/client-1.jpg' %}" alt="">
-								</div>
-								<p class="description">
-									" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi facilis itaque minus non odio, quaerat ullam unde voluptatum? "
-								</p>
-								<h3 class="testimonial-title">williamson</h3>
-								<span class="post">Web Developer</span>
-							</div>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-							<div class="testimonial">
-								<div class="pic">
-									<img src="{% static 'img/client-2.jpg' %}" alt="">
-								</div>
-								<p class="description">
-									" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi facilis itaque minus non odio, quaerat ullam unde voluptatum? "
-								</p>
-								<h3 class="testimonial-title">kristiana</h3>
-								<span class="post">Web Designer</span>
-							</div>
-							
-							<div class="testimonial">
-								<div class="pic">
-									<img src="{% static 'img/client-3.jpg' %}" alt="">
-								</div>
-								<p class="description">
-									" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi facilis itaque minus non odio, quaerat ullam unde voluptatum? "
-								</p>
-								<h3 class="testimonial-title">kristiana</h3>
-								<span class="post">Web Designer</span>
-							</div>
-							
-							<div class="testimonial">
-								<div class="pic">
-									<img src="{% static 'img/client-4.jpg' %}" alt="">
-								</div>
-								<p class="description">
-									" Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem commodi eligendi facilis itaque minus non odio, quaerat ullam unde voluptatum? "
-								</p>
-								<h3 class="testimonial-title">kristiana</h3>
-								<span class="post">Web Designer</span>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section class="pricind">
-			<div class="container">
-				<div class="col-md-4 col-sm-4">
-					<div class="package-box">
-						<div class="package-header">
-							<i class="fa fa-cog" aria-hidden="true"></i>
-							<h3>Professional</h3>
-						</div>
-						<div class="package-info">
-							<ul>
-							<li>3 Designs</li>
-							<li>3 PSD Designs</li>
-							<li>4 color Option</li>
-							<li>10GB Disk Space</li>
-							<li>Full Support</li>
-							</ul>
-						</div>
-						<div class="package-price">
-							<h2><sup>$ </sup>10<sub>/Month</sub></h2>
-						</div>
-						<button type="submit" class="btn btn-package">Sign Up</button>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="package-box">
-						<div class="package-header">
-							<i class="fa fa-star-half-o" aria-hidden="true"></i>
-							<h3>Standard</h3>
-						</div>
-						<div class="package-info">
-							<ul>
-							<li>3 Designs</li>
-							<li>3 PSD Designs</li>
-							<li>4 color Option</li>
-							<li>10GB Disk Space</li>
-							<li>Full Support</li>
-							</ul>
-						</div>
-						<div class="package-price">
-							<h2><sup>$ </sup>110<sub>/Month</sub></h2>
-						</div>
-						<button type="submit" class="btn btn-package">Sign Up</button>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4">
-					<div class="package-box">
-						<div class="package-header">
-							<i class="fa fa-cube" aria-hidden="true"></i>
-							<h3>Premium</h3>
-						</div>
-						<div class="package-info">
-							<ul>
-							<li>3 Designs</li>
-							<li>3 PSD Designs</li>
-							<li>4 color Option</li>
-							<li>10GB Disk Space</li>
-							<li>Full Support</li>
-							</ul>
-						</div>
-						<div class="package-price">
-							<h2><sup>$ </sup>170<sub>/Month</sub></h2>
-						</div>
-						<button type="submit" class="btn btn-package">Sign Up</button>
-					</div>
-				</div>
-			</div>
-		</section>
-		
-		<section class="membercard dark">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4 col-sm-4">
-						<div class="left-widget-sidebar">
-							<div class="card-widget bg-white user-card">
-								<div class="u-img img-cover" style="background-image: url(img/bg-1.jpg);background-size:cover;"></div>
-								<div class="u-content">
-									<div class="avatar box-80">
-										<img class="img-responsive img-circle img-70 shadow-white" src="{% static 'img/avatar3.jpg' %}" alt="">
-										<i class="fa fa-circle-o fa-green"></i>
-									</div>
-									<h5>Sazzel Shi</h5>
-									<p class="text-muted">UX/ Designer</p>
-								</div>
-								<div class="user-social-profile">
-									<ul>
-										<li><a href=""><i class="fa fa-facebook"></i></a></li>
-										<li><a href=""><i class="fa fa-google-plus"></i></a></li>
-										<li><a href=""><i class="fa fa-twitter"></i></a></li>
-										<li><a href=""><i class="fa fa-instagram"></i></a></li>
-										<li><a href=""><i class="fa fa-linkedin"></i></a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-4">
-						<div class="left-widget-sidebar">
-							<div class="card-widget bg-white user-card">
-								<div class="u-img img-cover" style="background-image: url(img/bg-2.jpg);background-size:cover;"></div>
-								<div class="u-content">
-									<div class="avatar box-80">
-										<img class="img-responsive img-circle img-70 shadow-white" src="{% static 'img/avatar2.jpg' %}" alt="">
-										<i class="fa fa-circle-o fa-green"></i>
-									</div>
-									<h5>Daniel Dezox</h5>
-									<p class="text-muted">CEO Founder</p>
-								</div>
-								<div class="user-social-profile">
-									<ul>
-										<li><a href=""><i class="fa fa-facebook"></i></a></li>
-										<li><a href=""><i class="fa fa-google-plus"></i></a></li>
-										<li><a href=""><i class="fa fa-twitter"></i></a></li>
-										<li><a href=""><i class="fa fa-instagram"></i></a></li>
-										<li><a href=""><i class="fa fa-linkedin"></i></a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-4">
-						<div class="left-widget-sidebar">
-							<div class="card-widget bg-white user-card">
-								<div class="u-img img-cover" style="background-image: url(img/bg-3.jpg);background-size:cover;"></div>
-								<div class="u-content">
-									<div class="avatar box-80">
-										<img class="img-responsive img-circle img-70 shadow-white" src="{% static 'img/avatar1.jpg' %}" alt="">
-										<i class="fa fa-circle-o fa-green"></i>
-									</div>
-									<h5>Silp Sizzer</h5>
-									<p class="text-muted">Human Resource</p>
-								</div>
-								<div class="user-social-profile">
-									<ul>
-										<li><a href=""><i class="fa fa-facebook"></i></a></li>
-										<li><a href=""><i class="fa fa-google-plus"></i></a></li>
-										<li><a href=""><i class="fa fa-twitter"></i></a></li>
-										<li><a href=""><i class="fa fa-instagram"></i></a></li>
-										<li><a href=""><i class="fa fa-linkedin"></i></a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
 
-		<section class="newsletter">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10 col-sm-10 col-md-offset-1 col-sm-offset-1">
-					<h2>Want More Job & Latest Job? </h2>
-					<p>Subscribe to our mailing list to receive an update when new Job arrive!</p>
-					<div class="input-group">
-						<input type="text" class="form-control" placeholder="Type Your Email Address...">
-						<span class="input-group-btn">
-							<button type="button" class="btn btn-default">subscribe!</button>
-						</span>
-					</div>
-					</div>
-				</div>
-			</div>
-		</section>
-			
-		<!-- footer start -->
-		<footer>
-			<div class="container">
-				<div class="col-md-3 col-sm-6">
-					<h4>Featured Job</h4>
-					<ul>
-						<li><a href="#">Browse Jobs</a></li>
-						<li><a href="#">Premium MBA Jobs</a></li>
-						<li><a href="#">Access Database</a></li>
-						<li><a href="#">Manage Responses</a></li>
-						<li><a href="#">Report a Problem</a></li>
-						<li><a href="#">Mobile Site</a></li>
-						<li><a href="#">Jobs by Skill</a></li>
-					</ul>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-					<h4>Latest Job</h4>
-					<ul>
-						<li><a href="#">Browse Jobs</a></li>
-						<li><a href="#">Premium MBA Jobs</a></li>
-						<li><a href="#">Access Database</a></li>
-						<li><a href="#">Manage Responses</a></li>
-						<li><a href="#">Report a Problem</a></li>
-						<li><a href="#">Mobile Site</a></li>
-						<li><a href="#">Jobs by Skill</a></li>
-					</ul>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-					<h4>Reach Us</h4>
-					<address>
-					<ul>
-					<li>1201, Murakeu Market, QUCH07<br>
-					United Kingdon</li>
-					<li>Email: Support@job.com</li>
-					<li>Call: 044 123 458 65879</li>
-					<li>Skype: job@skype</li>
-					<li>FAX: 123 456 85</li>
-					</ul>
-					</address>
-				</div>
-				
-				<div class="col-md-3 col-sm-6">
-					<h4>Drop A Mail</h4>
-					<form>
-						<input type="text" class="form-control input-lg" placeholder="Your Name">
-						<input type="text" class="form-control input-lg" placeholder="Email...">
-						<textarea class="form-control" placeholder="Message"></textarea>
-						<button type="submit" class="btn btn-primary"> Login</button>
-					</form>
-				</div>
-				
-				
-			</div>
-			<div class="copy-right">
-			 <p>&copy;Copyright 2018 Jober Desk | Design By <a href="https://themezhub.com/">ThemezHub</a></p>
-			</div>
-		</footer>
-		 
-		<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="{% static 'js/owl.carousel.min.js' %}"></script>
-		<script src="{% static 'js/bootsnav.js' %}"></script>
-		<script src="{% static 'js/main.js' %}"></script>
-    </body>
+  <!-- =======================================================
+  * Template Name: Job Finder
+  * Template URL: https://bootstrapmade.com/Job Finder-bootstrap-startup-website-template/
+  * Updated: Jun 29 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="" class="logo d-flex align-items-center me-auto">
+        <img src="{% static 'assets/img/logo.png' %}" alt="">
+        <h1 class="sitename">Job Finder</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero" class="active">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#features">Features</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#pricing">Pricing</a></li>
+          <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="#">Dropdown 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                <ul>
+                  <li><a href="#">Deep Dropdown 1</a></li>
+                  <li><a href="#">Deep Dropdown 2</a></li>
+                  <li><a href="#">Deep Dropdown 3</a></li>
+                  <li><a href="#">Deep Dropdown 4</a></li>
+                  <li><a href="#">Deep Dropdown 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Dropdown 2</a></li>
+              <li><a href="#">Dropdown 3</a></li>
+              <li><a href="#">Dropdown 4</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="{% url "login_user" %}">Get Started</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="hero-bg">
+        <img src="{% static 'assets/img/hero-bg-light.webp' %}" alt="">
+      </div>
+      <div class="container text-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <h1 data-aos="fade-up">Welcome to <span>Job Finder</span></h1>
+          <p data-aos="fade-up" data-aos-delay="100">Are you ready to take the next step in your career journey? Our job portal is your gateway to thousands of opportunities across various industries. Whether you're looking for your first job, seeking a career change, or aiming for a leadership role, we have something for everyone.<br></p>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+            <a href="{% url "login_user" %}" class="btn-get-started">Get Started</a>
+            <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+          </div>
+          <img src="{% static 'assets/img/hero-services-img.webp' %}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
+        </div>
+      </div>
+
+    </section><!-- /Hero Section -->
+
+    <!-- Featured Services Section -->
+    <section id="featured-services" class="featured-services section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Explore With Your Jobs</h2>
+        {% comment %} <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> {% endcomment %}
+      </div>
+      <div class="container">
+        
+        <div class="row gy-4">
+          {% for i in jobs %}
+          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+              <div>
+                <h4 class="title"><a href="{% url "login_user" %}" class="stretched-link">{{ i.title }}</a></h4>
+                <h6 class="title"><a href="{% url "login_user" %}" class="stretched-link">{{ i.company.name }}</a></h6>
+                <p class="">{{ i.location }}</p>
+                <p class="">{{ i.timestamp|naturaltime }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+       
+
+         
+          <!-- End Service Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Featured Services Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>About Us</h2>
+        {% comment %} <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p> {% endcomment %}
+      </div>
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p class="who-we-are">Who We Are</p>
+            <h3>Unleashing Potential with Creative Strategy</h3>
+            <p class="fst-italic">
+              Take control of your career or hiring process with our job portal. Sign up now and start exploring new opportunities, or post a job and connect with the best talent out there. Your next big career move or star employee is just a click away!
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> <span>Find thousands of opportunities across various industries.</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Apply for jobs effortlessly with our streamlined application process</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>Stay updated with notifications tailored to your skills and interests.</span></li>
+            </ul>
+            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-4">
+              <div class="col-lg-6">
+                <img src="{% static 'assets/img/about-company-1.jpg' %}" class="img-fluid" alt="">
+              </div>
+              <div class="col-lg-6">
+                <div class="row gy-4">
+                  <div class="col-lg-12">
+                    <img src="{% static 'assets/img/about-company-2.jpg' %}" class="img-fluid" alt="">
+                  </div>
+                  <div class="col-lg-12">
+                    <img src="{% static 'assets/img/about-company-3.jpg' %}" class="img-fluid" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- /About Section -->
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Top companies </h2>
+      </div>
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-1.png' %}" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-2.png' %}" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-3.png' %}" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-4.png' %}" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-5.png' %}" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-6.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-8.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-9.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-10.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-11.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-12.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-13.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-14.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-15.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-16.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-17.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-18.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-19.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-20.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-21.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-22.png' %}" class="img-fluid" alt="">
+          </div>
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{% static 'assets/img/clients/client-23.png' %}" class="img-fluid" alt="">
+          </div>
+          <!-- End Client Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Clients Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Features</h2>
+        <p>Here are some key features tailored specifically for job seekers on your job website</p>
+      </div>
+      <!-- End Section Title -->
+
+      <div class="container">
+        <div class="row justify-content-between">
+
+          <div class="col-lg-5 d-flex align-items-center">
+
+            <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
+                  <i class="bi bi-binoculars"></i>
+                  <div>
+                    <h4 class="d-none d-lg-block">User-Friendly Interface</h4>
+                    <p>
+                      An intuitive and easy-to-navigate interface that simplifies the job search and application process.                    </p>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-2">
+                  <i class="bi bi-box-seam"></i>
+                  <div>
+                    <h4 class="d-none d-lg-block">Personalized Job Alerts</h4>
+                    <p>
+                      Customized notifications based on the user's profile, skills, and job preferences, ensuring they never miss out on relevant opportunities.                    </p>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                  <i class="bi bi-brightness-high"></i>
+                  <div>
+                    <h4 class="d-none d-lg-block">Application Tracking</h4>
+                    <p>
+                      Features to help job seekers manage and track their applications, including updates on application status and interview scheduling.
+                    </p>
+                  </div>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" data-bs-target="#features-tab-3">
+                  <i class="bi bi-brightness-high"></i>
+                  <div>
+                    <h4 class="d-none d-lg-block">Security and Privacy</h4>
+                    <p>
+                      Strong privacy settings and data protection to ensure the security of personal information.                    </p>
+                  </div>
+                </a>
+              </li>
+            </ul><!-- End Tab Nav -->
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+
+              <div class="tab-pane fade active show" id="features-tab-1">
+                <img src="{% static 'assets/img/tabs-1.jpg' %}" alt="" class="img-fluid">
+              </div><!-- End Tab Content Item -->
+
+              <div class="tab-pane fade" id="features-tab-2">
+                <img src="{% static 'assets/img/tabs-2.jpg' %}" alt="" class="img-fluid">
+              </div><!-- End Tab Content Item -->
+
+              <div class="tab-pane fade" id="features-tab-3">
+                <img src="{% static 'assets/img/tabs-3.jpg' %}" alt="" class="img-fluid">
+              </div><!-- End Tab Content Item -->
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Features Section -->
+
+    <!-- Features Details Section -->
+    <section id="features-details" class="features-details section">
+
+      <div class="container">
+
+        <div class="row gy-4 justify-content-between features-item">
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <img src="{% static 'assets/img/features-1.jpg' %}" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content">
+              <h3>Unlock Your Dream Career: Where Opportunities Meet Talent</h3>
+              <p>
+
+                Welcome to Job Finder, the ultimate destination for career seekers and employers alike! Whether you're looking to kickstart your career or seeking new talent to join your team, our platform is designed to make the journey smooth and rewarding.              </p>
+              <a href="#" class="btn more-btn">Learn More</a>
+            </div>
+          </div>
+
+        </div><!-- Features Item -->
+
+        <div class="row gy-4 justify-content-between features-item">
+
+          <div class="col-lg-5 d-flex align-items-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="content">
+              <h3>Find Your Future Here: Connecting Ambition with Opportunity</h3>
+              <p>
+                At Job Finder, we bridge the gap between aspiring professionals and top employers. Whether you're a recent graduate or an experienced professional, our platform offers a wealth of opportunities tailored to your career goals. Explore thousands of job listings, connect with reputable companies, and access resources to enhance your skills. Start your journey with us and turn your ambitions into reality. Your future is just a click away!
+              </p>
+              {% comment %} <ul>
+                <li><i class="bi bi-easel flex-shrink-0"></i> Et corporis ea eveniet ducimus.</li>
+                <li><i class="bi bi-patch-check flex-shrink-0"></i> Exercitationem dolorem sapiente.</li>
+                <li><i class="bi bi-brightness-high flex-shrink-0"></i> Veniam quia modi magnam.</li>
+              </ul> {% endcomment %}
+              <ul>
+                <li><i class="bi bi-easel flex-shrink-0"></i> <strong></strong> Our advanced algorithm matches you with jobs that fit your profile.</li>
+                <li><i class="bi bi-patch-check flex-shrink-0"></i> <strong> </strong> All employers on our platform are verified, ensuring you apply to genuine job listings.</li>
+                <li><i class="bi bi-brightness-high flex-shrink-0"></i> <strong></strong> Access exclusive resources and courses to boost your skills and increase your employability.</li>
+              </ul>
+              <p></p>
+              <a href="#" class="btn more-btn">Learn More</a>
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+            <img src="{% static 'assets/img/features-2.jpg' %}" class="img-fluid" alt="">
+          </div>
+
+        </div><!-- Features Item -->
+
+      </div>
+
+    </section><!-- /Features Details Section -->
+
+    <!-- Services Section -->
+    <section id="services" class="services section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Services</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row g-5">
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item item-cyan position-relative">
+              <i class="bi bi-activity icon"></i>
+              <div>
+                <h3>Career Resources and Advice</h3>
+                <p> Articles, blogs, and resources on resume writing, interview preparation, career planning, and job search strategies.</p>
+                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-item item-orange position-relative">
+              <i class="bi bi-broadcast icon"></i>
+              <div>
+                <h3>Applicant Tracking System (ATS)</h3>
+                <p>Tools to manage and streamline the recruitment process, including application tracking, screening, and communication with candidates.</p>
+                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-item item-teal position-relative">
+              <i class="bi bi-easel icon"></i>
+              <div>
+                <h3> Analytics and Reporting</h3>
+                <p>Data analytics and reporting tools to track job post performance, applicant metrics, and recruitment trends</p>
+                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-item item-red position-relative">
+              <i class="bi bi-bounding-box-circles icon"></i>
+              <div>
+                <h3>Salary Insights</h3>
+                <p>Information on average salaries and compensation packages for various roles and industries.</p>
+                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-item item-indigo position-relative">
+              <i class="bi bi-calendar4-week icon"></i>
+              <div>
+                <h3>Advanced Candidate Filtering.</h3>
+                <p>Tools to filter candidates based on skills, experience, location, and other criteria.</p>
+                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-item item-pink position-relative">
+              <i class="bi bi-chat-square-text icon"></i>
+              <div>
+                <h3>Mobile-Friendly Features:</h3>
+                <p>Responsive design and mobile apps for easy access and use on smartphones and tablets.</p>
+                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div><!-- End Service Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Services Section -->
+
+    <!-- More Features Section -->
+    <section id="more-features" class="more-features section">
+
+      <div class="container">
+
+        <div class="row justify-content-around gy-4">
+
+          <div class="col-lg-6 d-flex flex-column justify-content-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+            <h3>Enim quis est voluptatibus aliquid consequatur</h3>
+            <p>Esse voluptas cumque vel exercitationem. Reiciendis est hic accusamus. Non ipsam et sed minima temporibus laudantium. Soluta voluptate sed facere corporis dolores excepturi</p>
+
+            <div class="row">
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-easel flex-shrink-0"></i>
+                <div>
+                  <h4>Lorem Ipsum</h4>
+                  <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias </p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-patch-check flex-shrink-0"></i>
+                <div>
+                  <h4>Nemo Enim</h4>
+                  <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiise</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-brightness-high flex-shrink-0"></i>
+                <div>
+                  <h4>Dine Pad</h4>
+                  <p>Explicabo est voluptatum asperiores consequatur magnam. Et veritatis odit</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+              <div class="col-lg-6 icon-box d-flex">
+                <i class="bi bi-brightness-high flex-shrink-0"></i>
+                <div>
+                  <h4>Tride clov</h4>
+                  <p>Est voluptatem labore deleniti quis a delectus et. Saepe dolorem libero sit</p>
+                </div>
+              </div><!-- End Icon Box -->
+
+            </div>
+
+          </div>
+
+          <div class="features-image col-lg-5 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+            <img src="{% static 'assets/img/features-3.jpg' %}" alt="">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /More Features Section -->
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Pricing</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="pricing-item">
+              <h3>Free Plan</h3>
+              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
+              <h4><sup>$</sup>0<span> / month</span></h4>
+              <a href="#" class="cta-btn">Start a free trial</a>
+              <p class="text-center small">No credit card required</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="pricing-item featured">
+              <p class="popular">Popular</p>
+              <h3>Business Plan</h3>
+              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
+              <h4><sup>$</sup>29<span> / month</span></h4>
+              <a href="#" class="cta-btn">Start a free trial</a>
+              <p class="text-center small">No credit card required</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
+                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                <li><i class="bi bi-check"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="pricing-item">
+              <h3>Developer Plan</h3>
+              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
+              <h4><sup>$</sup>49<span> / month</span></h4>
+              <a href="#" class="cta-btn">Start a free trial</a>
+              <p class="text-center small">No credit card required</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
+                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                <li><i class="bi bi-check"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
+                <li><i class="bi bi-check"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Pricing Section -->
+
+    <!-- Faq Section -->
+    <section id="faq" class="faq section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row justify-content-center">
+
+          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="faq-container">
+
+              <div class="faq-item faq-active">
+                <h3>How do I enroll in a non-degree course on job finder?</h3>
+                <div class="faq-content">
+                  <p>To enroll in a non-degree course on foundit, you need to create an account on the platform, fill out the registration form, and select the course you want to enroll in.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>What are the benefits of enrolling in a non-degree course on foundit?</h3>
+                <div class="faq-content">
+                  <p>Enrolling in a non-degree course on foundit can help you gain new skills, enhance your career prospects, and increase your earning potential.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>Is it free to create a profile on foundit?</h3>
+                <div class="faq-content">
+                  <p>Yes, creating a profile on foundit is free for job seekers. You can upload your resume, fill out your profile details, and start upskilling yourself.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>What is the weekly time commitment expected from me?</h3>
+                <div class="faq-content">
+                  <p>The programme schedule is designed to ensure that you can successfully study alongside your job. Every course has a different time commitment, please check the respective course page for the same.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>What are the prerequisites for enrolling in a course?</h3>
+                <div class="faq-content">
+                  <p>Course prerequisites vary depending on the course and institution. foundit provides clear information about the required background knowledge and skills for each course.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+              <div class="faq-item">
+                <h3>Can I enroll in multiple courses at once?</h3>
+                <div class="faq-content">
+                  <p>Yes, you can enroll in multiple courses on foundit simultaneously, but it's important to manage your time and workload effectively.</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+
+            </div>
+
+          </div><!-- End Faq Column-->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Faq Section -->
+
+    <!-- Testimonials Section -->
+    {% comment %} <section id="testimonials" class="testimonials section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Testimonials</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": "auto",
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              },
+              "breakpoints": {
+                "320": {
+                  "slidesPerView": 1,
+                  "spaceBetween": 40
+                },
+                "1200": {
+                  "slidesPerView": 3,
+                  "spaceBetween": 1
+                }
+              }
+            }
+          </script>
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="{% static 'assets/img/testimonials/testimonials-1.jpg' %}" class="testimonial-img" alt="">
+                  <h3>Saul Goodman</h3>
+                  <h4>Ceo &amp; Founder</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="{% static 'assets/img/testimonials/testimonials-2.jpg' %}" class="testimonial-img" alt="">
+                  <h3>Sara Wilsson</h3>
+                  <h4>Designer</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="{% static 'assets/img/testimonials/testimonials-3.jpg' %}" class="testimonial-img" alt="">
+                  <h3>Jena Karlis</h3>
+                  <h4>Store Owner</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="{% static 'assets/img/testimonials/testimonials-4.jpg' %}" class="testimonial-img" alt="">
+                  <h3>Matt Brandon</h3>
+                  <h4>Freelancer</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <div class="stars">
+                  <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                </div>
+                <p>
+                  Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
+                </p>
+                <div class="profile mt-auto">
+                  <img src="{% static 'assets/img/testimonials/testimonials-5.jpg' %}" class="testimonial-img" alt="">
+                  <h3>John Larson</h3>
+                  <h4>Entrepreneur</h4>
+                </div>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+
+    </section> {% endcomment %}
+    <!-- /Testimonials Section -->
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
+              <i class="bi bi-geo-alt"></i>
+              <h3>Address</h3>
+              <p>A108 Adam Street, New York, NY 535022</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
+              <i class="bi bi-telephone"></i>
+              <h3>Call Us</h3>
+              <p>+1 5589 55488 55</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
+              <i class="bi bi-envelope"></i>
+              <h3>Email Us</h3>
+              <p>info@example.com</p>
+            </div>
+          </div><!-- End Info Item -->
+
+        </div>
+
+        <div class="row gy-4 mt-1">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div><!-- End Google Maps -->
+
+          <div class="col-lg-6">
+            
+            {% include "contact.html" %}
+
+          </div>
+          <!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">Job Finder</span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>A108 Adam Street</p>
+            <p>New York, NY 535022</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+            <p><strong>Email:</strong> <span>info@example.com</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Web Design</a></li>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">Product Management</a></li>
+            <li><a href="#">Marketing</a></li>
+            <li><a href="#">Graphic Design</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-12 footer-newsletter">
+          <h4>Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+          <form action="forms/newsletter.php" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Job Finder</strong><span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+</body>
+
 </html>

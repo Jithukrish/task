@@ -7,7 +7,7 @@
 {% endblock %}
 {% block style %}
 
-  <style>
+    <style>
         .ever {
            
             width: auto;
@@ -57,7 +57,6 @@
         }
         .job-info-row {
           display: flex;
-          /*justify-content: space-between;*/
           justify-content: start;
           align-items: center;
       }
@@ -98,6 +97,35 @@
         .btn-inactive:hover {
             background-color: #c82333;
         }
+        .action-icons {
+        
+          margin-left: auto; 
+          display: flex;
+          gap: 15px;
+      }
+        .save-job-icon {
+          display: flex;
+          align-items: center;
+          color: #000000;
+          text-decoration: none;
+          cursor: pointer;
+      }
+       .report-job-icon {
+        display: flex;
+        align-items: center;
+        color: #000000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+  
+      .save-job-icon svg, .report-job-icon svg {
+          margin-right: 5px;
+      }
+  
+      .save-job-icon:hover, .report-job-icon:hover {
+          color: #000000; 
+      }
+  
     </style>    
  
    
@@ -606,7 +634,7 @@
     
     <!-- End Page Title -->
 
-    <section class="section profile">
+  <section class="section profile">
         <div class="ever">
           {% for message in messages %}
             {% if "apply" in message.tags %}
@@ -624,7 +652,7 @@
             <h2 style="text-align: center; color: black; font-size: 40px;">All jobs</h2>
     <div id="search-results">
         {% for job in jobs %}
-        <div class="job-details">
+         <div class="job-details">
             <h2 style=" color: black; font-size: 40px; font-weight:bold;">{{ job.title }}</h2>
             <p><strong>Company:</strong> {{ job.company.name }}</p>
             <p><strong>Location:</strong> {{ job.location }}</p>
@@ -643,25 +671,46 @@
                   </svg>
                     <strong>{{job.job_type}}</strong>
                 </div></p>
-            </div>
-              
-              
-            {% comment %} <p><strong>Salary:</strong> {{ job.salary }}</p> {% endcomment %}
-            {% comment %} <p><strong>Skills:</strong>
-                {% for skill in job.skills.all %}
-                {{ skill.name }}{% if not forloop.last %}, {% endif %}
-            {% endfor %}
-            </p> {% endcomment %}
-            {% comment %} <p><strong>Education:</strong> {{ job.education }}</p> {% endcomment %}
-            <p><strong>Active:</strong> {{ job.timestamp|naturaltime }}</p>
+          </div>
+          <p><strong>Active:</strong> {{ job.timestamp|naturaltime }}</p>
+          <div class="action-icons">
+           
             <a href="{% url 'seeker_viewmore' id=job.id %}" class="apply-now">Easily Apply</a>
+            <div class="save-job-icon">
+              <form action="{% url 'save_job' job.id %}" method="post" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" style="background: none; border: none; cursor: pointer;">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="45px" height="45px">
+                        <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/>
+                      </svg>
+                      Save Job
+                  </button>
+              </form>
+          </div>
+          
+          <div class="report-job-icon">
+            <a href="{% url 'report_job' job.id %}" class="btn btn-danger">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-ban" viewBox="0 0 16 16">
+                    <path d="M15 8a6.97 6.97 0 0 0-1.71-4.584l-9.874 9.875A7 7 0 0 0 15 8M2.71 12.584l9.874-9.875a7 7 0 0 0-9.874 9.874ZM16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0"/>
+                </svg>
+                Report Job
+            </a>
         </div>
-        {% endfor %}
-    </div>
         </div>
-    </section>
 
-  </main><!-- End #main -->
+              
+              
+        
+           
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <!-- End #main -->
 
 {% endblock main %}
 
@@ -714,6 +763,38 @@
 });
 
       
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.save-job-link').forEach(link => {
+      link.addEventListener('click', (event) => {
+          event.preventDefault();
+          
+          const jobId = link.getAttribute('data-job-id');
+          const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+          
+          fetch(`/job/save_job/${jobId}/`, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'X-CSRFToken': csrfToken
+              },
+              body: JSON.stringify({ job_id: jobId })
+          })
+          .then(response => {
+              if (response.ok) {
+                  console.log('Job saved successfully');
+                  window.location.reload();
+              } else {
+                  console.error('Failed to save job');
+              }
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+      });
+  });
+});
 </script>
  
 

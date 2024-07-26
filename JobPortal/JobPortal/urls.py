@@ -26,6 +26,8 @@ urlpatterns = [
     path('notification/',include('Notifications.urls')),
     path('',include('UserApplicant.urls')),
     path('job/',include('Job.urls')),
+    path('chat/',include('chat.urls')),
+    path('contact/',include('contact.urls')),
   
 ]
 if settings.DEBUG:

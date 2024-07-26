@@ -1,5 +1,5 @@
 from django.urls import path
-from . views import AcceptedApplicationsCountView, AcceptedApplicationsView, AppliedJobSeekersListView, CreateJobPostView,AddEducationView, JobAppliListview, JobApplicationCountView, JobPostCountRecivedView, JobPostCountView, JobseekerReportsView, PendingApplicationsCountView, PendingApplicationsView, RecentAppliedJobsListView, RejectedApplicationsCountView, RejectedApplicationsView, ReportsView, ReportsstatusView, SearchAppliedJobs, SearchManageView, SearchStatusListview, SekkerSearchAllJobsView, TotalCountJobView, TotalCountView
+from . views import AcceptedApplicationsCountView, AcceptedApplicationsView, AppliedJobSeekersListView, CreateJobPostView,AddEducationView, JobAppliListview, JobApplicationCountView, JobPostCountRecivedView, JobPostCountView, JobseekerReportsView, PendingApplicationsCountView, PendingApplicationsView, RecentAppliedJobsListView, RejectedApplicationsCountView, RejectedApplicationsView, ReportJobView, ReportsView, ReportsstatusView, SavedJobView, SavedListView, SearchAppliedJobs, SearchManageView, SearchStatusListview, SekkerSearchAllJobsView, TotalCountJobView, TotalCountView, UnsavedView
 from .import views
 
 urlpatterns = [
@@ -62,6 +62,13 @@ urlpatterns = [
     path('MailBox/',views.MailBox,name="MailBox"),
 
     path('MailBoxid/<int:pk>',views.MailBoxid,name="MailBoxid"),
+    
+    #--------------------SAVED JOBSjob/save_job/<int:Job_id>/
+    path('save_job/<int:Job_id>', SavedJobView.as_view(), name='save_job'),
+    path('unsave_job/<int:job_id>/', UnsavedView.as_view(), name='unsave_job'),
+    path('saved_list/',SavedListView.as_view(),name="saved_list"),
+    path('report_job/<int:job_id>/',ReportJobView.as_view(),name="report_job"),
+
  
   
 

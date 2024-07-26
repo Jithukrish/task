@@ -1047,7 +1047,7 @@ button img {
   </main>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-{% comment %} <script>
+<script>
   $(document).ready(function() {
       $(document).on('click', '.contact-li', async function() {
           const userId = $(this).data('user-id');
@@ -1138,111 +1138,7 @@ button img {
           }
       }
   });
-</script> {% endcomment %}
-
-
- <script>
-  $(document).ready(function() {
-    $(document).on('click', '.contact-li', async function() {
-        const userId = $(this).data('user-id');
-        console.log('User selected:', userId); 
-
-        selectedUserId = userId;
-        await updateHeader(userId);
-        await loadMessages(userId);
-        $('#messagesWrapper').removeClass('hide');
-    });
-
-    $('#send-button').on('click', function(event) {
-        event.preventDefault();
-        sendMessage();
-    });
-
-    async function updateHeader(userId) {
-        try {
-            const response = await fetch(`/create_chat_room/${userId}/`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({})  
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.json();
-            $('#userProfilePicture').attr('src', data.profile_picture);
-            $('#chatWith').text(`${data.first_name} ${data.last_name}`);
-            $('#messageCount').text(`Already ${data.message_count} messages`);
-            chatRoomId = data.room_id;
-        } catch (error) {
-            console.error('Error updating header:', error);
-        }
-    }
-
-    async function loadMessages(userId) {
-        try {
-            const response = await fetch(`/load-messages/${userId}/`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.json();
-            const chatBox = $('#chat-box');
-            chatBox.empty();
-            data.messages.forEach(msg => {
-                const messageElement = $('<div>').addClass('message').addClass(msg.sender === userId ? 'received' : 'sent').text(msg.message);
-                chatBox.append(messageElement);
-            });
-            chatBox.scrollTop(chatBox[0].scrollHeight);
-        } catch (error) {
-            console.error('Error loading messages:', error);
-        }
-    }
-
-    async function sendMessage() {
-        const messageInput = $('#message-input');
-        const message = messageInput.val().trim();
-        if (message === '' || !chatRoomId) {
-            return;
-        }
-
-        try {
-            const response = await fetch('/send-message/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': '{{ csrf_token }}'
-                },
-                body: JSON.stringify({ room_id: chatRoomId, message: message })
-            });
-            if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
-            }
-            const data = await response.json();
-            if (data.status === 'Message sent') {
-                const chatBox = $('#chat-box');
-                const messageElement = $('<div>').addClass('message sent').text(message);
-                chatBox.append(messageElement);
-                messageInput.val('');
-
-                const messageCountElement = $('#messageCount');
-                const currentMessageCount = parseInt(messageCountElement.text().match(/\d+/)[0]);
-                messageCountElement.text(`Already ${currentMessageCount + 1} messages`);
-
-                chatBox.scrollTop(chatBox[0].scrollHeight);
-            } else {
-                console.error('Error sending message:', data.error);
-            }
-        } catch (error) {
-            console.error('Error sending message:', error);
-        }
-    }
-});
-
 </script> 
-
-
 
 {% endblock %} 
 

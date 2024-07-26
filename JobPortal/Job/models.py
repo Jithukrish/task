@@ -101,4 +101,34 @@ class Message(models.Model):
      timestamp = models.DateTimeField(auto_now_add=True)
      unread = models.BooleanField(default = True)
 
+
+
+class SavedJob(models.Model) :
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    job = models.ForeignKey(JobPost, on_delete= models.CASCADE)
+    savedat = models.DateTimeField(auto_now_add=True)
+   
+    def __str__(self):
+        return f"{self.user} saved {self.job_post.title}"
+    
+
+class DisableJob (models.Model):
+    REPORT_JOB = [
+        ('Spam', 'Spam'),
+        ('inappropriate', 'Inappropriate Content'),
+        ('fraudulent', 'Fraudulent'),
+        ('other', 'Other'),
+    ]
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
+    report_type = models.CharField(max_length=200, choices=REPORT_JOB)
+    description  = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user} saved {self.job_post.title}"
+    
+
+
+
      

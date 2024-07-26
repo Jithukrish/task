@@ -4,9 +4,9 @@ from UserApplicant.models import User
 
 
 
-class MessageSerializer(serializers.ModelSerializer):
-    sender = serializers.SlugRelatedField( slug_field='username', queryset=User.objects.all())
-    receiver = serializers.SlugRelatedField( slug_field='username', queryset=User.objects.all())
-    class Meta:
-        model = Message
-        fields = ['sender', 'receiver', 'message', 'timestamp','unread']
+# class MessageSerializer(serializers.ModelSerializer):
+#     sender = serializers.SlugRelatedField( slug_field='username', queryset=User.objects.all())
+#     receiver = serializers.SlugRelatedField( slug_field='username', queryset=User.objects.all())
+#     class Meta:
+#         model = Message
+#         fields = ['sender', 'receiver', 'message', 'timestamp','unread']

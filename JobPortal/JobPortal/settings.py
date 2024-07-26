@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,10 +46,13 @@ INSTALLED_APPS = [
     'Dashboard',
     'widget_tweaks',
     'Job',
+    'chat',
+    'contact',
     'django_filters',
     'Notifications',
     'rest_framework',
     'channels',
+    
     
 ]
 
@@ -81,8 +85,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'JobPortal.wsgi.application'
-# ASGI_APPLICATION = 'JobPortal.asgi.application'
+# WSGI_APPLICATION = 'JobPortal.wsgi.application'
+ASGI_APPLICATION = 'JobPortal.asgi.application'
 
 
 # Database
@@ -167,11 +171,11 @@ DEFAULT_FROM_EMAIL = 'darkphoenix90200@gmail.com'
 #     },
 # }
 
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels.layers.InMemoryChannelLayer',
-#         'CONFIG': {
-#             'hosts': [('127.0.0.1', 6379)],
-#         }
-#     }
-# }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+        # 'CONFIG': {
+        #     'hosts': [('127.0.0.1', 6379)],
+        # }
+    }
+}

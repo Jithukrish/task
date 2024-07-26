@@ -11,11 +11,11 @@ from django.contrib import messages
 from django.http import Http404, HttpRequest, HttpResponse, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import redirect, render
 from django.views import View
-from .models import JobApplicationNotification, JobPost,Education,Skills_job,Apply_Job, Message
+from .models import DisableJob, JobApplicationNotification, JobPost,Education, SavedJob,Skills_job,Apply_Job, Message
 from Company.models import Company
 from UserApplicant.models import User,jobseeker_Profile
 from Resume.models import Resume
-from .forms import EducationForm, JobPostForm, SkillForm,UpdateJobPostForm,ApplyJobForm,SalaryRangeForm, MessageForm
+from .forms import DisableJobForm, EducationForm, JobPostForm, SkillForm,UpdateJobPostForm,ApplyJobForm,SalaryRangeForm, MessageForm
 from Resume.forms import ResumeForm
 from django.db.models import Q
 from django.template.loader import render_to_string
@@ -2001,9 +2001,67 @@ def MailBoxid(request,pk):
 #             }
 #             return render(request, 'Dashboard/chatEmo.html', context)
 #         else:
-# #      
+#----------------------------------------------------------------------------------------------------------------#     
+
+#-------------------------------Saved job by user---------------------------------------------------------------------#
+# class SavedJobView(LoginRequiredMixin,View):
+#     def post(self, request, Job_id  ,*args, **kwargs):
+#         job =JobPost.objects.get(id=Job_id)
+#         if not SavedJob.objects.filter(user = request.user , job = job):
+#             SavedJob.objects.create(user=request.user,job = job)
+#         return redirect('seeker_view_all_jobs')
+class SavedJobView(LoginRequiredMixin, View):
+    def post(self, request, Job_id, *args, **kwargs):
+        try:
+            job = JobPost.objects.get(id=Job_id)
+            if not SavedJob.objects.filter(user=request.user, job=job).exists():
+                SavedJob.objects.create(user=request.user, job=job)
+        except JobPost.DoesNotExist:
+            pass
+        return redirect('saved_list')
+class UnsavedView(LoginRequiredMixin, View):
+    def post(self, request, Job_id, *args, **kwargs):
+        job = JobPost.objects.get(id=Job_id)
+        try:
+            saved_job = SavedJob.objects.get(user=request.user, job=job)
+            saved_job.delete()
+        except SavedJob.DoesNotExist:
+            pass  
+        return redirect('saved_list')
+
+        
+    
 
 
+class SavedListView(LoginRequiredMixin,ListView):
+    model = SavedJob
+    template_name = 'Job/Saved_jobs_List.html'
+    context_object_name = 'saved_jobs'
+
+    def get_queryset(self):
+        return SavedJob.objects.filter(user = self.request.user).select_related('job')
+    
+
+
+class ReportJobView(CreateView):
+    model = DisableJob
+    form_class = DisableJobForm
+    template_name = 'Job/report_job.html'
+    def get_success_url(self):
+        return reverse_lazy('seeker_view_all_jobs')
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['job_id'] = self.kwargs.get('job_id')
+        return kwargs
+
+            
+
+
+
+#-------------------------------report job by user-------------------------------------------------------------------#
       
 
 

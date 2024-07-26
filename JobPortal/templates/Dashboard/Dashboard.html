@@ -439,6 +439,7 @@
               <li class="dropdown-footer">
                   {% comment %} <a href="{% url 'chat' %}">Show all messages</a> {% endcomment %}
                   <a href="{% url 'create_chat_room' user_id=user.id %}">Start Chat</a>
+                  <a href="{% url 'messages'  %}">Start Chat to user</a>
 
               </li>
           </ul><!-- End Messages Dropdown Items -->
@@ -567,8 +568,15 @@
         <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
           <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Status Tracker</span>
         </a>
-
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Saved jobs</span>
+        </a>
+      </li>
+      
+      
 
     <li class="nav-item">
       <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">

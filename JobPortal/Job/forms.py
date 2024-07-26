@@ -1,5 +1,5 @@
 from django import forms
-from .models import JobPost,Education,Skills_job,Apply_Job,SalaryRange
+from .models import DisableJob, JobPost,Education,Skills_job,Apply_Job,SalaryRange
 from Company.models import Company
 
 # class JobPostForm(forms.ModelForm):
@@ -81,3 +81,19 @@ class MessageForm(forms.ModelForm):
             'receiver',
             'message',
         ] 
+
+class DisableJobForm(forms.ModelForm):
+    class Meta:
+        model = DisableJob
+        fields = ['report_type', 'description']
+    
+    def __init__(self, *args, **kwargs):
+        self.job_id = kwargs.pop('job_id', None)
+        super().__init__(*args, **kwargs)
+    
+    def save(self, commit=True):
+        instance = super().save(commit=False)
+        if commit:
+            instance.job_id = self.job_id
+            instance.save()
+        return instance

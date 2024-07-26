@@ -14,7 +14,7 @@ from django.shortcuts import redirect, render
 from django.views import View
 # from .models import JobApplicationNotification, JobPost,Education,Skills_job,Apply_Job, Message
 from Company.models import Company
-from .models import Thread,ChatModel,ChatRoom
+from .models import ChatModel,ChatRoom
 from UserApplicant.models import User,jobseeker_Profile
 from Resume.models import Resume
 # from .forms import EducationForm, JobPostForm, SkillForm,UpdateJobPostForm,ApplyJobForm,SalaryRangeForm, MessageForm
@@ -41,17 +41,19 @@ from Job.models import Message
 #         'Threads': threads
 #    }
 #    return render(request,'Dashboard/chatEmo.html' ,context)
-
 class ChatView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         if request.user.is_employer:
-            applicants = User.objects.filter(apply_job__job__company__user=request.user).distinct()
-            return render(request, 'Dashboard/ChatView.html', {'users': applicants})
+            users = User.objects.filter(apply_job__job__company__user=request.user).distinct()
         else:
-            employers = User.objects.filter(applyjob__user=request.user).distinct()
-            return render(request, 'Dashboard/ChatView.html', {'users': employers})
+            users = User.objects.filter(applyjob__user=request.user).distinct()
+        return render(request, 'Dashboard/ChatView.html', {'users': users})
 
-    def post(self, request, user_id, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
+        user_id = request.POST.get('user_id') 
+        if not user_id:
+            return JsonResponse({'error': 'User ID not provided'}, status=400)
+        
         other_user = User.objects.get(id=user_id)
         chat_room, created = ChatRoom.objects.get_or_create(
             user1=request.user,
@@ -63,11 +65,10 @@ class ChatView(LoginRequiredMixin, View):
                 user1=other_user, user2=request.user
             ).first()
         return JsonResponse({'room_id': chat_room.id})
-    
 
 
 class SendMessageView(LoginRequiredMixin, View):
-    def post(self, request, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         data = json.loads(request.body)
         room_id = data.get('room_id')
         message = data.get('message')
