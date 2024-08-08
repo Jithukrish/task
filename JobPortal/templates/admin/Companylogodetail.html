@@ -436,83 +436,114 @@
   <!----------------------------------Sidebar Start job seeeker-------------------------------------------------->
   
   {% block sidebar %}
-  {% if request.user.is_admin %} 
+{% if request.user.is_admin %} 
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
     
 
-    <li class="nav-item">
-      <a class="nav-link collapsed"  href="">
-        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
-      </a>
-    </li>
-    <!------------------cms section------------------------->
-    <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
-          <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{% url "headersection" %}">
-              <i class="bi bi-circle"></i><span>Header</span>
-            </a>
-          </li>
-          <li>
-            <a href="{% url "section_first" %}">
-              <i class="bi bi-circle"></i><span>Section1</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Section2</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Section3</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Section4</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Section5</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Section6</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Section7</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Section8</span>
-            </a>
-          </li>
-    
-        </ul>
-    </li>
-    <!------------------cms section------------------------->
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="">
-          <i class="bi bi-journal-text"></i> <i class=""></i><span>User Management</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed"  href="">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>Job Management</span>
-        </a>
-    </li>
       <li class="nav-item">
         <a class="nav-link collapsed"  href="">
+          <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
+            <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+        
+          <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="{% url "headersection" %}">
+                <i class="bi bi-circle"></i><span>Header</span>
+              </a>
+            </li>
+            
+            <li>
+              <a href="{% url "section_first" %}">
+                <i class="bi bi-circle"></i><span>Section1</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "selected_jobs" pk=user.id %}">
+                <i class="bi bi-circle"></i><span>Select Jobs</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "about_us" %}">
+                <i class="bi bi-circle"></i><span>About us </span>
+              </a>
+            </li>
+            
+            <li>
+              <a href="{% url "all_comoany_logo"  %}">
+                <i class="bi bi-circle"></i><span>Company Logo</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "feature_section_add" %}">
+                <i class="bi bi-circle"></i><span>Feature Section</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "section_four" %}">
+                <i class="bi bi-circle"></i><span>Section Four</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "section_five" %}">
+                <i class="bi bi-circle"></i><span>Section Five</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "admin_dash" %}">
+                <i class="bi bi-circle"></i><span>Report</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "service_section" %}">
+                <i class="bi bi-circle"></i><span>Section Service</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "all_service" %}">
+                <i class="bi bi-circle"></i><span>Section Service</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "contact_section" %}">
+                <i class="bi bi-circle"></i><span>Contact section</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "contact_section" %}">
+                <i class="bi bi-circle"></i><span>Frequently Asked</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "social_media" %}">
+                <i class="bi bi-circle"></i><span>Social media</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "social_media_list" %}">
+                <i class="bi bi-circle"></i><span>Social media </span>
+              </a>
+            </li>
+      
+          </ul>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed"  href="{% url "restrict_users" %}">
+            <i class="bi bi-journal-text"></i> <i class=""></i><span>User Management</span>
+          </a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed"  href="{% url "restrict_jobs" %}">
+              <i class="bi bi-journal-text"></i> <i class=""></i><span>Job Management</span>
+          </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "restrict_company" %}">
           <i class="bi bi-journal-text"></i> <i class=""></i><span>Company Management</span>
         </a>
       </li>
@@ -535,19 +566,19 @@
       
       
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
-        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="charts-chartjs.html">
-            <i class="bi bi-circle"></i><span>Chart.js</span>
-          </a>
-        </li>
-  
-      </ul>
-    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
+          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="charts-chartjs.html">
+              <i class="bi bi-circle"></i><span>Chart.js</span>
+            </a>
+          </li>
+    
+        </ul>
+      </li>
     <!-- End Charts Nav -->
 
     <li class="nav-heading">Pages</li>
@@ -558,22 +589,6 @@
         <span>Profile</span>
       </a>
     </li><!-- End Profile Page Nav -->
-
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-faq.html">
-        <i class="bi bi-question-circle"></i>
-        <span>F.A.Q</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End F.A.Q Page Nav -->
-
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-contact.html">
-        <i class="bi bi-envelope"></i>
-        <span>Contact</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End Contact Page Nav -->
 
     <li class="nav-item">
       <a class="nav-link collapsed" href="{% url "register_seeker" %}">
@@ -606,7 +621,6 @@
     <!-- End Blank Page Nav -->
 
   </ul>
-
 </aside>
 <!-- ------------------------------------------- Sidebar employer---------------------------------------------- -->
 {% elif request.user.is_employer %}
@@ -680,13 +694,7 @@
       </a>
     </li><!-- End Profile Page Nav -->
 
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-faq.html">
-        <i class="bi bi-question-circle"></i>
-        <span>F.A.Q</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End F.A.Q Page Nav -->
+   
 
    
 
@@ -722,7 +730,8 @@
 
 </aside>
 {% endif %}
-  {% endblock  %}
+{% endblock  %}
+
 
   <!--------------------------------------------------sidebar end both case-------------------------------------------------------------->
 
