@@ -5,6 +5,9 @@ from django.views.generic import TemplateView
 
 class JobseekerDashboardView(TemplateView):
     template_name = 'Dashboard/Dashboard.html'
+class AdminDashboardView(TemplateView):
+    template_name = 'Dashboard/AdminDashboard.html'
+
 
 
 

@@ -28,6 +28,7 @@ urlpatterns = [
     path('job/',include('Job.urls')),
     path('chat/',include('chat.urls')),
     path('contact/',include('contact.urls')),
+    path('admincontrol/',include('admincontrol.urls')),
   
 ]
 if settings.DEBUG:

@@ -20,16 +20,107 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView,DetailView,RedirectView
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from admincontrol.models import Aboutus, AddImg, Companylogo, Contact_Main, FeaturesTab1, FeaturesTab2, FeaturesTab3, Frequently_asked, Head,Section1, Service
 
 
   
 class IndexView(ListView):
     model = JobPost
-    template_name = "index.html"
+    template_name = "admin/index.html"
     context_object_name = 'jobs'
 
     def get_queryset(self):
-        return JobPost.objects.filter(is_active=True).order_by('-timestamp')
+        # return JobPost.objects.filter(is_active=True).order_by('-timestamp')
+        return JobPost.objects.filter(selectedjob__isnull=False).distinct()
+    def get_context_data(self, **kwargs):
+            context = super().get_context_data(**kwargs)
+            head = Head.objects.order_by('-updated_at').first()
+            if head:
+                context['head'] = {
+                    'logo_img': head.logo_img.url,
+                    'title': head.title
+                }
+                context['menu_items'] = head.name.all()
+
+            section = Section1.objects.order_by('-updated_at').first()
+            if section:
+                context['section'] = {
+                    'img': section.img.url,
+                    'description': section.description
+                }
+            
+            about = Aboutus.objects.order_by('-updated_at').first()
+            if about:
+                context['about'] = {
+                    
+                    'title': about.title,
+                    'description': about.description,
+                    'element1': about.element1,
+                    'element2': about.element2,
+                    'element3': about.element3,
+                }
+                context['about_img'] = about.img.all()
+            checklogo = Companylogo.objects.order_by('-updated_at')
+            if checklogo.exists():
+                context['checklogo'] =[] 
+                print(checklogo)
+                for check in checklogo:
+                    context['checklogo'].append(
+                        {
+                    'logo': check.logo.url,
+                    'logo_name': check.logo_name, 
+                         }
+                      )      
+            Feature = FeaturesTab1.objects.order_by('-updated_at').first()
+            if Feature:
+                context['Feature'] = {     
+                    'image': Feature.images,       
+                }
+                context['title'] = Feature.subfeature.all()
+
+            section4 = FeaturesTab2.objects.order_by('-updated_at').first()
+            if section4:
+                context['section4'] = {     
+                    'title': section4.title,       
+                    'description': section4.description,       
+                    'image': section4.image.url,       
+                }
+            section5 = FeaturesTab3.objects.order_by('-updated_at').first()
+            if section5:
+                context['section5'] = {     
+                    'title': section5.title,       
+                    'description': section5.description,       
+                    'field': section5.field,       
+                    'image': section5.image.url,       
+                }
+
+            service = Service.objects.order_by('-updated_at')
+            if service.exists():
+                context['service'] = []
+                for ser in service:       
+                    context['service'].append({     
+                        'title': ser.title,       
+                        'description': ser.description,       
+                        'icons': ser.icons,        
+                    }) 
+            contactpart = Contact_Main.objects.order_by('-created_at').first()
+            if contactpart:
+                context['contactpart'] = {
+                    'address_title': contactpart.add_main.address ,
+                    'ad_icon':contactpart.add_main.ad_icon ,
+                    'contact_title': contactpart.cont_main.phone ,
+                    'ad_icon1':contactpart.cont_main.ad_icon ,
+
+                    'mail_title': contactpart.mail_main.email ,
+                    'ad_icon3':contactpart.mail_main.ad_icon ,
+
+                }
+            frequently = Frequently_asked.objects.order_by('-updated_at')
+            if frequently.exists():
+                context['frequently'] = frequently
+                
+            return context
+# ---------------------------------------------------------------------------------------
 def generate_verification_token():
     return get_random_string(length=20)
 
@@ -211,8 +302,9 @@ class LoginView(View):
             if request.user.is_jobseeker:
                 return redirect('jobseeker_dash')
             elif request.user.is_employer:
-                # return redirect('emp_home')
                 return redirect('jobseeker_dash')
+            elif request.user.is_admin:
+                return redirect('admin_dash')
             else:
                 return redirect('login_user')
         else:

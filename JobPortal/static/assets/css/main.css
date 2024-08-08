@@ -90,8 +90,8 @@ h6 {
 
 /* PHP Email Form Messages
 ------------------------------*/
-.php-email-form .error-message {
-  /* display: none; */
+ .php-email-form .error-message {
+  display: none; 
   background: #df1529;
   color: #ffffff;
   text-align: left;
@@ -100,7 +100,7 @@ h6 {
   font-weight: 600;
 }
 
-.php-email-form .sent-message {
+ .php-email-form .sent-message {
   display: none;
   color: #ffffff;
   background: #059652;

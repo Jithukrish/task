@@ -1356,61 +1356,6 @@ class PendingApplicationsCountView(LoginRequiredMixin, ListView):
 
 
 
-# class ReportsstatusView(TemplateView):
-#     template_name = 'Dashboard/Dashboard.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         today = datetime.now().date()
-#         start_date_week = today - timedelta(days=today.weekday())  
-#         start_date_month = today.replace(day=1)
-#         start_date_year = today.replace(month=1, day=1)
-
-#         job_posts = JobPost.objects.filter(user=self.request.user)
-
-#         counts_today = Apply_Job.objects.filter(job__in=job_posts, timestamp__date=today).values('status').annotate(count=Count('id'))
-#         counts_week = Apply_Job.objects.filter(job__in=job_posts, timestamp__date__gte=start_date_week).values('status').annotate(count=Count('id'))
-        # counts_month = Apply_Job.objects.filter(job__in=job_posts, timestamp__date__gte=start_date_month).values('status').annotate(count=Count('id'))
-        # counts_year = Apply_Job.objects.filter(job__in=job_posts, timestamp__date__gte=start_date_year).values('status').annotate(count=Count('id'))
-
-        # applied_users_today = Apply_Job.objects.filter(job__in=job_posts, timestamp__date=today).select_related('user')
-        # applied_users_week = Apply_Job.objects.filter(job__in=job_posts, timestamp__date__gte=start_date_week).select_related('user')
-        # applied_users_month = Apply_Job.objects.filter(job__in=job_posts, timestamp__date__gte=start_date_month).select_related('user')
-        # applied_users_year = Apply_Job.objects.filter(job__in=job_posts, timestamp__date__gte=start_date_year).select_related('user')
-
-        # context['counts_today'] = counts_today
-        # context['counts_week'] = counts_week
-        # context['counts_month'] = counts_month
-        # context['counts_year'] = counts_year
-
-        # context['applied_users_today'] = applied_users_today
-        # context['applied_users_week'] = applied_users_week
-        # context['applied_users_month'] = applied_users_month
-        # context['applied_users_year'] = applied_users_year
-
-        # return context
-
-    # def post(self, request, *args, **kwargs):
-    #     if 'update_status' in request.POST:
-    #         job_post_id = request.POST.get('job_post_id')
-    #         apply_job_id = request.POST.get('apply_job_id')
-    #         new_status = request.POST.get('new_status')
-
-        #     try:
-        #         apply_job = Apply_Job.objects.get(id=apply_job_id)
-        #         apply_job.status = new_status
-        #         apply_job.save()
-        #     except Apply_Job.DoesNotExist:
-        #         pass
-
-        #     return redirect(reverse('jobseeker_dash'))
-
-        # return super().get(request, *args, **kwargs)
-
-# class ReportsstatusView(TemplateView):
-#     template_name = 'Dashboard/Dashboard.html'
-# class ReportsstatusView(TemplateView):
-
 
 
 
@@ -1510,16 +1455,6 @@ class AppliedJobSeekersListView(LoginRequiredMixin, ListView):
         return applied_job_seekers
  
 
-    
-     
-
-
-#-----------------------------------employer --------------------------------------------------------
-
-#-----------------------------------employer --------------------------------------------------------
-#-----------------------------------employer --------------------------------------------------------
-#-----------------------------------employer --------------------------------------------------------
-#-----------------------------------employer --------------------------------------------------------
 #-----------------------------------employer --------------------------------------------------------
 class JobAppliListview(ListView):
     model = Apply_Job

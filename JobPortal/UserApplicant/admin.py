@@ -10,6 +10,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 User = get_user_model()
+
 @admin.action(description='Block selected users')
 def block_users(modeladmin, request, queryset):
     updated = queryset.update(is_blocked=True)

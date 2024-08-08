@@ -1,0 +1,701 @@
+{% load static %}
+{% load humanize %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Job Portal | World Wide website</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+ 
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400" rel="stylesheet" />
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'assets/css/main.css' %}" rel="stylesheet">
+  <link href="{% static 'search/css/search.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="index-page">
+ 
+  <header id="header" class="header d-flex align-items-center fixed-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+
+<a href="/" class="logo d-flex align-items-center me-auto">
+
+  <img src="{{ head.logo_img }}" alt="Site Logo" id="logo-img"> 
+   <h1 class="sitename" id="site-title">{{ head.title }}</h1>
+</a>
+<nav id="navmenu" class="navmenu">
+  <ul id="menu-items">
+      {% for item in menu_items %}
+          <li><a href="{{ item.menu_url }}">{{ item.menu_item }}</a></li>
+      {% empty %}
+          <li>No menu items available.</li>
+      {% endfor %}
+  </ul>
+  <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+</nav>
+
+  
+    
+      
+      
+
+      <a class="btn-getstarted" href="{% url "login_user" %}">Get Started</a>
+
+    </div>
+  </header>
+
+
+  <main class="main">
+
+
+    <section id="hero" class="hero section">
+      <div class="hero-bg">
+        <img src="{% static 'search/images/searchnew.jpg' %}" alt="">
+        {% comment %} <img src="{{section.img }}" alt=""> {% endcomment %}
+      </div>
+      <div class="container text-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <h1 data-aos="fade-up">Welcome to <span>{{ head.title }}</span></h1>
+          <p data-aos="fade-up" data-aos-delay="100">{{ section.description}}<br></p>
+          <div class="s132">
+            <form method="GET" id="search-form" action="{% url 'advancesearch' %}">
+             {% include "admin/Advance_search.html" %}
+            </form>
+           
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="featured-services" class="featured-services section light-background">
+      <div class="container section-title" data-aos="fade-up" >
+      
+      </div>
+      <div class="container">
+        
+        <div class="row gy-4" id="result" >
+          
+
+       
+
+         
+         
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section">
+      <div class="hero-bg">
+        {% comment %} <img src="{% static 'assets/img/hero-bg-light.webp' %}" alt=""> {% endcomment %}
+        <img src="{% static 'search/images/searchnew.jpg' %}" alt="">
+
+        {% comment %} <img src="{{section.img }}" alt=""> {% endcomment %}
+      </div>
+      <div class="container text-center">
+        <div class="d-flex flex-column justify-content-center align-items-center">
+          <h1 data-aos="fade-up">Welcome to <span>{{ head.title }}</span></h1>
+          <p data-aos="fade-up" data-aos-delay="100">{{ section.description}}<br></p>
+          <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+            <a href="{% url "login_user" %}" class="btn-get-started">Get Started</a>
+            {% comment %} <a href="https://www.youtube.com/watch?v=LXb3EKWsInQ" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> {% endcomment %}
+          </div>
+          {% comment %} <img src="{% static 'assets/img/hero-services-img.webp' %}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300"> {% endcomment %}
+          <img src="{{ section.img}}" class="img-fluid hero-img" alt="" data-aos="zoom-out" data-aos-delay="300">
+        </div>
+      </div>
+    </section>
+    
+    <!-- /Hero Section -->
+  
+    <!-- Featured Services Section -->
+    <section id="featured-services" class="featured-services section light-background">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Explore With Your Jobs</h2>
+      </div>
+      <div class="container">
+        
+        <div class="row gy-4">
+          {% if jobs %}
+          {% for job in jobs %}
+          <div class="col-xl-4 col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item d-flex">
+              <div class="icon flex-shrink-0"><i class="bi bi-briefcase"></i></div>
+              <div>
+                <h4 class="title"><a href="{% url "login_user" %}" class="stretched-link">{{ job.title }}</a></h4>
+                <h6 class="title"><a href="{% url "login_user" %}" class="stretched-link">{{ job.job_type }}</a></h6>
+                {% comment %} <p class="">{{ i.location }}</p> {% endcomment %}
+                <p class="">{{ job.timestamp|naturaltime }}</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+
+       
+
+         
+          <!-- End Service Item -->
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /Featured Services Section -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>About Us</h2>
+      </div>
+      <div class="container">
+
+        <div class="row gy-4">
+          
+
+          <div class="col-lg-6 content" data-aos="fade-up" data-aos-delay="100">
+            <p class="who-we-are">Who We Are</p>
+            <h3>{{about.title}}</h3>
+            <p class="fst-italic">
+              {{ about.description }}
+            </p>
+            <ul>
+              <li><i class="bi bi-check-circle"></i> <span>{{about.element1}}</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>{{about.element2}}</span></li>
+              <li><i class="bi bi-check-circle"></i> <span>{{about.element3}}</span></li>
+            </ul>
+            <a href="#" class="read-more"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+          </div>
+
+          <div class="col-lg-6 about-images" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-4">
+              {% for abo in about_img %}
+              <div class="col-lg-6">
+                <img src="{{ abo.About_img.url }}" class="img-fluid" alt="">
+              </div>
+              {% endfor %}
+              {% comment %} <div class="col-lg-6">
+                <img src="{{ about.About_img }}" class="img-fluid" alt="">
+              </div>   {% endcomment %}
+              {% comment %} <div class="col-lg-6">
+                <div class="row gy-4">
+                  <div class="col-lg-12">
+                    <img src="{% static 'assets/img/about-company-2.jpg' %}" class="img-fluid" alt="">
+                  </div>
+                  <div class="col-lg-12">
+                    <img src="{% static 'assets/img/about-company-3.jpg' %}" class="img-fluid" alt="">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="row gy-4">
+                  <div class="col-lg-12">
+                    <img src="{% static 'assets/img/about-company-2.jpg' %}" class="img-fluid" alt="">
+                  </div>
+                  <div class="col-lg-12">
+                    <img src="{% static 'assets/img/about-company-3.jpg' %}" class="img-fluid" alt="">
+                  </div>
+                </div>
+              </div> {% endcomment %}
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- /About Section -->
+
+    <!-- Clients Section -->
+    <section id="clients" class="clients section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Top companies </h2>
+      </div>
+      <div class="container" data-aos="fade-up">
+
+        <div class="row gy-4">
+         {% for log in checklogo  %}
+          <div class="col-xl-2 col-md-3 col-6 client-logo">
+            <img src="{{log.logo}}" class="img-fluid" alt="">
+          </div><!-- End Client Item -->
+          {% endfor %}
+          
+          
+          
+          
+          <!-- End Client Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Clients Section -->
+
+    <!-- Features Section -->
+    <section id="features" class="features section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Features</h2>
+        <p>Here are some key features tailored specifically for job seekers on your job website</p>
+      </div>
+      <!-- End Section Title -->
+
+      <div class="container">
+        <div class="row justify-content-between">
+
+          <div class="col-lg-5 d-flex align-items-center">
+
+            <ul class="nav nav-tabs" data-aos="fade-up" data-aos-delay="100">
+              {% for content in title %}
+              <li class="nav-item">
+                <a class="nav-link active show" data-bs-toggle="tab" data-bs-target="#features-tab-1">
+                  <i class="bi bi-binoculars"></i>
+                  <div>
+                    <h4 class="d-none d-lg-block">{{content.title}}</h4>
+                    <p>
+                      {{content.description}}</p>
+                  </div>
+                </a>
+              </li>
+              {% endfor %}
+            </ul><!-- End Tab Nav -->
+
+          </div>
+
+          <div class="col-lg-6">
+
+            <div class="tab-content" data-aos="fade-up" data-aos-delay="200">
+
+              <div class="tab-pane fade active show" id="features-tab-1">
+                <img src="{{Feature.image.url}}" alt="" class="img-fluid">
+              </div><!-- End Tab Content Item -->
+
+             
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Features Section -->
+
+    <!-- Features Details Section -->
+    <section id="features-details" class="features-details section">
+
+      <div class="container">
+
+        <div class="row gy-4 justify-content-between features-item">
+
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <img src="{{section4.image}}" class="img-fluid" alt="">
+          </div>
+
+          <div class="col-lg-5 d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content">
+              <h3>{{section4.title}}</h3>
+              <p>{{section4.description}}</p>
+              <a href="#" class="btn more-btn">Learn More</a>
+            </div>
+          </div>
+
+        </div><!-- Features Item -->
+
+        <div class="row gy-4 justify-content-between features-item">
+
+          <div class="col-lg-5 d-flex align-items-center order-2 order-lg-1" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="content">
+              <h3>{{section5.title}}</h3>
+              <p>
+                 {{section5.description}}
+              </p>
+              
+              <ul>
+                <li><i class="bi bi-easel flex-shrink-0"></i> <strong></strong> {{section5.field}}</li>
+                {% comment %} <li><i class="bi bi-patch-check flex-shrink-0"></i> <strong> </strong> All employers on our platform are verified, ensuring you apply to genuine job listings.</li>
+                <li><i class="bi bi-brightness-high flex-shrink-0"></i> <strong></strong> Access exclusive resources and courses to boost your skills and increase your employability.</li> {% endcomment %}
+              </ul>
+              <p></p>
+              <a href="#" class="btn more-btn">Learn More</a>
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-up" data-aos-delay="200">
+            <img src="{{section5.image}}" class="img-fluid" alt="">
+          </div>
+
+        </div><!-- Features Item -->
+
+      </div>
+
+    </section><!-- /Features Details Section -->
+
+    <!-- Services Section -->
+    <section id="services" class="services section light-background">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Services</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row g-5">
+          {% for core in  service %}
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="service-item item-cyan position-relative">
+              <i class="{{core.icons}}"></i>
+              <div>
+                <h3>{{core.title}}</h3>
+                <p> {{ core.description}}</p>
+                <a href="#" class="read-more stretched-link">Learn More <i class="bi bi-arrow-right"></i></a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+
+      </div>
+
+    </section><!-- /Services Section -->
+
+    <!-- More Features Section -->
+ 
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Pricing</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="pricing-item">
+              <h3>Free Plan</h3>
+              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
+              <h4><sup>$</sup>0<span> / month</span></h4>
+              <a href="#" class="cta-btn">Start a free trial</a>
+              <p class="text-center small">No credit card required</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Pharetra massa massa ultricies</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="pricing-item featured">
+              <p class="popular">Popular</p>
+              <h3>Business Plan</h3>
+              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
+              <h4><sup>$</sup>29<span> / month</span></h4>
+              <a href="#" class="cta-btn">Start a free trial</a>
+              <p class="text-center small">No credit card required</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
+                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                <li><i class="bi bi-check"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
+                <li class="na"><i class="bi bi-x"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+          <div class="col-lg-4" data-aos="zoom-in" data-aos-delay="300">
+            <div class="pricing-item">
+              <h3>Developer Plan</h3>
+              <p class="description">Ullam mollitia quasi nobis soluta in voluptatum et sint palora dex strater</p>
+              <h4><sup>$</sup>49<span> / month</span></h4>
+              <a href="#" class="cta-btn">Start a free trial</a>
+              <p class="text-center small">No credit card required</p>
+              <ul>
+                <li><i class="bi bi-check"></i> <span>Quam adipiscing vitae proin</span></li>
+                <li><i class="bi bi-check"></i> <span>Nec feugiat nisl pretium</span></li>
+                <li><i class="bi bi-check"></i> <span>Nulla at volutpat diam uteera</span></li>
+                <li><i class="bi bi-check"></i> <span>Pharetra massa massa ultricies</span></li>
+                <li><i class="bi bi-check"></i> <span>Massa ultricies mi quis hendrerit</span></li>
+                <li><i class="bi bi-check"></i> <span>Voluptate id voluptas qui sed aperiam rerum</span></li>
+                <li><i class="bi bi-check"></i> <span>Iure nihil dolores recusandae odit voluptatibus</span></li>
+              </ul>
+            </div>
+          </div><!-- End Pricing Item -->
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /Pricing Section -->
+
+    <!-- Faq Section -->
+    <section id="faq" class="faq section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+      </div><!-- End Section Title -->
+
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
+            <div class="faq-container">
+            {% if frequently %}
+              {% for faq in frequently %}
+              <div class="faq-item faq-active">
+                <h3>{{faq.question}}</h3>
+                <div class="faq-content">
+                  <p>{{faq.answer}}</p>
+                </div>
+                <i class="faq-toggle bi bi-chevron-right"></i>
+              </div><!-- End Faq item-->
+              {% endfor %}
+            {% endif %}
+            </div>
+          </div><!-- End Faq Column-->
+        </div>
+      </div>
+    </section><!-- /Faq Section -->
+
+   
+
+    <section id="contact" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Contact</h2>
+        <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+      </div><!-- End Section Title -->
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
+              {% if contactpart %}
+              
+              <i class="{{contactpart.ad_icon}}"></i>
+              <h3>Address</h3>
+              <p>{{contactpart.address_title }}</p>
+             
+              {% endif %}
+            </div>
+          </div><!-- End Info Item -->
+          
+          <div class="col-lg-3 col-md-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
+              {% if contactpart %}
+              <i class="{{contactpart.ad_icon1}}"></i>
+              <h3>Call Us</h3>
+              <p>{{contactpart.contact_title}}</p>
+              {% endif %}
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="col-lg-3 col-md-6">
+            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
+              {% if contactpart %}
+              <i class="{{contactpart.ad_icon3}}"></i>
+              <h3>Email Us</h3>
+              <p>{{contactpart.mail_title}}</p>
+              {% endif %}
+            </div>
+          </div><!-- End Info Item -->
+
+        </div>
+
+        <div class="row gy-4 mt-1">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d48389.78314118045!2d-74.006138!3d40.710059!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a22a3bda30d%3A0xb89d1fe6bc499443!2sDowntown%20Conference%20Center!5e0!3m2!1sen!2sus!4v1676961268712!5m2!1sen!2sus" frameborder="0" style="border:0; width: 100%; height: 400px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div><!-- End Google Maps -->
+
+          <div class="col-lg-6">
+            
+            {% include "contact.html" %}
+
+          </div>
+          <!-- End Contact Form -->
+
+        </div>
+
+      </div>
+
+    </section>
+    <!-- /Contact Section -->
+
+  </main>
+
+  <footer id="footer" class="footer position-relative light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename">{{ head.title }}</span>
+          </a>
+          <div class="footer-contact pt-3">
+            {% if contactpart %}
+            
+            <p>{{contactpart.mail_title}}</p>
+            <p>{{contactpart.address_title}}</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+91 {{contactpart.contact_title}}</span></p>
+            <p><strong>Email:</strong> <span>{{contactpart.mail_title}}</span></p>
+            {% endif %}
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+
+          {% for item in menu_items %}
+          <ul>
+            <li><a href="{{ item.menu_url }}">{{ item.menu_item }}</a></li>
+           
+          </ul>
+          {% endfor %}
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Our Services</h4>
+          {% for core in  service %}
+          <ul>
+            <li><a href="#">{{core.title}}</a></li>
+          </ul>
+          {% endfor %}
+        </div>
+
+        <div class="col-lg-4 col-md-12 footer-newsletter">
+          <h4>Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+          <form action="forms/newsletter.php" method="post" class="php-email-form">
+            <div class="newsletter-form"><input type="email" name="email"><input type="submit" value="Subscribe"></div>
+            <div class="loading">Loading</div>
+            {% comment %} <div class="error-message"></div> {% endcomment %}
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Job Finder</strong><span>All Rights Reserved</span></p>
+      <div class="credits">
+     
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'search/js/extention/choices.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>  <script>
+    const choices = new Choices('[data-trigger]',
+    {
+      searchEnabled: false,
+      itemSelectText: '',
+    });
+
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#search-form').on('submit', function(event) {
+          event.preventDefault();
+          
+          var searchValue = $('#search').val();
+          var locationValue = $('#location').val();
+          var jobtypeValue = $('#job_type').val(); 
+  
+          console.log(searchValue);
+          console.log(locationValue);
+          console.log(jobtypeValue);
+  
+          $.ajax({
+              type: 'GET',
+              url: '{% url "advancesearch" %}',
+              data: {
+                  'search': searchValue,
+                  'location': locationValue,
+                  'job_type': jobtypeValue, 
+              },
+              success: function(response) {
+                  console.log(response);
+                  $('#result').html(response.html);
+              },
+              error: function(xhr, errmsg, err) {
+                  console.log(xhr.status + ": " + xhr.responseText);
+              }
+          });
+      });
+  });
+       
+  </script>
+
+  <!-- Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+</body>
+
+</html>

@@ -1,12 +1,11 @@
-from django.db import models
 
-# Create your models here.
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils.crypto import get_random_string
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
+    is_admin = models.BooleanField(default=False)
     is_employer=models.BooleanField(default=False)
     is_jobseeker=models.BooleanField(default=False)
     has_resume=models.BooleanField(default=False)
@@ -76,3 +75,5 @@ class jobseeker_Profile(models.Model):
 
     def __str__(self):
         return self.user.email
+
+

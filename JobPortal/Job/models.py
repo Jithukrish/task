@@ -50,7 +50,7 @@ class JobPost(models.Model):
         ('Internship', 'Internship'),
     ]
 
-    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
     company=models.ForeignKey(Company,on_delete=models.CASCADE,default='Select Your Company')
     skills = models.ManyToManyField(Skills_job, blank=True)
     title=models.CharField(max_length=255,blank=True, null=True)
@@ -61,7 +61,7 @@ class JobPost(models.Model):
     job_type =models.CharField(max_length=10,choices=JOB_TYPE_CHOICES,null=True, default='Full-Time')
     experience= models.CharField(max_length=5,choices=EXPERIENCE_CHOICES,null=True)
     # salary =models.CharField(max_length=25,choices=SALARY_CHOICES,default='50+',verbose_name='Salary Range')
-    is_active= models.BooleanField(default=False)
+    is_active= models.BooleanField(default=True)
     timestamp=models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
