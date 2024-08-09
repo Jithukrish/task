@@ -7,7 +7,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from Job.models import Apply_Job, JobPost
 from Company.models import Company
-from admincontrol.models import AddImg, Address_contact, Companylogo, Contact_Main, Contact_contact, FeaturesTab1, FeaturesTab2, FeaturesTab3, Featuresub, Head, IconServices, Mail_contact,Menu, Section1, SelectedJob,Aboutus, Service, Socialmedia
+from admincontrol.models import AddImg, Address_contact, Companylogo, Contact_Main, Contact_contact, FeaturesTab1, FeaturesTab2, FeaturesTab3, Featuresub, Frequently_asked, Head, IconServices, Mail_contact,Menu, Section1, SelectedJob,Aboutus, Service, Socialmedia
 from .forms import CompanyForm, ContactSectionForm, ContactSectionMainForm, FeatureTabFiveForm, FeatureTabSecondForm, FeaturesTab1Form, FeaturesubForm, FrequentlyAskedForm, HeaderForm,HeaderMenuForm,SectionForm, SelectJobForm, AboutForm, ServiceForm, SocialmediaForm
 from django.views.generic.edit import FormView,CreateView,View
 from django.views.generic.detail import DetailView
@@ -18,6 +18,11 @@ from django.contrib import messages
 from django.core.paginator import Paginator
 from django.db.models import Count
 from django.views.generic import DeleteView
+from django.utils import timezone
+import datetime
+from datetime import datetime
+from datetime import datetime, timedelta   
+from django.utils.timezone import now
 from django.template.loader import render_to_string
 from django.contrib.auth import get_user_model
 User = get_user_model()
@@ -33,6 +38,33 @@ class HeaderFormView(CreateView):
         form.save()
         return super().form_valid(form)
     
+class HeaderEditView(UpdateView):
+    model=Head
+    template_name = 'admin/haederedit.html'
+    fields = ['name','title','logo_img']
+    success_url = reverse_lazy('admin_dash')    
+    context_object_name='card'
+
+    def form_valid(self,form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Updated Successfully')
+        return response
+    def form_invalid(self, form):
+        print(form.errors)
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('menu_list')  
+
+class HeaderlistView(ListView):
+    model=Head
+    template_name='admin/edithead.html'
+    context_object_name='menu'
 
 class MenuCreateView(View):
     def post(self, request, *args, **kwargs):
@@ -62,6 +94,14 @@ class MenuEditView(UpdateView):
         response = super().form_valid(form)
         messages.success(self.request, 'Updated Successfully')
         return response
+    def form_invalid(self, form):
+        print(form.errors)
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
+        return super().form_invalid(form)
 
     def get_success_url(self):
         return reverse_lazy('menu_list') 
@@ -69,12 +109,18 @@ class MenuEditView(UpdateView):
 class MenuDeleteView(View):
     def post(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
-        try:
-            menu = Menu.objects.get(pk=pk)
-            menu.delete()
-            return JsonResponse({'message': 'Item deleted successfully'})
-        except Menu.DoesNotExist:
-            return JsonResponse({'error': 'Item does not exist'}, status=404)
+        menu = Menu.objects.get(pk=pk)
+        menu.delete()
+        return JsonResponse({'message': 'Item deleted successfully'})
+    
+
+# class ServiceDeleteView(View):
+#     def post(self, request, *args, **kwargs):
+#         pk = self.kwargs.get('pk')
+#         service = Service.objects.get(id=pk)
+#         service.delete()
+#         return JsonResponse({'message': 'Service deleted successfully'})
+    
 
  
 #------------------------------------------------section1-----------------------------------------------
@@ -87,6 +133,14 @@ class SectionView(CreateView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+    def form_invalid(self, form):
+        print(form.errors)
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
+        return super().form_invalid(form)
     
 
 
@@ -118,6 +172,14 @@ class SelectJobsForUserView(FormView):
         for job in selected_jobs:
             SelectedJob.objects.create(user=user, job=job)
         return super().form_valid(form)
+    def form_invalid(self, form):
+        print(form.errors)
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
+        return super().form_invalid(form)
 
     def get_success_url(self):
         user_id = self.kwargs['user_id']
@@ -141,6 +203,7 @@ class UserDetailView(DetailView):
 
 
 class AboutUsFormView(CreateView):
+# class AboutUsFormView(BaseFormView):
     model = Aboutus
     template_name = "admin/aboutus.html"
     form_class = AboutForm
@@ -152,7 +215,49 @@ class AboutUsFormView(CreateView):
 
     def form_invalid(self, form):
         print(form.errors)
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
         return super().form_invalid(form)
+    
+class AboutUsEditView(UpdateView):
+# class AboutUsEditView(BaseFormView):
+    model = Aboutus
+    form_class = AboutForm
+    template_name = "admin/aboutus.html"
+    success_url=reverse_lazy('admin_dash')
+
+# from django.views.generic.edit import ModelFormMixin
+# class BaseFormView(ModelFormMixin, View):
+#     model = Aboutus
+#     form_class = AboutForm
+#     template_name = "admin/aboutus.html"
+#     success_url=reverse_lazy('admin_dash')
+#     def get(self, request, *args, **kwargs):
+#         instance = self.get_object() if self.kwargs.get('pk') else None
+#         form = self.get_form(instance=instance)
+#         return render(request, self.template_name, {'form': form})
+
+#     def post(self, request, *args, **kwargs):
+#         instance = self.get_object() if self.kwargs.get('pk') else None
+#         form = self.get_form(instance=instance)
+#         if form.is_valid():
+#             form.save()
+#             return redirect(self.success_url)
+#         return render(request, self.template_name, {'form': form})
+
+#     def get_form(self, instance=None):
+#         if instance:
+#             return self.form_class(instance=instance, data=self.request.POST, files=self.request.FILES)
+#         return self.form_class(data=self.request.POST, files=self.request.FILES)
+
+#     def get_object(self):
+#         if self.kwargs.get('pk'):
+#             return self.model.objects.get(pk=self.kwargs['pk'])
+#         return None
+
 
 
 
@@ -422,21 +527,58 @@ class MailView(View):
         else:
             return JsonResponse({'error': 'ERERER'}, status=400)
           
-class ContactSectionView(CreateView):
+# class ContactSectionView(CreateView):
+class FrequentSectionView(CreateView):
     # model = Contact_Main
     template_name = "admin/frequentlyasked.html"
     form_class = FrequentlyAskedForm
     success_url=reverse_lazy('admin_dash')
     def form_valid(self, form):
         print(form.cleaned_data)
+        question = form.cleaned_data.get('question')
+        if Frequently_asked.objects.filter(question=question).exists():
+            form.add_error('question', 'This question already exists.')
+            return self.form_invalid(form) 
         
-        form.save() 
-        return super().form_valid(form)
+        else:
+            form.save()
+            return JsonResponse({'success': True})
 
     def form_invalid(self, form):
         print(form.errors)
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
+       
         return super().form_invalid(form)
     
+class FrequencyListView(ListView):
+    model = Frequently_asked
+    template_name="admin/frequencyList.html"
+    context_object_name='frequently_asked'
+
+
+class frequentlyUpdateView(UpdateView):
+    model = Frequently_asked
+    fields =['question','answer']
+    template_name = 'admin/frequentlyupdate.html'
+    success_url = reverse_lazy('frequency_asked_list')
+
+
+
+
+class frequentDeleteView(View):
+    def post(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        try:
+            faq = Frequently_asked.objects.get(pk=pk)
+            faq.delete()
+            return JsonResponse({'message': 'question deleted successfully'})
+        except Frequently_asked.DoesNotExist:
+            return JsonResponse({'error': 'question  does not exist'}, status=404)
+
 
 class RestrictUserView(TemplateView):
     model = User
@@ -509,6 +651,11 @@ class socialmediaView(CreateView):
 
     def form_invalid(self, form):
         print(form.errors)
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            return JsonResponse({
+                'success': False,
+                'errors': form.errors
+            }, status=400)
         return super().form_invalid(form)
     
 class socialmediaListview(ListView):
@@ -590,11 +737,7 @@ class AdvancesearchView(ListView):
    
 
 
-from django.utils import timezone
-import datetime
-from datetime import datetime
-from datetime import datetime, timedelta   
-from django.utils.timezone import now
+
 
 
 

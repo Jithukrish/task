@@ -16,14 +16,20 @@
   {% endif %}
   {% endblock %}
   
+  
+  
+ 
   <meta content="" name="description">
   <meta content="" name="keywords">
 
+  <!-- Favicons -->
   <link href="{% static 'img/img/favicon.png' %}" rel="icon">
   <link href="{% static 'img/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
+  <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- Vendor CSS Files -->
   <link href="{% static 'css/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -39,58 +45,41 @@
 
 {% block style %}
 <style>
-
-
-
-.section.profile {
-    padding: 20px;
-    background-color: #f8f9fa; 
-}
-
-.ever {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.alert-success {
-    background-color: #d4edda; 
-    border-color: #c3e6cb; 
-    color: #155724;
-}
-table {
-  border-collapse: collapse;
-  border: 2px solid rgb(200,200,200);
-  letter-spacing: 1px;
-  font-size: 0.8rem;
-}
-
-td, th {
-  border: 1px solid rgb(190,190,190);
-  padding: 10px 20px;
-}
-
-th {
-  background-color: rgb(235,235,235);
-}
-
-td {
-  text-align: center;
-}
-
-tr:nth-child(even) td {
-  background-color: rgb(250,250,250);
-}
-
-tr:nth-child(odd) td {
-  background-color: rgb(245,245,245);
-}
-
-caption {
-  padding: 10px;
-}
-
+  .button-24 {
+    background: #1da701;
+    border: 1px solid #00a108;
+    border-radius: 6px;
+    box-shadow: rgba(7, 3, 209, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    line-height: 16px;
+    min-height: 40px;
+    outline: 0;
+    padding: 12px 14px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+  }
   
-
+  .button-24:hover,
+  .button-24:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #FF4742;
+  }
+  
+  .button-24:active {
+    opacity: .5;
+  }
 </style>
 {% endblock  %}
   
@@ -114,10 +103,9 @@ caption {
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
         
-        <!-- Search Area start -->
+    <!-- Search Area start -->
             {% block search %}
-            {% endblock search %} 
-            <!-- Search Area end -->
+            {% endblock search %} <!-- Search Area end -->
 
         <!-- navbar start -->
             <nav class="header-nav ms-auto">
@@ -784,6 +772,7 @@ caption {
       <section class="section profile">
           <div class="ever">
 
+<!---------------------------------------message part---------------------------------------------->
             {% for message in messages %}
                 {% if "update_company" in message.tags %}
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -798,101 +787,136 @@ caption {
                     </div>
                 {% endif %}
             {% endfor %}
+<!---------------------------------------message part end ---------------------------------------------->
 
-              <h2 style="text-align: center; color: black; font-size: 40px;">Selected Jobs</h2>
-            
-<table>
-      
-      <tr>
-        <th>Job Title</th>
-        <th>Job type</th>
-        <th>Loaction</th>
-        <th>Salary</th>
-        <th>Active /inactive</th>
-        <th>Change status</th>
-      </tr>
-      
-      {% for job in jobs %}
-      <tr>
-          <td>{{ job.title }}</td>
-          <td>{{ job.job_type}}</td>  
-          <td>{{ job.location }}</td>
-          <td>{{ job.salary }}</td>
-          <td>{% if job.is_active %}
-            Active
-        {% else %}
-            Inactive
-        {% endif %}</td>
-          <td>
-              <form method="post" action="{% url 'restrict_jobs' %}" class="status-form">
-                  {% csrf_token %}
-                  <input type="hidden" name="job_id" value="{{ job.id }}">
-                  <input type="hidden" name="new_status" value="{% if job.is_active %}Active{% else %}Inactive{% endif %}">
-                  <button type="submit" class="btn {% if job.is_active %}btn-success{%else%}btn-warning{%endif%}">
-                    {% if job.is_active %}Deactivate{%else%}Activate{%endif%}
-                      
-                  </button>
-              </form>
-          </td>
-      </tr>
-      {% endfor %}
-   
-     
-     
-    </table>
-              
-              <!-- Popover Content -->
-              
-             
-              
-             
-              
-              
-             
-             
-
-            
+              <h2 style="text-align: center; color: black; font-size: 40px;">Header Creation</h2>
+                  <form action="" id="profile-form" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div>
+                        <label for="title">Header Title</label>
+                        {% render_field form.title class="form-control" id="id_title" %}
+                    </div>
+                    <div>
+                        <label for="company">Header Logo</label>
+                        {% render_field form.logo_img class="form-control" placeholder="Please Select image.." %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="name">NavMenu</label>
+                        {{ form.name.label_tag }}
+                        <div class="input-group">
+                            {% render_field form.name class="form-control" %}
+                            <button type="button" id="add-menu-btn" class="btn btn-outline-primary" aria-label="Add Menu Item">
+                                <i class="bi bi-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+                  </form>
+          </div>
       </section>
 
+      <div class="modal fade" id="menu-modal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="menuModalLabel">Add Menu Item</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="menu-form">
+                      {% csrf_token %}
+                        <div class="form-group">
+                            <label for="menu_name">Menu Item Name</label>
+                            <input type="text" class="form-control" id="menu_name" name="menu_name" required>
+                        </div>
+                       <div class="form-group">
+                          <label for="menu_url">Menu URL</label>
+                          <input type="url" class="form-control" id="menu_url" name="menu_url" required>
+                      </div> 
+                        <button type="submit" class="btn btn-primary">Add Menu Item</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        
+      </div>
+      <p><h5>check the menu list details</h5> <button class="button-24" role="button"><a href="{% url "menu_list" %}">Check Menu List</a></button></p>
+
+
+
+    
+    
+  
   </main>
-   
+    
+              
+  
   {% endblock main %}
   
   {% block footer %}
   <footer id="footer" class="footer">
   
-  </footer>
-  <!-- End Footer -->
+  
+  </footer><!-- End Footer -->
   {% endblock footer %}
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <!-- Vendor JS Files -->
 
   {% block script %}
   <script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
-  <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
-  <script src="{% static 'js/quill/quill.js'  %}"></script>
-  <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
-  <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-  <script src="{% static 'js/php-email-form/validate.js' %} "></script>
+    <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
+    <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+    <script src="{% static 'js/quill/quill.js'  %}"></script>
+    <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
+    <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+    <script src="{% static 'js/php-email-form/validate.js' %} "></script>
   
-<script src="{% static 'js/js/main.js' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <!-- Template Main JS File -->
+  <script src="{% static 'js/js/main.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+{% comment %} 
   <script>
     $(document).ready(function() {
-        
         $('#add-menu-btn').click(function() {
             $('#menu-modal').modal('show');
         });
-    
-        
+
+        $('#menu-form').submit(function(event) {
+            event.preventDefault();
+            var formData = $(this).serialize();
+
+            $.ajax({
+                type: 'POST',
+                url: '{% url "Menubar" %}', /
+                data: formData,
+                success: function(response) {
+                    $('#menu-modal').modal('hide');
+                    var menuName = response.name;
+                    var menuOption = '<option value="' + menuName + '">' + menuName + '</option>';
+                    $('#id_name').append(menuOption); 
+                },
+                error: function(xhr, status, error) {
+                    console.error("AJAX request failed: ", status, error);
+                }
+            });
+        });
+    });
+  </script> {% endcomment %}
+  <script>
+    $(document).ready(function() {
+        $('#add-menu-btn').click(function() {
+            $('#menu-modal').modal('show');
+        });
         $('#menu-form').submit(function(event) {
             event.preventDefault(); 
     
@@ -904,8 +928,8 @@ caption {
                 data: formData,
                 success: function(response) {
                     $('#menu-modal').modal('hide'); 
-                    var menuName = response.name; 
-                    var menuOption = '<option value="' + menuName + '">' + menuName + '</option>';
+                    var img_url = response.img_url;
+                    var menuOption = '<option value="' + img_url + '">' + img_url + '</option>';
                     $('#id_name').append(menuOption); 
                 },
                 error: function(xhr, status, error) {
@@ -916,6 +940,69 @@ caption {
     });
   </script>
     
+
+      
+  
+
+      <script>
+        $(document).ready(function() {
+            $('#profile-form').validate({
+                rules: {
+                    title: "required",
+                    logo_img: "required",
+                    
+                  
+                },
+                messages: {
+                  title: "Please enter title",
+                  logo_img: "please select logo",
+                    
+                },
+                submitHandler: function(form) {
+                    form.submit();
+                }
+            });
+    
+            
+        });
+    </script> 
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#profile-form').on('submit', function(event) {
+          event.preventDefault(); 
+
+          $.ajax({
+              type: 'POST',
+              url: $(this).attr('action'),
+              data: $(this).serialize(),
+              success: function(response) {
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Form Submitted',
+                      text: 'Your form has been submitted successfully!',
+                      confirmButtonText: 'OK'
+                  });
+              },
+              error: function(xhr, status, error) {
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Submission Error',
+                      text: 'There was an error submitting the form. Please try again.',
+                      confirmButtonText: 'OK'
+                  });
+              }
+          });
+      });
+  });
+</script>
+                 
+   
+                
+               
+          
+  
   
   {% endblock  %}
   

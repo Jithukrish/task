@@ -511,10 +511,186 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link collapsed"  href="">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+          <a class="nav-link collapsed" data-bs-target="#cms-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
+          <ul id="cms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a class="nav-link collapsed" data-bs-target="#nested-cms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-bar-chart"></i><span> CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              <ul id="nested-cms-nav" class="nav-content collapse" data-bs-parent="#cms-nav">
+                
+                <li>
+                  <a href="{% url "headersection" %}">
+                    <i class="bi bi-circle"></i><span>Header</span>
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="{% url "section_first" %}">
+                    <i class="bi bi-circle"></i><span>Section1</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "selected_jobs" pk=user.id %}">
+                    <i class="bi bi-circle"></i><span>Select Jobs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "about_us" %}">
+                    <i class="bi bi-circle"></i><span>About us </span>
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="{% url "all_comoany_logo"  %}">
+                    <i class="bi bi-circle"></i><span>Company Logo</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "feature_section_add" %}">
+                    <i class="bi bi-circle"></i><span>Feature Section</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "section_four" %}">
+                    <i class="bi bi-circle"></i><span>Section Four</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "section_five" %}">
+                    <i class="bi bi-circle"></i><span>Section Five</span>
+                  </a>
+                </li>
+                
+               
+                <li>
+                  <a href="{% url "all_service" %}">
+                    <i class="bi bi-circle"></i><span>Section Service</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "contact_section" %}">
+                    <i class="bi bi-circle"></i><span>Contact section</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "contact_section" %}">
+                    <i class="bi bi-circle"></i><span>Frequently Asked</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "social_media" %}">
+                    <i class="bi bi-circle"></i><span>Social media</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "social_media_list" %}">
+                    <i class="bi bi-circle"></i><span>Social media </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "admin_dash" %}">
+                    <i class="bi bi-circle"></i><span>Report</span>
+                  </a>
+                </li>
+                
+                <!-- Third-level nested item -->
+                <li>
+                  <a class="nav-link collapsed" data-bs-target="#deep-nested-cms-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+                  </a>
+                  <ul id="deep-nested-cms-nav" class="nav-content collapse" data-bs-parent="#nested-cms-nav">
+                    <li>
+                      <a href="{% url "headersection" %}">
+                        <i class="bi bi-circle"></i><span>Header</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="{% url "section_first" %}">
+                        <i class="bi bi-circle"></i><span>Section1</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "selected_jobs" pk=user.id %}">
+                        <i class="bi bi-circle"></i><span>Select Jobs</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "about_us" %}">
+                        <i class="bi bi-circle"></i><span>About us </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="{% url "all_comoany_logo"  %}">
+                        <i class="bi bi-circle"></i><span>Company Logo</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "feature_section_add" %}">
+                        <i class="bi bi-circle"></i><span>Feature Section</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "section_four" %}">
+                        <i class="bi bi-circle"></i><span>Section Four</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "section_five" %}">
+                        <i class="bi bi-circle"></i><span>Section Five</span>
+                      </a>
+                    </li>
+                    
+                   
+                    <li>
+                      <a href="{% url "all_service" %}">
+                        <i class="bi bi-circle"></i><span>Section Service</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "contact_section" %}">
+                        <i class="bi bi-circle"></i><span>Contact section</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "contact_section" %}">
+                        <i class="bi bi-circle"></i><span>Frequently Asked</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "social_media" %}">
+                        <i class="bi bi-circle"></i><span>Social media</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "social_media_list" %}">
+                        <i class="bi bi-circle"></i><span>Social media </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "admin_dash" %}">
+                        <i class="bi bi-circle"></i><span>Report</span>
+                      </a>
+                    </li> 
+                   
+                  </ul>
+                </li>
+              </ul>
+            </li>
+    
+            <!-- More first-level items -->
+            <li>
+              <a href="{% url 'section_five' %}">
+                <i class="bi bi-circle"></i><span>Section Five</span>
+              </a>
+            </li>
+          </ul>
         </li>
+    
   
        
     
@@ -758,6 +934,9 @@
 			{% endfor %}
 		</tbody>
 	</table>
+   <p>Go Back header   <button class="btn btn-primary btn-lg"><a href="{% url "headersection" %}">Haeder</a></button>
+   </p>
+
 </div>
                  
               
@@ -906,55 +1085,60 @@
    });
   
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
   <script>
-    $(document).ready(function(){
-        $('.delete-social').on('click', function(){
-            var pk = $(this).data('id');
-            var csrftoken = '{{ csrf_token }}'; 
-            console.log("Primary Key:", pk);  
+      $(document).ready(function(){
+          var csrftoken = '{{ csrf_token }}';
+          $('.delete-social').on('click', function(){
+              var pk = $(this).data('id');
+              console.log("Primary Key:", pk);  
               if (!pk) {
                   console.error('Primary key not found!');
                   return;
               }
+  
+              Swal.fire({
+                  title: 'Are you sure?',
+                  text: "Do you want to delete this social media?",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      $.ajax({
+                          type: 'POST',
+                          url: '/admincontrol/menu_list_delete/' + pk + '/',
+                          data: {
+                              'csrfmiddlewaretoken': csrftoken
+                          },
+                          success: function(response) {
+                              Swal.fire(
+                                  'Deleted!',
+                                  response.message,
+                                  'success'
+                              ).then(() => {
+                                  location.reload(); 
+                              });
+                          },
+                          error: function(response) {
+                              Swal.fire(
+                                  'Error!',
+                                  'An error occurred while deleting.',
+                                  'error'
+                              );
+                          }
+                      });
+                  }
+              });
+          });
+      });
+  </script>
+  
+  
 
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "Do you want to delete this social media?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        type: 'POST',
-                        url: '/menu_list_delete/' + pk + '/',
-                        data: {
-                            'csrfmiddlewaretoken': csrftoken
-                        },
-                        success: function(response) {
-                            Swal.fire(
-                                'Deleted!',
-                                response.message,
-                                'success'
-                            ).then(() => {
-                                location.reload(); 
-                            });
-                        },
-                        error: function(response) {
-                            Swal.fire(
-                                'Error!',
-                                'An error occurred while deleting.',
-                                'error'
-                            );
-                        }
-                    });
-                }
-            });
-        });
-    });
-</script>
   {% endblock  %}
   
 

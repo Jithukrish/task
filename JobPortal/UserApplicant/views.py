@@ -115,7 +115,7 @@ class IndexView(ListView):
                     'ad_icon3':contactpart.mail_main.ad_icon ,
 
                 }
-            frequently = Frequently_asked.objects.order_by('-updated_at')
+            frequently = Frequently_asked.objects.order_by('-updated_at').distinct()
             if frequently.exists():
                 context['frequently'] = frequently
                 

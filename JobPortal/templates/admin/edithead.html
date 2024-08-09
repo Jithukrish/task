@@ -16,14 +16,20 @@
   {% endif %}
   {% endblock %}
   
+  
+  
+ 
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <!-- Favicons -->
   <link href="{% static 'img/img/favicon.png' %}" rel="icon">
   <link href="{% static 'img/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
+  <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  {% comment %} <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- Vendor CSS Files -->
   <link href="{% static 'css/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -39,58 +45,148 @@
 
 {% block style %}
 <style>
-
-
-
-.section.profile {
-    padding: 20px;
-    background-color: #f8f9fa; 
-}
-
-.ever {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.alert-success {
-    background-color: #d4edda; 
-    border-color: #c3e6cb; 
-    color: #155724;
-}
-table {
-  border-collapse: collapse;
-  border: 2px solid rgb(200,200,200);
-  letter-spacing: 1px;
-  font-size: 0.8rem;
-}
-
-td, th {
-  border: 1px solid rgb(190,190,190);
-  padding: 10px 20px;
-}
-
-th {
-  background-color: rgb(235,235,235);
-}
-
-td {
-  text-align: center;
-}
-
-tr:nth-child(even) td {
-  background-color: rgb(250,250,250);
-}
-
-tr:nth-child(odd) td {
-  background-color: rgb(245,245,245);
-}
-
-caption {
-  padding: 10px;
-}
-
-  
-
+    .container {
+        width: 100%;
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    
+    /* Responsive Table Style */
+    .responsive-table {
+        background-color: $table-bg-color;
+        border-collapse: collapse;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.02);
+        width: 100%;
+        margin: 2rem 0;
+        overflow: hidden;
+        &__row {
+            display: grid;
+            border-bottom: 1px solid $table-border-color;
+            padding: 0 1.5rem;
+            @include min-tablet {
+                grid-template-columns: 2fr 1fr 2fr 2fr 1fr;
+            }
+            @include tablet-to-desktop {
+                grid-template-columns: 1fr 2fr 1fr;
+            }
+            th,
+            td {
+                padding: 1rem;
+            }
+        }
+        &__head {
+            background-color: $table-head-bg-color;
+            @include desktop {
+                display: none;
+            }
+            &__title {
+                display: flex;
+                align-items: center;
+                font-weight: 500;
+                text-transform: capitalize;
+            }
+        }
+        &__body {
+            .responsive-table__row {
+                transition: 0.1s linear;
+                transition-property: color, background;
+                &:last-child {
+                    border-bottom: none;
+                }
+                &:hover {
+                    color: $hover-text-color;
+                    background-color: $hover-bg-color;
+                }
+            }
+            &__text {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                &::before {
+                    margin-right: 1rem;
+                    font-weight: 600;
+                    text-transform: capitalize;
+                }
+                @include desktop {
+                    &::before {
+                        content: attr(data-title) " :";
+                    }
+                }
+                @include mobile-xxs {
+                    &::before {
+                        width: 100%;
+                        margin-bottom: 1rem;
+                    }
+                }
+                &--name {
+                    font-weight: 600;
+                    @include min-tablet {
+                        &::before {
+                            display: none;
+                        }
+                    }
+                    @include tablet-to-desktop {
+                        grid-column: 1 / 2;
+                        flex-direction: column;
+                    }
+                }
+                &--status,
+                &--types,
+                &--update {
+                    @include tablet-to-desktop {
+                        grid-column: 2/ 3;
+                    }
+                }
+                &--country {
+                    @include tablet-to-desktop {
+                        grid-column: 3/ -1;
+                    }
+                }
+                &--name,
+                &--country {
+                    @include tablet-to-desktop {
+                        grid-row: 2;
+                    }
+                }
+            }
+        }
+    }
+    
+    /* SVG Up Arrow Style */
+    .up-arrow {
+        height: 100%;
+        max-height: 1.8rem;
+        margin-left: 1rem;
+    }
+    
+    /* SVG User Icon Style */
+    .user-icon {
+        width: 100%;
+        max-width: 4rem;
+        height: auto;
+        margin-right: 1rem;
+    }
+    
+    /* Status Indicator Style */
+    .status-indicator {
+        display: inline-block;
+        width: 1.8rem;
+        height: 1.8rem;
+        border-radius: 50%;
+        background: #222222;
+        margin-right: 0.5rem;
+        &--active {
+            background: $active-color;
+        }
+        &--inactive {
+            background: $inactive-color;
+        }
+        &--new {
+            background: $new-color;
+        }
+    }
 </style>
 {% endblock  %}
   
@@ -114,10 +210,9 @@ caption {
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
         
-        <!-- Search Area start -->
+    <!-- Search Area start -->
             {% block search %}
-            {% endblock search %} 
-            <!-- Search Area end -->
+            {% endblock search %} <!-- Search Area end -->
 
         <!-- navbar start -->
             <nav class="header-nav ms-auto">
@@ -784,6 +879,7 @@ caption {
       <section class="section profile">
           <div class="ever">
 
+<!---------------------------------------message part---------------------------------------------->
             {% for message in messages %}
                 {% if "update_company" in message.tags %}
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -798,125 +894,249 @@ caption {
                     </div>
                 {% endif %}
             {% endfor %}
+<!---------------------------------------message part end ---------------------------------------------->
 
-              <h2 style="text-align: center; color: black; font-size: 40px;">Selected Jobs</h2>
-            
-<table>
-      
-      <tr>
-        <th>Job Title</th>
-        <th>Job type</th>
-        <th>Loaction</th>
-        <th>Salary</th>
-        <th>Active /inactive</th>
-        <th>Change status</th>
-      </tr>
-      
-      {% for job in jobs %}
-      <tr>
-          <td>{{ job.title }}</td>
-          <td>{{ job.job_type}}</td>  
-          <td>{{ job.location }}</td>
-          <td>{{ job.salary }}</td>
-          <td>{% if job.is_active %}
-            Active
-        {% else %}
-            Inactive
-        {% endif %}</td>
-          <td>
-              <form method="post" action="{% url 'restrict_jobs' %}" class="status-form">
-                  {% csrf_token %}
-                  <input type="hidden" name="job_id" value="{{ job.id }}">
-                  <input type="hidden" name="new_status" value="{% if job.is_active %}Active{% else %}Inactive{% endif %}">
-                  <button type="submit" class="btn {% if job.is_active %}btn-success{%else%}btn-warning{%endif%}">
-                    {% if job.is_active %}Deactivate{%else%}Activate{%endif%}
-                      
-                  </button>
-              </form>
-          </td>
-      </tr>
-      {% endfor %}
-   
-     
-     
-    </table>
+              <h2 style="text-align: center; color: black; font-size: 40px;">Menu Section</h2>
               
-              <!-- Popover Content -->
-              
-             
-              
-             
-              
-              
-             
-             
 
+<!-- Page wrapper/Container Section -->
+
+<div class="container">
+	<table class="responsive-table">
+		<thead class="responsive-table__head">
+			<tr class="responsive-table__row">
+				<th class="responsive-table__head__title responsive-table__head__title--name">Name
+					<svg version="1.1" class="up-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+						<path d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285    c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z" />
+					</svg>
+				</th>
+				<th class="responsive-table__head__title responsive-table__head__title--status">Url</th>
+				<th class="responsive-table__head__title responsive-table__head__title--status">Edit</th>
+				<th class="responsive-table__head__title responsive-table__head__title--status">Delete</th>
+				
+			</tr>
+		</thead>
+		<tbody class="responsive-table__body">
+      {% for check in menu %}
+			<tr class="responsive-table__row">
+				<td class="responsive-table__body__text responsive-table__body__text--name">
+					
+					{{check.name}}
+				</td>
+
+				<td class="responsive-table__body__text responsive-table__body__text--country">{{check.title}}</td>
+				<td class="responsive-table__body__text responsive-table__body__text--country">{{check.logo_img}}</td>
+				<td class="responsive-table__body__text responsive-table__body__text--country"><button class="btn btn-primary btn-lg"><a href="{% url "header_edit" pk=check.pk %}">Edit</a></button></td>
+				<td class="responsive-table__body__text responsive-table__body__text--country"> <button class="delete-social btn btn-danger btn-lg" data-id="{{ check.pk }}">
+          <span class="glyphicon glyphicon-trash"></span> Delete
+              </button>  
+            </td>
+      </tr>
+			{% endfor %}
+		</tbody>
+	</table>
+   <p>Go Back header   <button class="btn btn-primary btn-lg"><a href="{% url "headersection" %}">Haeder</a></button>
+   </p>
+
+</div>
+                 
+              
             
+          </div>
       </section>
 
+     
+     
+     
+    
+    
+      
+    
+    
+  
   </main>
-   
+    
+              
+  
   {% endblock main %}
   
   {% block footer %}
   <footer id="footer" class="footer">
   
-  </footer>
-  <!-- End Footer -->
+  
+  </footer><!-- End Footer -->
   {% endblock footer %}
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <!-- Vendor JS Files -->
 
   {% block script %}
-  <script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
-  <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
-  <script src="{% static 'js/quill/quill.js'  %}"></script>
-  <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
-  <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-  <script src="{% static 'js/php-email-form/validate.js' %} "></script>
-  
-<script src="{% static 'js/js/main.js' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
+<script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'js/quill/quill.js'  %}"></script>
+<script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
+<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'js/php-email-form/validate.js' %} "></script>
 
+    <!-- Template Main JS File -->
+<script src="{% static 'js/js/main.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script>
     $(document).ready(function() {
-        
-        $('#add-menu-btn').click(function() {
-            $('#menu-modal').modal('show');
-        });
-    
-        
-        $('#menu-form').submit(function(event) {
-            event.preventDefault(); 
-    
-            var formData = $(this).serialize();
-    
-            $.ajax({
-                type: 'POST',
-                url: '{% url "Menubar" %}', 
-                data: formData,
-                success: function(response) {
-                    $('#menu-modal').modal('hide'); 
-                    var menuName = response.name; 
-                    var menuOption = '<option value="' + menuName + '">' + menuName + '</option>';
-                    $('#id_name').append(menuOption); 
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX request failed: ", status, error);
+      $('#add-menu-btn1').click(function() {
+          $('#menu-modal1').modal('show');
+      });
+  
+      $('#menu-form1').submit(function(event) {
+          event.preventDefault();
+  
+          var formData = $(this).serialize();
+          var csrfToken = $('[name="csrfmiddlewaretoken"]').val();
+  
+          $.ajax({
+              type: 'POST',
+              url: '{% url "address_section" %}', 
+              data: formData,
+              beforeSend: function(xhr) {
+                  xhr.setRequestHeader("X-CSRFToken", csrfToken);
+              },
+              success: function(response) {
+                  $('#menu-modal1').modal('hide'); 
+                  var title = response.title;
+                  var newOption = '<option value="' + title + '">' + title + '</option>';
+                  $('#id_address_contact').append(newOption); 
+              },
+              error: function(xhr, status, error) {
+                  console.error("AJAX request failed: ", status, error);
+                  console.log("Response Text: ", xhr.responseText);
+              }
+          });
+      });
+   });
+  
+  </>
+  <script>
+    $(document).ready(function() {
+      $('#add-menu-btn2').click(function() {
+          $('#menu-modal2').modal('show');
+      });
+  
+      $('#menu-form2').submit(function(event) {
+          event.preventDefault();
+  
+          var formData = $(this).serialize();
+          var csrfToken = $('[name="csrfmiddlewaretoken"]').val();
+  
+          $.ajax({
+              type: 'POST',
+              url: '{% url "contact_contact" %}', 
+              data: formData,
+              beforeSend: function(xhr) {
+                  xhr.setRequestHeader("X-CSRFToken", csrfToken);
+              },
+              success: function(response) {
+                  $('#menu-modal2').modal('hide'); 
+                  var title = response.title;
+                  var newOption = '<option value="' + title + '">' + title + '</option>';
+                  $('#id_contact_contact').append(newOption); 
+              },
+              error: function(xhr, status, error) {
+                  console.error("AJAX request failed: ", status, error);
+                  console.log("Response Text: ", xhr.responseText);
+              }
+          });
+      });
+   });
+  
+  </script>
+  <script>
+    $(document).ready(function() {
+      $('#add-menu-btn3').click(function() {
+          $('#menu-modal3').modal('show');
+      });
+  
+      $('#menu-form3').submit(function(event) {
+          event.preventDefault();
+  
+          var formData = $(this).serialize();
+          var csrfToken = $('[name="csrfmiddlewaretoken"]').val();
+  
+          $.ajax({
+              type: 'POST',
+              url: '{% url "mail_section" %}', 
+              data: formData,
+              beforeSend: function(xhr) {
+                  xhr.setRequestHeader("X-CSRFToken", csrfToken);
+              },
+              success: function(response) {
+                  $('#menu-modal3').modal('hide'); 
+                  var title = response.title;
+                  var newOption = '<option value="' + title + '">' + title + '</option>';
+                  $('#id_mail_section').append(newOption); 
+              },
+              error: function(xhr, status, error) {
+                  console.error("AJAX request failed: ", status, error);
+                  console.log("Response Text: ", xhr.responseText);
+              }
+          });
+      });
+   });
+  
+  </script>
+  <script>
+    $(document).ready(function(){
+        $('.delete-social').on('click', function(){
+            var pk = $(this).data('id');
+            var csrftoken = '{{ csrf_token }}'; 
+            console.log("Primary Key:", pk);  
+              if (!pk) {
+                  console.error('Primary key not found!');
+                  return;
+              }
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "Do you want to delete this social media?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: '/menu_list_delete/' + pk + '/',
+                        data: {
+                            'csrfmiddlewaretoken': csrftoken
+                        },
+                        success: function(response) {
+                            Swal.fire(
+                                'Deleted!',
+                                response.message,
+                                'success'
+                            ).then(() => {
+                                location.reload(); 
+                            });
+                        },
+                        error: function(response) {
+                            Swal.fire(
+                                'Error!',
+                                'An error occurred while deleting.',
+                                'error'
+                            );
+                        }
+                    });
                 }
             });
         });
     });
-  </script>
-    
-  
+</script>
   {% endblock  %}
   
 

@@ -553,10 +553,186 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="">
-          <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+        <a class="nav-link collapsed" data-bs-target="#cms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="cms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="nav-link collapsed" data-bs-target="#nested-cms-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-bar-chart"></i><span> CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="nested-cms-nav" class="nav-content collapse" data-bs-parent="#cms-nav">
+              
+              <li>
+                <a href="{% url "headersection" %}">
+                  <i class="bi bi-circle"></i><span>Header</span>
+                </a>
+              </li>
+              
+              <li>
+                <a href="{% url "section_first" %}">
+                  <i class="bi bi-circle"></i><span>Section1</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "selected_jobs" pk=user.id %}">
+                  <i class="bi bi-circle"></i><span>Select Jobs</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "about_us" %}">
+                  <i class="bi bi-circle"></i><span>About us </span>
+                </a>
+              </li>
+              
+              <li>
+                <a href="{% url "all_comoany_logo"  %}">
+                  <i class="bi bi-circle"></i><span>Company Logo</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "feature_section_add" %}">
+                  <i class="bi bi-circle"></i><span>Feature Section</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "section_four" %}">
+                  <i class="bi bi-circle"></i><span>Section Four</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "section_five" %}">
+                  <i class="bi bi-circle"></i><span>Section Five</span>
+                </a>
+              </li>
+              
+             
+              <li>
+                <a href="{% url "all_service" %}">
+                  <i class="bi bi-circle"></i><span>Section Service</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "contact_section" %}">
+                  <i class="bi bi-circle"></i><span>Contact section</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "contact_section" %}">
+                  <i class="bi bi-circle"></i><span>Frequently Asked</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "social_media" %}">
+                  <i class="bi bi-circle"></i><span>Social media</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "social_media_list" %}">
+                  <i class="bi bi-circle"></i><span>Social media </span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "admin_dash" %}">
+                  <i class="bi bi-circle"></i><span>Report</span>
+                </a>
+              </li>
+              
+              <!-- Third-level nested item -->
+              <li>
+                <a class="nav-link collapsed" data-bs-target="#deep-nested-cms-nav" data-bs-toggle="collapse" href="#">
+                  <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="deep-nested-cms-nav" class="nav-content collapse" data-bs-parent="#nested-cms-nav">
+                  <li>
+                    <a href="{% url "headersection" %}">
+                      <i class="bi bi-circle"></i><span>Header</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="{% url "section_first" %}">
+                      <i class="bi bi-circle"></i><span>Section1</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "selected_jobs" pk=user.id %}">
+                      <i class="bi bi-circle"></i><span>Select Jobs</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "about_us" %}">
+                      <i class="bi bi-circle"></i><span>About us </span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="{% url "all_comoany_logo"  %}">
+                      <i class="bi bi-circle"></i><span>Company Logo</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "feature_section_add" %}">
+                      <i class="bi bi-circle"></i><span>Feature Section</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "section_four" %}">
+                      <i class="bi bi-circle"></i><span>Section Four</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "section_five" %}">
+                      <i class="bi bi-circle"></i><span>Section Five</span>
+                    </a>
+                  </li>
+                  
+                 
+                  <li>
+                    <a href="{% url "all_service" %}">
+                      <i class="bi bi-circle"></i><span>Section Service</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "contact_section" %}">
+                      <i class="bi bi-circle"></i><span>Contact section</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "contact_section" %}">
+                      <i class="bi bi-circle"></i><span>Frequently Asked</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "social_media" %}">
+                      <i class="bi bi-circle"></i><span>Social media</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "social_media_list" %}">
+                      <i class="bi bi-circle"></i><span>Social media </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "admin_dash" %}">
+                      <i class="bi bi-circle"></i><span>Report</span>
+                    </a>
+                  </li> 
+                 
+                </ul>
+              </li>
+            </ul>
+          </li>
+  
+          <!-- More first-level items -->
+          <li>
+            <a href="{% url 'section_five' %}">
+              <i class="bi bi-circle"></i><span>Section Five</span>
+            </a>
+          </li>
+        </ul>
       </li>
+  
 
      
   

@@ -29,7 +29,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-  {% comment %} <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- Vendor CSS Files -->
   <link href="{% static 'css/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -45,41 +45,12 @@
 
 {% block style %}
 <style>
-  .button-24 {
-    background: #1da701;
-    border: 1px solid #00a108;
-    border-radius: 6px;
-    box-shadow: rgba(7, 3, 209, 0.1) 1px 2px 4px;
-    box-sizing: border-box;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: inline-block;
-    font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
-    font-size: 16px;
-    font-weight: 800;
-    line-height: 16px;
-    min-height: 40px;
-    outline: 0;
-    padding: 12px 14px;
-    text-align: center;
-    text-rendering: geometricprecision;
-    text-transform: none;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: middle;
-  }
   
-  .button-24:hover,
-  .button-24:active {
-    background-color: initial;
-    background-position: 0 0;
-    color: #FF4742;
-  }
   
-  .button-24:active {
-    opacity: .5;
-  }
+  
+  
+ 
+     
 </style>
 {% endblock  %}
   
@@ -404,10 +375,186 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link collapsed"  href="">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+          <a class="nav-link collapsed" data-bs-target="#cms-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
+          <ul id="cms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+            <li>
+              <a class="nav-link collapsed" data-bs-target="#nested-cms-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-bar-chart"></i><span> CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+              </a>
+              <ul id="nested-cms-nav" class="nav-content collapse" data-bs-parent="#cms-nav">
+                
+                <li>
+                  <a href="{% url "headersection" %}">
+                    <i class="bi bi-circle"></i><span>Header</span>
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="{% url "section_first" %}">
+                    <i class="bi bi-circle"></i><span>Section1</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "selected_jobs" pk=user.id %}">
+                    <i class="bi bi-circle"></i><span>Select Jobs</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "about_us" %}">
+                    <i class="bi bi-circle"></i><span>About us </span>
+                  </a>
+                </li>
+                
+                <li>
+                  <a href="{% url "all_comoany_logo"  %}">
+                    <i class="bi bi-circle"></i><span>Company Logo</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "feature_section_add" %}">
+                    <i class="bi bi-circle"></i><span>Feature Section</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "section_four" %}">
+                    <i class="bi bi-circle"></i><span>Section Four</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "section_five" %}">
+                    <i class="bi bi-circle"></i><span>Section Five</span>
+                  </a>
+                </li>
+                
+               
+                <li>
+                  <a href="{% url "all_service" %}">
+                    <i class="bi bi-circle"></i><span>Section Service</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "contact_section" %}">
+                    <i class="bi bi-circle"></i><span>Contact section</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "contact_section" %}">
+                    <i class="bi bi-circle"></i><span>Frequently Asked</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "social_media" %}">
+                    <i class="bi bi-circle"></i><span>Social media</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "social_media_list" %}">
+                    <i class="bi bi-circle"></i><span>Social media </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{% url "admin_dash" %}">
+                    <i class="bi bi-circle"></i><span>Report</span>
+                  </a>
+                </li>
+                
+                <!-- Third-level nested item -->
+                <li>
+                  <a class="nav-link collapsed" data-bs-target="#deep-nested-cms-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+                  </a>
+                  <ul id="deep-nested-cms-nav" class="nav-content collapse" data-bs-parent="#nested-cms-nav">
+                    <li>
+                      <a href="{% url "headersection" %}">
+                        <i class="bi bi-circle"></i><span>Header</span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="{% url "section_first" %}">
+                        <i class="bi bi-circle"></i><span>Section1</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "selected_jobs" pk=user.id %}">
+                        <i class="bi bi-circle"></i><span>Select Jobs</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "about_us" %}">
+                        <i class="bi bi-circle"></i><span>About us </span>
+                      </a>
+                    </li>
+                    
+                    <li>
+                      <a href="{% url "all_comoany_logo"  %}">
+                        <i class="bi bi-circle"></i><span>Company Logo</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "feature_section_add" %}">
+                        <i class="bi bi-circle"></i><span>Feature Section</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "section_four" %}">
+                        <i class="bi bi-circle"></i><span>Section Four</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "section_five" %}">
+                        <i class="bi bi-circle"></i><span>Section Five</span>
+                      </a>
+                    </li>
+                    
+                   
+                    <li>
+                      <a href="{% url "all_service" %}">
+                        <i class="bi bi-circle"></i><span>Section Service</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "contact_section" %}">
+                        <i class="bi bi-circle"></i><span>Contact section</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "contact_section" %}">
+                        <i class="bi bi-circle"></i><span>Frequently Asked</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "social_media" %}">
+                        <i class="bi bi-circle"></i><span>Social media</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "social_media_list" %}">
+                        <i class="bi bi-circle"></i><span>Social media </span>
+                      </a>
+                    </li>
+                    <li>
+                      <a href="{% url "admin_dash" %}">
+                        <i class="bi bi-circle"></i><span>Report</span>
+                      </a>
+                    </li> 
+                   
+                  </ul>
+                </li>
+              </ul>
+            </li>
+    
+            <!-- More first-level items -->
+            <li>
+              <a href="{% url 'section_five' %}">
+                <i class="bi bi-circle"></i><span>Section Five</span>
+              </a>
+            </li>
+          </ul>
         </li>
+    
   
        
     
@@ -622,7 +769,7 @@
                     </div>
                     <div>
                         <label for="company">Header Logo</label>
-                        {% render_field form.logo_img class="form-control" placeholder="Please Select image.." %}
+                        {% render_field form.logo_img class="form-control" id="id_logo" placeholder="Please Select image.." %}
                     </div>
                     <div class="mb-3">
                         <label for="name">NavMenu</label>
@@ -667,7 +814,13 @@
         </div>
         
       </div>
-      <p><h5>check the menu list details</h5> <button class="button-24" role="button"><a href="{% url "menu_list" %}">Check Menu List</a></button></p>
+
+   
+ 
+    
+      <p> check menu list <a class="btn btn-primary" href="{% url "menu_list" %}">Check Menu List</a></p>
+      <p>Go Back header perss here<a  class="btn btn-primary" href="{% url 'header_list'  %}">Header</a>
+
 
 
 
@@ -708,6 +861,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 {% comment %} 
   <script>
     $(document).ready(function() {
@@ -763,102 +917,67 @@
         });
     });
   </script>
-    
-  
-      {% comment %} <script>
-          $(document).ready(function() {
-              $('#add-education-btn').click(function() {
-                  $('#education-modal').modal('show');
-              });
-          
-              $('#education-form').submit(function(event) {
-                  event.preventDefault();
-                  var formData = $(this).serialize();
-          
-                  $.ajax({
-                      type: 'POST',
-                      url: '{% url "Menubar" %}', 
-                      data: formData,
-                      success: function(response) {
-                          $('#education-modal').modal('hide');
-                          var educationName = response.name;
-                          var educationOption = '<option value="' + educationName + '">' + educationName + '</option>';
-                          $('#id_education').append(educationOption);  
-                      },
-                      error: function(error) {
-                          console.log(error);
-                      }
-                  });
-              });
-          });
-      </script> {% endcomment %}
-  
-      
-  
-{% comment %}           
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
   <script>
-      $(document).ready(function() {
-          $('#add-salary-btn').click(function() {
-              $('#add-salary-modal').modal('show');
-          });
-      
-          $('#add-salary-form').submit(function(event) {
-              event.preventDefault();
-              var formData = $(this).serialize();
-      
-              $.ajax({
-                  type: 'POST',
-                  url: '{% url "add_salary_range" %}', 
-                  data: formData,
-                  success: function(response) {
-                      $('#add-salary-modal').modal('hide');
-                      console.log(response);
-  
-                      if (response.success) {
-                          var salaryRange = response.salary_range;
-                          var newOption = $('<option></option>').val(salaryRange).text(salaryRange);
-                          $('#id_salary').append(newOption);
-                          $('#id_salary').val(salaryRange); 
-                      } else {
-                          console.log(response.error);
-                      }
-                  },
-                  error: function(xhr, textStatus, errorThrown) {
-                      console.log(xhr.responseText);
-                  }
-              });
-          });
-      });
-  </script> {% endcomment %}
-  {% comment %} <script>
+    $(document).ready(function() {
+        $('#profile-form').validate({
+            rules: {
+                title: "required",
+                logo_img: "required",
+                
+              
+            },
+            messages: {
+              title: "Please enter title",
+              logo_img: "please select logo",
+                
+            },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
+
+        
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script>
   $(document).ready(function() {
-      $('#add-skill-btn').click(function() {
-          $('#add-skill-modal').modal('show');
-      });
-  
-      $('#add-skill-form').submit(function(event) {
-          event.preventDefault();
-          var formData = $(this).serialize();
-  
+      $('#profile-form').on('submit', function(event) {
+          event.preventDefault(); 
+
           $.ajax({
               type: 'POST',
-              url: '{% url "add_skill" %}', 
-              data: formData,
+              url: $(this).attr('action'),
+              data: $(this).serialize(),
               success: function(response) {
-                  $('#add-skill-modal').modal('hide');
-                  var skillName = response.name;
-                  var skillOption = '<option value="' + skillName + '" selected>' + skillName + '</option>';
-                  $('#id_skills').append(skillOption); 
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Form Submitted',
+                      text: 'Your form has been submitted successfully!',
+                      confirmButtonText: 'OK'
+                  });
               },
-              error: function(xhr, textStatus, errorThrown) {
-                  console.log(xhr.responseText);
+              error: function(xhr, status, error) {
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Submission Error',
+                      text: 'There was an error submitting the form. Please try again.',
+                      confirmButtonText: 'OK'
+                  });
               }
           });
       });
   });
+</script>
+    
   
-  </script>    {% endcomment %}
-         
+
+
                  
    
                 

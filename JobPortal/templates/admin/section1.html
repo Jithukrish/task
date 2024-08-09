@@ -22,7 +22,7 @@
 
   <link href="{% static 'img/img/favicon.png' %}" rel="icon">
   <link href="{% static 'img/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
-
+  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -357,10 +357,186 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="">
-          <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+        <a class="nav-link collapsed" data-bs-target="#cms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="cms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+          <li>
+            <a class="nav-link collapsed" data-bs-target="#nested-cms-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-bar-chart"></i><span> CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="nested-cms-nav" class="nav-content collapse" data-bs-parent="#cms-nav">
+              
+              <li>
+                <a href="{% url "headersection" %}">
+                  <i class="bi bi-circle"></i><span>Header</span>
+                </a>
+              </li>
+              
+              <li>
+                <a href="{% url "section_first" %}">
+                  <i class="bi bi-circle"></i><span>Section1</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "selected_jobs" pk=user.id %}">
+                  <i class="bi bi-circle"></i><span>Select Jobs</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "about_us" %}">
+                  <i class="bi bi-circle"></i><span>About us </span>
+                </a>
+              </li>
+              
+              <li>
+                <a href="{% url "all_comoany_logo"  %}">
+                  <i class="bi bi-circle"></i><span>Company Logo</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "feature_section_add" %}">
+                  <i class="bi bi-circle"></i><span>Feature Section</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "section_four" %}">
+                  <i class="bi bi-circle"></i><span>Section Four</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "section_five" %}">
+                  <i class="bi bi-circle"></i><span>Section Five</span>
+                </a>
+              </li>
+              
+             
+              <li>
+                <a href="{% url "all_service" %}">
+                  <i class="bi bi-circle"></i><span>Section Service</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "contact_section" %}">
+                  <i class="bi bi-circle"></i><span>Contact section</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "contact_section" %}">
+                  <i class="bi bi-circle"></i><span>Frequently Asked</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "social_media" %}">
+                  <i class="bi bi-circle"></i><span>Social media</span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "social_media_list" %}">
+                  <i class="bi bi-circle"></i><span>Social media </span>
+                </a>
+              </li>
+              <li>
+                <a href="{% url "admin_dash" %}">
+                  <i class="bi bi-circle"></i><span>Report</span>
+                </a>
+              </li>
+              
+              <!-- Third-level nested item -->
+              <li>
+                <a class="nav-link collapsed" data-bs-target="#deep-nested-cms-nav" data-bs-toggle="collapse" href="#">
+                  <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="deep-nested-cms-nav" class="nav-content collapse" data-bs-parent="#nested-cms-nav">
+                  <li>
+                    <a href="{% url "headersection" %}">
+                      <i class="bi bi-circle"></i><span>Header</span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="{% url "section_first" %}">
+                      <i class="bi bi-circle"></i><span>Section1</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "selected_jobs" pk=user.id %}">
+                      <i class="bi bi-circle"></i><span>Select Jobs</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "about_us" %}">
+                      <i class="bi bi-circle"></i><span>About us </span>
+                    </a>
+                  </li>
+                  
+                  <li>
+                    <a href="{% url "all_comoany_logo"  %}">
+                      <i class="bi bi-circle"></i><span>Company Logo</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "feature_section_add" %}">
+                      <i class="bi bi-circle"></i><span>Feature Section</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "section_four" %}">
+                      <i class="bi bi-circle"></i><span>Section Four</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "section_five" %}">
+                      <i class="bi bi-circle"></i><span>Section Five</span>
+                    </a>
+                  </li>
+                  
+                 
+                  <li>
+                    <a href="{% url "all_service" %}">
+                      <i class="bi bi-circle"></i><span>Section Service</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "contact_section" %}">
+                      <i class="bi bi-circle"></i><span>Contact section</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "contact_section" %}">
+                      <i class="bi bi-circle"></i><span>Frequently Asked</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "social_media" %}">
+                      <i class="bi bi-circle"></i><span>Social media</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "social_media_list" %}">
+                      <i class="bi bi-circle"></i><span>Social media </span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{% url "admin_dash" %}">
+                      <i class="bi bi-circle"></i><span>Report</span>
+                    </a>
+                  </li> 
+                 
+                </ul>
+              </li>
+            </ul>
+          </li>
+  
+          <!-- More first-level items -->
+          <li>
+            <a href="{% url 'section_five' %}">
+              <i class="bi bi-circle"></i><span>Section Five</span>
+            </a>
+          </li>
+        </ul>
       </li>
+  
 
      
   
@@ -568,29 +744,7 @@
 <!---------------------------------------message part end --------------------------------- ------------->
 
               <h2 style="text-align: center; color: black; font-size: 40px;">Section first</h2>
-                  {% comment %} <form action="" id="profile-form" method="POST" class="needs-validation"  enctype="multipart/form-data" novalidate>
-                      {% csrf_token %}
-                      <div>
-                          <label for="title">Header Title</label>
-                          {% render_field form.title class="form-control" id="id_title" %}
-                      </div>
-                      <div>
-                          <label for="company">Header Logo </label>
-                          {% render_field form.logo_img class="form-control" placeholder="Please Select image.." %}
-                      </div>
-                      <div class="mb-3">
-                        <label for="name">NavMenu</label>
-                        {{ form.name.label_tag }}
-                        <div class="input-group">
-                            {% render_field form.name class="form-control" %}
-                            <button type="button" id="add-menu-btn" class="btn btn-outline-primary" aria-label="Add Menu Item">
-                                <i class="bi bi-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                      
-                      <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
-                  </form> {% endcomment %}
+          
                   <form action="" id="profile-form" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
                     {% csrf_token %}
                     <div>
@@ -642,14 +796,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    
-    
-  
+      </div>
   </main>
-    
-              
-  
   {% endblock main %}
   
   {% block footer %}
@@ -712,6 +860,58 @@
     });
   </script>
     
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+  <script>
+      $(document).ready(function() {
+          $('#profile-form').validate({
+              rules: {
+                img: "required",
+                description:"required",
+              },
+              messages: {
+                img: "please upload image",
+                description:"please add description",
+              },
+              submitHandler: function(form) {
+                  form.submit();
+              }
+          });
+  
+          
+      });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
+<script>
+  $(document).ready(function() {
+      $('#profile-form').on('submit', function(event) {
+          event.preventDefault(); 
+
+          $.ajax({
+              type: 'POST',
+              url: $(this).attr('action'),
+              data: $(this).serialize(),
+              success: function(response) {
+                  Swal.fire({
+                      icon: 'success',
+                      title: 'Form Submitted',
+                      text: 'Your form has been submitted successfully!',
+                      confirmButtonText: 'OK'
+                  });
+              },
+              error: function(xhr, status, error) {
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'Submission Error',
+                      text: 'There was an error submitting the form. Please try again.',
+                      confirmButtonText: 'OK'
+                  });
+              }
+          });
+      });
+  });
+</script>
+
   
   {% endblock  %}
   
