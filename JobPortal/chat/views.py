@@ -18,5 +18,9 @@ class CreateThreadView(FormView):
     success_url = reverse_lazy('messages')  
 
     def form_valid(self, form):
-        form.save()
+        thread = form.save(commit=False)
+        thread.save() 
         return super().form_valid(form)
+    
+    def form_invalid(self, form):
+        return super().form_invalid(form)

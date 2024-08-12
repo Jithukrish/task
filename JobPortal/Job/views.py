@@ -90,63 +90,7 @@ class CreateJobPostView(CreateView):
 
 
       
-          
-
-# def create_job_post(request):
-#     if not request.user.is_authenticated or not request.user.is_employer:
-#         messages.warning(request, 'Permission denied.')
-#         return redirect('emp_home')
-
-#     if request.method == 'POST':
-#         form = JobPostForm(request.user, request.POST) 
-#         if form.is_valid():
-#             job_post = form.save(commit=False)
-#             job_post.user = request.user 
-#             job_post.save()
-#             messages.success(request, 'Job post created successfully.')
-#             return redirect('manage_jobs')  
-#         else:
-#             messages.error(request, 'pls check error.')
-#     else:
-#         form = JobPostForm(request.user)  
-
-#     context = {
-#         'form': form
-#     }
-#     return render(request, 'job/create_job_post.html', context)
-
-   
-            
-#----------------------------------------------------------------------------------------------------
-# def update_job_post(request, id):
-#     if request.user.is_authenticated and request.user.is_employer:
-#         try:
-#             job_post = JobPost.objects.get(user=request.user, id=id)
-#             if job_post.company.user != request.user:  
-#                 messages.warning(request, "You don't have permission to update this job .")
-#                 return redirect('emp_home')
-#         except JobPost.DoesNotExist:
-#             messages.warning(request, "Job post does not exist.")
-#             return redirect('emp_home')
-#         if request.method == 'POST':
-#             form = UpdateJobPostForm(request.POST, instance=job_post)
-#             if form.is_valid():
-#                 form.save()
-#                 messages.success(request, "Job post updated successfully.")
-#                 return redirect('emp_home')
-#             else:
-#                 messages.error(request, "Error occured pls check")
-#         else:
-#             form = UpdateJobPostForm(instance=job_post)
-        
-#         context = {
-#             'form': form,
-#         }
-#         return render(request, 'job/update_job_post.html', context)
-#     else:
-#         messages.warning(request, "You are not authorized to update job posts.")
-#         return redirect('jobseeker_dash')
-
+    
 class UpdateJobView(UpdateView):
     model=JobPost
     form_class = UpdateJobPostForm
@@ -173,11 +117,6 @@ class UpdateJobView(UpdateView):
             return redirect('emp_home')
         return job_post
 
-#added jobs view list
-# def job_details(request,id):
-#     job=JobPost.objects.get(id=id)
-#     context={'job':job}
-#     return render(request,'job/job_post_details.html',context)
 
 class JobDetailsView(DetailView):
     model=JobPost
@@ -226,17 +165,6 @@ class SearchManageView(ListView):
         return queryset
 
 
-
-
-# def manage_jobs(request):
-#     if request.user.is_authenticated and request.user.is_employer:
-#         jobs = JobPost.objects.filter(user=request.user)
-#         context = {
-#             'jobs': jobs
-#         }
-#         return render(request, 'job/manage_jobs.html', context)
-#     else:
-#         return HttpResponse("You are not authorized to view this page.")
 from django.views.generic import UpdateView
 class UpdateJobPostView(UpdateView):
     model = JobPost
@@ -262,37 +190,7 @@ class UpdateJobPostView(UpdateView):
         messages.success(self.request, "Job post updated successfully.",extra_tags='job_update')
         return super().form_valid(form)
 
-            
-
-# def update_jobs(request, id):
-#     if request.user.is_authenticated and request.user.is_employer:
-#         try:
-#             job_post = JobPost.objects.get(user=request.user, id=id)
-#             if job_post.company.user != request.user: 
-#                 messages.warning(request, "You don't have permission to update this job post.")
-#                 return redirect('emp_home')
-#         except JobPost.DoesNotExist:
-#             messages.warning(request, "Job post does not exist.")
-#             return redirect('emp_home')
-#         if request.method == 'POST':
-#             form = UpdateJobPostForm(request.POST, instance=job_post)
-#             if form.is_valid():
-#                 form.save()
-#                 messages.success(request, "Job post updated successfully.")
-#                 return redirect('manage_jobs')
-#             else:
-#                 messages.error(request, "Error updating job post. Please check the form.")
-#         else:
-#             form = UpdateJobPostForm(instance=job_post)        
-#         context = {
-#             'form': form,
-#         }
-#         return render(request, 'job/update_jo.html', context)
-#     else:
-#         messages.warning(request, "You are not authorized to update job posts.")
-#         return redirect('emp_home')
-
-       
+           
 
 class DeleteJobView(DeleteView):
     model = JobPost
@@ -321,26 +219,6 @@ class DeleteJobView(DeleteView):
     
 
 
-# def delete_job(request, id):
-#     try:
-#         job = JobPost.objects.get(id=id)
-#     except JobPost.DoesNotExist:
-#         messages.error(request, "Job not found.")
-#         return redirect('manage_jobs')
-
-#     if request.method == "POST":
-#         job.delete()
-#         messages.success(request, "Job deleted successfully.")
-#         return redirect('manage_jobs')
-
-#     context = {
-#         'job': job
-#     }
-#     return render(request, 'job/delete_job.html', context)
-   
-
-#jobs post viewd seeker
-
 class AllJobSeekerView(ListView):
     model=JobPost
     template_name='job/seeker_view_job.html'
@@ -349,13 +227,6 @@ class AllJobSeekerView(ListView):
     def get_queryset(self):
         return JobPost.objects.filter(is_active=True).order_by('-timestamp')
 
-
-# def seeker_view_all_jobs(request):
-#     jobs=JobPost.objects.filter(is_active=True).order_by('-timestamp')
-#     context={
-#             'jobs':jobs,
-#              }
-#     return render(request,'job/seeker_view_job.html',context)
 
 
 class SearchAllJobsView(ListView):
@@ -388,100 +259,8 @@ class SearchAllJobsView(ListView):
   
 
 
- 
-
-#search query of jo
-# def search_results(request):
-#     search_query = request.GET.get('search')
-#     if search_query:
-#         results = JobPost.objects.filter(
-#             Q(title__icontains=search_query) |
-#             Q(location__icontains=search_query) |
-#             Q(company__name__icontains=search_query) |
-#             Q(skills__name__icontains=search_query)
-#         ).distinct()
-#     else:
-#         results = JobPost.objects.none()
-#     context = {
-#         'results': results
-#     }
-#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         return render(request, 'job/job_post_list.html', context)
-#     else:
-#         return render(request, 'job/seeker_view_job.html', context)
-
-# class JobApplicationListStatView(ListView):
-#     model = Apply_Job
-#     template_name = "Job/job_application_list.html"
-#     context_object_name = 'applied_jobs'
-
-    # def get_queryset(self):
-    #     search_query = self.request.GET.get('search', '')
-    #     current_user = self.request.user
-    #     jobs_by_employer = JobPost.objects.filter(user=current_user)
-    #     if search_query:
-    #         jobs_by_employer = jobs_by_employer.filter(
-    #             Q(title__icontains=search_query) |
-    #             Q(job_type__icontains=search_query) |
-    #             Q(experience__icontains=search_query) |
-    #             Q(salary__icontains=search_query) |
-    #             Q(company__name__icontains=search_query)
-    #         ).distinct()
-    #     return Apply_Job.objects.filter(job__in=jobs_by_employer).select_related('job', 'user')
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return context
-
-    # def post(self, request, *args, **kwargs):
-    #     job_id = request.POST.get('job_id')
-    #     new_status = request.POST.get('status')
-    #     job_application =Apply_Job.objects.get(id=job_id)
-    #     job_application.status = new_status
-    #     job_application.save()
-    #     return redirect('job_application_list_stat')
-
-    # def render_to_response(self, context, **response_kwargs):
-    #     if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
-    #         return render(self.request, 'Job/job_app_status.html', context, **response_kwargs)
-    #     else:
-    #         return super().render_to_response(context, **response_kwargs)
-
-        
-    
-# def job_application_list_stat(request):
-#     search_query = request.GET.get('search', '')
-#     current_user = request.user  
-#     if request.method == 'POST':
-#         job_id = request.POST.get('job_id')
-#         new_status = request.POST.get('status')
-#         job_application = Apply_Job.objects.get(id=job_id)
-#         job_application.status = new_status
-#         job_application.save()
-#         return redirect('job_application_list_stat')  
-#     jobs_by_employer = JobPost.objects.filter(user=current_user)  
-#     if search_query:
-#         jobs_by_employer = jobs_by_employer.filter(
-#             Q(title__icontains=search_query) |
-#             Q(job_type__icontains=search_query) |
-#             Q(experience__icontains=search_query) |
-#             Q(salary__icontains=search_query) |
-#             Q(company__name__icontains=search_query)
-#         ).distinct()  
-#     applied_jobs = Apply_Job.objects.filter(job__in=jobs_by_employer).select_related('job', 'user')
-#     context = {
-#         'applied_jobs': applied_jobs,
-#     }
-    
-#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         return render(request, 'job/job_app_status.html', context)
-#     else:
-#         return render(request, 'job/job_application_list.html', context)
-
-
-# class SearchResultManagejobsView(ListView):
-# class SearchResultManagejobsView(View):
-
+  
+  
 
 
 
@@ -533,41 +312,6 @@ class SearchResultManagejobsView(ListView):
 
 
    
-# def search_results_managejobs(request):
-#     search_query = request.GET.get('search')
-#     location_query = request.GET.get('location')
-#     status_query = request.GET.get('status')  
-#     jobs = JobPost.objects.all()
-#     if search_query:
-#         jobs = jobs.filter(
-#             Q(title__icontains=search_query) |
-#             Q(company__name__icontains=search_query) |
-#             Q(skills__name__icontains=search_query)
-#         )
-#     if location_query:
-#         jobs = jobs.filter(location__icontains=location_query)
-  
-#     if status_query is not None:
-#         if status_query == 'active':
-#             jobs = jobs.filter(is_active=True)
-#         elif status_query == 'inactive':
-#             jobs = jobs.filter(is_active=False)
-#     context = {
-#         'jobs': jobs,
-#         'search_query': search_query,
-#         'location_query': location_query,       
-#         'status_query': status_query,
-#     }
-
-#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         return render(request, 'job/manage_search.html', context)
-#     else:
-#         return render(request, 'job/manage_jobs.html', context)
-
-    
-
-##############################################################################################################
-
 
 class SearchResultApplicationView(View):
     model = JobPost
@@ -595,33 +339,7 @@ class SearchResultApplicationView(View):
             return render(request, 'job/apppli_post_list.html', context)
         else:
             return render(request, 'job/user_view_status.html', context)
-
-# def search_results_applica(request):
-#     search_query = request.GET.get('search')
-#     current_user = request.user
     
-#     if search_query:
-#         applied_jobs = JobPost.objects.filter(
-#             Q(apply_job__user=current_user),
-#             Q(title__icontains=search_query) |
-#             Q(location__icontains=search_query) |
-#             Q(company__name__icontains=search_query) |
-#             Q(skills__name__icontains=search_query)
-#         ).distinct().prefetch_related('apply_job_set', 'company')
-#     else:
-#         applied_jobs = JobPost.objects.filter(apply_job__user=current_user).distinct().prefetch_related('apply_job_set', 'company')
-
-#     context = {
-#         'results': applied_jobs,
-#     }
-
-#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         return render(request, 'job/apppli_post_list.html', context)
-#     else:
-#         return render(request, 'job/user_view_status.html', context)
-
-    
-         
 #view more selected job
 
 class SeekViewMoreView(DetailView):
@@ -630,10 +348,6 @@ class SeekViewMoreView(DetailView):
     context_object_name = 'jobs'
     pk_url_kwarg = 'id'
 
-# def seeker_viewmore(request,id):
-#     jobs=JobPost.objects.get(id=id)
-#     context={'jobs':jobs}
-#     return render(request,'job/seeker_more_jobdetails.html',context)
 
 
 
@@ -662,34 +376,11 @@ class SearchAppliedJobs(View):
         html = render_to_string('Job/applied_jobs_results.html', {'applied_jobs': applied_jobs})
         return JsonResponse({'html': html})
 
-# def applied_job(request):
-#     applied_jobs = Apply_Job.objects.filter(user=request.user).select_related('job')
-#     context={
-#         'applied_jobs':applied_jobs,
-#     }
-#     return render(request,'job/Applied_jo.html',context)
 
 
 
 
-# class JobApplyView(DetailView):
-#     model = JobPost
-#     template_name = 'job/apply_job1.html'
-#     context_object_name = 'job'
-#     def get(self, request, *args, **kwargs):
-#         self.object = self.get_object() 
-#         has_apply = Apply_Job.objects.filter(user=request.user, job=self.object).exists()
-#         context = {'job': self.object, 'has_apply': has_apply}
-#         return render(request, self.template_name, context)
 
-    # def post(self, request, *args, **kwargs):
-    #     self.object = self.get_object()  
-    #     has_apply = Apply_Job.objects.filter(user=request.user, job=self.object).exists()
-    #     if not has_apply and request.method == 'POST':
-    #         Apply_Job.objects.create(user=request.user, job=self.object)
-    #         return redirect('seeker_view_all_jobs')  
-    #     context = {'job': self.object, 'has_apply': has_apply}
-    #     return render(request, self.template_name, context)
    
 class JobApplyView(DetailView):
     model = JobPost
@@ -719,58 +410,7 @@ class JobApplyView(DetailView):
         context = self.get_context_data()
         return render(request, self.template_name, context)
 
-# def jobPapplyseeker(request, id):
-#     job=JobPost.objects.get(id=id)
 
-#     has_apply = Apply_Job.objects.filter(user=request.user, job=job).exists()
-
-#     if request.method == 'POST':
-#         if not has_apply:  
-#             Apply_Job.objects.create(user=request.user, job=job)
-#             return redirect('seeker_view_all_jobs') 
-
-#     has_apply = Apply_Job.objects.filter(user=request.user, job=job).exists()
-
-#     context = {
-#         'job': job,
-#         'has_apply': has_apply 
-#     }
-#     return render(request, 'job/apply_job1.html', context)
-
-
-# class JobApplicationView(FormView):
-#     model = JobPost
-#     template_name = 'job/apply_job.html'
-#     form_class = ApplyJobForm
-#     success_url = '/seeker_view_all_jobs/'  
-
-#     def get_form_kwargs(self):
-#         kwargs = super().get_form_kwargs()
-#         kwargs['user'] = self.request.user
-#         return kwargs
-
-#     def get_initial(self):
-#         return super().get_initial()
-
-#     def get(self, request, *args, **kwargs):
-#         self.job_post = JobPost.objects.get(pk=self.kwargs['id'])  
-#         resume_exists = Resume.objects.filter(user=request.user).exists()
-#         if not resume_exists:
-#             messages.error(request, 'You cannot apply to a job without uploading a resume.')
-#             return redirect('update_resume')
-#         return super().get(request, *args, **kwargs)
-
-#     def form_valid(self, form):
-#         job = self.job_post  
-#         apply_job = form.save(commit=False)
-#         apply_job.user = self.request.user
-#         apply_job.job = job
-#         apply_job.save()
-#         messages.success(self.request, 'Job applied successfully!')
-#         return super().form_valid(form)
-
-#     def form_invalid(self, form):
-#         return self.render_to_response(self.get_context_data(form=form))class JobDetailView(DetailView):
    
 class JobApplicationView(DetailView, FormView):
     model = JobPost
@@ -806,54 +446,13 @@ class JobApplicationView(DetailView, FormView):
    
            
 
-
-# def job_application(request, id):
-#     job = JobPost.objects.get(id=id)
-    
-#     try:
-#         resume = Resume.objects.get(user=request.user)
-#     except Resume.DoesNotExist:
-#         messages.error(request, 'You cannot apply  job without uploading  resume.')
-#         return redirect('update_resume')  
-
-#     if request.method == 'POST':
-#         form = ApplyJobForm(request.POST)
-#         if form.is_valid():
-#             apply_job = form.save(commit=False)
-#             apply_job.user = request.user
-#             apply_job.job = job
-#             apply_job.save()
-            
-#             messages.success(request, 'Job applied successfully!')
-#             return redirect('seeker_view_all_jobs')  
-#     else:
-#         form = ApplyJobForm()
-
-#     context = {
-#         'job': job,
-#         'form': form,
-#     }
-#     return render(request, 'job/apply_job.html', context)
-
+   
 class StatusTarckSeekerView(ListView):
     model = Apply_Job
     template_name = 'Job/user_view_status.html'
     context_object_name = 'jobs'
     def get_queryset(self):
         return Apply_Job.objects.filter(user = self.request.user)
-
-# class StatusTarckSeekerView(ListView):
-#     model = Apply_Job
-#     template_name = 'job/user_view_status.html'
-#     context_object_name = 'jobs'
-
-#     def get_queryset(self):
-#         return Apply_Job.objects.filter(user=self.request.user)    
-
-# def status_track_seeker(request):
-#     jobs=Apply_Job.objects.filter(user = request.user)
-#     context={'jobs':jobs}
-#     return render(request,'job/user_view_status.html',context)
 class JobApplicationListView(ListView):
     model=Apply_Job
     template_name = 'job/job_application_list_all.html'
@@ -872,15 +471,6 @@ class JobApplicationListView(ListView):
 
 
 
-# def job_application_list_stats(request):
-#     if request.user.is_authenticated and request.user.is_employer:
-#         job_applications = Apply_Job.objects.filter(job__user=request.user)
-#         context = {
-#             'job_applications': job_applications
-#         }
-#         return render(request, 'job/job_application_list_all.html', context)
-#     else:
-#         return HttpResponse("only for employer.")
 
 class StatusTrackUpdateEmpView(UpdateView):
     model=Apply_Job
@@ -909,25 +499,7 @@ class StatusTrackUpdateEmpView(UpdateView):
         
 
 
-    
-# def status_track_update_emp(request,id):
-#     if request.method == 'POST':
-#         job = Apply_Job.objects.get(id=id)
-#         new_status = request.POST.get('status')
-#         job.status = new_status  
-#         job.save()
-#         recipient_email = job.user.email
-#         recipient_name =  job.user.jobseeker_profile.first_name   
 
-#         subject = ' Your Job Application Status Update'
-#         html_message = render_to_string('job/status_update_email.html', {'recipient_name': recipient_name, 'status': new_status})
-#         plain_message = strip_tags(html_message)
-
-#         send_mail(subject, plain_message, 'your_email@example.com', [recipient_email], html_message=html_message)
-#         return redirect('job_application_list_stats')  
-#     else:
-#         job = Apply_Job.objects.get(id=id)
-#         return render(request, 'job/update_status.html', {'job': job})
 
 #all applications views employer jobs 
 class AllApplicationsView(DetailView):
@@ -948,19 +520,7 @@ class AllApplicationsView(DetailView):
         context['applications'] = applications
         return context
     
-    
-# def all_applications(request,id):
-#     job=JobPost.objects.get(id=id)
-#     applications=Apply_Job.objects.filter(job=job).select_related('user__resume')
-#     for application in applications:
-#         print(application.user.get_full_name())
-#         print(application.user.username)
-#         print(application.job.title)
-#     context = {
-#         'job': job,
-#         'applications': applications,
-#     }
-#     return render(request,'job/all_applications.html',context)
+ 
     
 
     
@@ -977,14 +537,7 @@ class DownloadResumeView(View):
         
         return FileResponse(open(resume_path, 'rb'), as_attachment=True)
 
-# def download_resume(request, file):
-#     resume = Resume.objects.get( id=file)
-#     resume_path = resume.resume.path   
-#     try:
-#         return FileResponse(open(resume_path, 'rb'), as_attachment=True)
-#     except FileNotFoundError:
-#         raise Http404("Resume not found")
-    
+
     
 #view more selected job
 class SearchResultsResumeDownloadView(View):
@@ -1013,68 +566,6 @@ class SearchResultsResumeDownloadView(View):
             return render(request, 'job/check_list.html', context)
         else:
             return render(request, 'job/all_applications.html', context)
-
-# def search_results_resume_down(request):
-#     search_query = request.GET.get('search')
-#     if search_query:
-#        job_results = JobPost.objects.filter(
-#             Q(title__icontains=search_query) |
-#             Q(location__icontains=search_query)
-#         ).distinct()
-#        applications = Apply_Job.objects.filter(
-#             Q(job__in=job_results) |
-#             Q(user__first_name__icontains=search_query) |
-#             Q(user__last_name__icontains=search_query) |
-#             Q(status__icontains=search_query)
-#         ).select_related('user', 'job').distinct()
-#     else:
-#         applications = Apply_Job.objects.none()
-#     context = {
-#         'applications': applications  
-#     }
-#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#         return render(request, 'job/check_list.html', context)
-#     else:
-#         return render(request, 'job/all_applications.html', context)
-
-# class SearchStatusListview(ListView):
- 
-
-
-# class SearchStatusListview(ListView):
-#     model = Apply_Job
-#     template_name = "Job/job_application_list_all.html"
-#     context_object_name = 'jobs'
-
-#     def get_queryset(self):
-#         search_query = self.request.GET.get('search', '')
-#         location_query = self.request.GET.get('location', '')
-
-#         jobs = Apply_Job.objects.filter(user=self.request.user)
-
-#         if search_query:
-#             jobs = jobs.filter(
-#                 Q(job__title__icontains=search_query)
-#             )
-
-#         if location_query:
-#             jobs = jobs.filter(
-#                 Q(job__location__icontains=location_query)
-#             )
-
-#         return jobs.distinct()
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['search_query'] = self.request.GET.get('search', '')
-#         context['location_query'] = self.request.GET.get('location', '')
-#         return context
-
-#     def render_to_response(self, context, **response_kwargs):
-#         if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
-#             html = render_to_string('Job/search_status.html', context, request=self.request)
-#             return JsonResponse({'html': html})
-#         return super().render_to_response(context, **response_kwargs)
 
 
 
@@ -1129,15 +620,6 @@ class JobApplicationListStatView(ListView):
             return HttpResponse("only for employer.")
         return super().dispatch(request, *args, **kwargs)
 
-# def job_application_list_stats(request):
-#     if request.user.is_authenticated and request.user.is_employer:
-#         job_applications = Apply_Job.objects.filter(job__user=request.user)
-#         context = {
-#             'job_applications': job_applications
-#         }
-#         return render(request, 'job/job_application_list_all.html', context)
-#     else:
-#         return HttpResponse("only for employer.")
 
 
 

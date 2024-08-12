@@ -1,4 +1,4 @@
- 
+
 {% load static %}
 {% load widget_tweaks %}
 
@@ -16,17 +16,22 @@
   {% endif %}
   {% endblock %}
   
+  
+  
  
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <!-- Favicons -->
   <link href="{% static 'img/img/favicon.png' %}" rel="icon">
   <link href="{% static 'img/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
-  <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 
+  <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  {% comment %} <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Vendor CSS Files -->
   <link href="{% static 'css/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
   <link href="{% static 'css/boxicons/css/boxicons.min.css' %} " rel="stylesheet">
@@ -34,9 +39,99 @@
   <link href="{% static 'css/quill/quill.bubble.css' %}" rel="stylesheet">
   <link href="{% static 'css/remixicon/remixicon.css' %}" rel="stylesheet">
   <link href="{% static 'css/simple-datatables/style.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
   <link href="{% static 'css/css/style.css' %}" rel="stylesheet">
+
 {% block style %}
+<style>
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center cards horizontally */
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-title {
+    font-size: 1.6em;
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.card-description {
+    font-size: 1em;
+    color: #666;
+    margin: 0 0 20px;
+    flex: 1;
+}
+
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.card-button {
+  display: inline-block;
+  padding: 8px 15px;
+  font-size: 0.9em;
+  color: #fff;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.3s;
+  text-align: center;
+  flex: 1; 
+}
+
+
+.card-edit-button {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+.card-edit-button:hover {
+  background: linear-gradient(135deg, #0056b3, #004494);
+}
+
+.card-delete-button {
+  background: linear-gradient(135deg, #ff4c4c, #cc0000);
+}
+
+.card-delete-button:hover {
+  background: linear-gradient(135deg, #cc0000, #990000);
+}
+
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: 1fr; 
+    }
+}
+</style>
 {% endblock  %}
+  
  
 </head>
 
@@ -358,20 +453,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link collapsed"  href="">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
-          </a>
-        </li>
-  
-       
-    
-  
-    
-        
-        
-        
-  
-        <li class="nav-item">
           <a class="nav-link collapsed" data-bs-target="#cms-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
@@ -552,6 +633,28 @@
           </ul>
         </li>
     
+  
+       
+    
+  
+    
+        
+        
+        
+  
+        <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
+            <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+          </a>
+          <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li>
+              <a href="charts-chartjs.html">
+                <i class="bi bi-circle"></i><span>Chart.js</span>
+              </a>
+            </li>
+      
+          </ul>
+        </li>
       <!-- End Charts Nav -->
   
       <li class="nav-heading">Pages</li>
@@ -733,74 +836,76 @@
                     </div>
                 {% endif %}
             {% endfor %}
-<!---------------------------------------message part end --------------------------------- ------------->
+<!---------------------------------------message part end ---------------------------------------------->
+
+              <h2 style="text-align: center; color: black; font-size: 40px;">Frequently Asked List</h2>
+              
+
+<!-- Page wrapper/Container Section -->
+
+{% comment %} <div class="container">
+	<table class="responsive-table">
+		<thead class="responsive-table__head">
+			<tr class="responsive-table__row">
+				<th class="responsive-table__head__title responsive-table__head__title--name">Name
+					<svg version="1.1" class="up-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+						<path d="M374.176,110.386l-104-104.504c-0.006-0.006-0.013-0.011-0.019-0.018c-7.818-7.832-20.522-7.807-28.314,0.002c-0.006,0.006-0.013,0.011-0.019,0.018l-104,104.504c-7.791,7.829-7.762,20.493,0.068,28.285    c7.829,7.792,20.492,7.762,28.284-0.067L236,68.442V492c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20V68.442l69.824,70.162c7.792,7.829,20.455,7.859,28.284,0.067C381.939,130.878,381.966,118.214,374.176,110.386z" />
+					</svg>
+				</th>
+				<th class="responsive-table__head__title responsive-table__head__title--status">Url</th>
+				<th class="responsive-table__head__title responsive-table__head__title--status">Edit</th>
+				<th class="responsive-table__head__title responsive-table__head__title--status">Delete</th>
+				
+			</tr>
+		</thead>
+		<tbody class="responsive-table__body">
+      {% for check in frequently_asked %}
+			<tr class="responsive-table__row">
+				<td class="responsive-table__body__text responsive-table__body__text--name">
+					
+					{{check.question}}
+				</td>
+
+				<td class="responsive-table__body__text responsive-table__body__text--country">{{check.answer}}</td>
+				{% comment %} <td class="responsive-table__body__text responsive-table__body__text--country"><button class="btn btn-primary btn-lg"><a href="{% url "menu_list_update" pk=check.pk %}">Edit</a></button></td> {% endcomment %}
+				{% comment %} <td class="responsive-table__body__text responsive-table__body__text--country"> <button class="delete-social btn btn-danger btn-lg" data-id="{{ check.pk }}">
+          <span class="glyphicon glyphicon-trash"></span> Delete
+              </button>  
+            </td>
+      </tr>
+			{% endfor %}
+		</tbody> {% endcomment %}
+	{% comment %} </table>
+   <p>Go Back header   <button class="btn btn-primary btn-lg"><a href="{% url "headersection" %}">Haeder</a></button>
+   </p>
+
+</div> {% endcomment %}
+<div class="card-container">
+  {% for check in about %}
+  <div class="card">
+      <div class="card-content">
+          <h2 class="card-title">{{ check.title }}</h2>
+      
+          <div class="card-actions">
+            <a href="{% url "about_us_update" pk=check.pk %}" class="card-button card-edit-button">Edit</a>
+            <a href="#" class="card-button card-delete-button"  data-id="{{ check.pk }}">Delete</a>
+          </div>
+      </div>
+  </div>
+  {% endfor %}
+</div>
 
               
-              <h1 style="text-align: center; color: black; font-size: 40px;">{% if form.instance.pk %}Update{% else %}Create{% endif %}  About</h1>
-                  <form action="" id="profile-form" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
-                    {% csrf_token %}
-                    <div>
-                        <label for="title">Title</label>
-                        {% render_field form.title class="form-control" id="id_title" %}
-                    </div>
-                    <div>
-                      <label for="title">Description</label>
-                      {% render_field form.description class="form-control" id="id_description" %}
-                    </div>
-                    <div>
-                      <label for="title">First Content</label>
-                      {% render_field form.element1 class="form-control" id="id_element1" %}
-                    </div>
-                    <div>
-                      <label for="title">Second Content</label>
-                      {% render_field form.element2 class="form-control" id="id_element2" %}
-                    </div>
-                    <div>
-                      <label for="title">Third Content</label>
-                      {% render_field form.element3 class="form-control" id="id_element3" %}
-                    </div>
-                    <div class="mb-3">
-                      <label for="About_img">Images</label>
-                      {{ form.About_img.label_tag }}
-                      <div class="input-group">
-                          {% render_field form.img class="form-control" %}
-                          <button type="button" id="add-menu-btn" class="btn btn-outline-primary" aria-label="Add Menu Item">
-                              <i class="bi bi-plus"></i>
-                          </button>
-                      </div>
-                  </div>
-                     
-                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
-                  </form>
-                
-          </div>
-      </section>
-      <p>if you want to update you data pls check here <a href="{% url "about_us_list"  %}">Update section</a></p>
-      
+            
+           </div>
+      </section> 
 
-      <div class="modal fade" id="menu-modal" tabindex="-1" role="dialog" aria-labelledby="menuModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="menuModalLabel">Add Images</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form id="menu-form" enctype="multipart/form-data">
-                      {% csrf_token %}
-                        <div class="form-group">
-                            <label for="menu_name">Images</label>
-                            <input type="file" class="form-control" id="About_img" name="About_img" required>
-                        </div>
-                      
-                        <button type="submit" class="btn btn-primary">Add Menu Item</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-      </div>
+     
+     
+     
+    
+    
+      
     
     
   
@@ -808,15 +913,19 @@
     
               
   
-      {% endblock main %}
-      {% block footer %}
+  {% endblock main %}
+  
+  {% block footer %}
+  <footer id="footer" class="footer">
+  
+  
+  </footer><!-- End Footer -->
+  {% endblock footer %}
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-      <footer id="footer" class="footer">
-      </footer>
-  <!-- End Footer -->
-      {% endblock footer %}
-      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-      {% block script %}
+  <!-- Vendor JS Files -->
+
+  {% block script %}
 <script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
 <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
@@ -825,136 +934,100 @@
 <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
 <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
 <script src="{% static 'js/php-email-form/validate.js' %} "></script>
+
+    <!-- Template Main JS File -->
 <script src="{% static 'js/js/main.js' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-{% comment %} <script>
-  $(document).ready(function() {
-      
-      $('#add-menu-btn').click(function() {
-          $('#menu-modal').modal('show');
-      });
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   
-      
-      $('#menu-form').submit(function(event) {
-          event.preventDefault(); 
-          var formData = $(this).serialize();
-          $.ajax({
-              type: 'POST',
-              url: '{% url "about_img" %}', 
-              data: formData,
-              success: function(response) {
-                  $('#menu-modal').modal('hide'); 
-                  var image = response.img; 
-                  var menuOption = '<option value="' + image + '">' + image + '</option>';
-                  $('#id_name').append(menuOption); 
-              },
-              error: function(xhr, status, error) {
-                  console.error("Else working: ", status, error);
-              }
-          });
-      });
-  });
-</script> {% endcomment %}
-<script>
-  $(document).ready(function() {
-      $('#add-menu-btn').click(function() {
-          $('#menu-modal').modal('show');
-      });
-
-      $('#menu-form').submit(function(event) {
-          event.preventDefault();
-
-          var formData = new FormData(this); 
-          $.ajax({
-              type: 'POST',
-              url: '{% url "about_img" %}', 
-              data: formData,
-              processData: false,
-              contentType: false,
-              success: function(response) {
-                console.log("+++++++++++++++++++++++++++++++++++++++++:", response.img_url); 
-                  $('#menu-modal').modal('hide'); 
-                  var image = response.img_url;
-                  var menuOption = '<option value="' + image + '">' + image + '</option>';
-                  $('#id_name').append(menuOption); 
-              },
-              error: function(xhr, status, error) {
-                  console.error("Error: ", status, error);
-              }
-          });
-      });
-  });
-</script>
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
   <script>
     $(document).ready(function() {
-        $('#profile-form').validate({
-            rules: {
-              element3: "required",
-              element2: "required",
-              element1: "required",
-              description: "required",
-              title: "required",
-              
-                
-              
-            },
-            messages: {
-              element3: "please enter valid data",
-              element2: "please enter valid data",
-              element1: "please enter valid data",
-              description: "please enter  description",
-              title: "please enter valid title",
-                
-            },
-            submitHandler: function(form) {
-                form.submit();
-            }
-        });
-
-        
-    });
-  </script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
-<script>
-  $(document).ready(function() {
-      $('#profile-form').on('submit', function(event) {
-          event.preventDefault(); 
-
+      $('#add-menu-btn3').click(function() {
+          $('#menu-modal3').modal('show');
+      });
+  
+      $('#menu-form3').submit(function(event) {
+          event.preventDefault();
+  
+          var formData = $(this).serialize();
+          var csrfToken = $('[name="csrfmiddlewaretoken"]').val();
+  
           $.ajax({
               type: 'POST',
-              url: $(this).attr('action'),
-              data: $(this).serialize(),
+              url: '{% url "mail_section" %}', 
+              data: formData,
+              beforeSend: function(xhr) {
+                  xhr.setRequestHeader("X-CSRFToken", csrfToken);
+              },
               success: function(response) {
-                  Swal.fire({
-                      icon: 'success',
-                      title: 'Form Submitted',
-                      text: 'Your form has been submitted successfully!',
-                      confirmButtonText: 'OK'
-                  });
+                  $('#menu-modal3').modal('hide'); 
+                  var title = response.title;
+                  var newOption = '<option value="' + title + '">' + title + '</option>';
+                  $('#id_mail_section').append(newOption); 
               },
               error: function(xhr, status, error) {
-                  Swal.fire({
-                      icon: 'error',
-                      title: 'Submission Error',
-                      text: 'There was an error submitting the form. Please try again.',
-                      confirmButtonText: 'OK'
-                  });
+                  console.error("AJAX request failed: ", status, error);
+                  console.log("Response Text: ", xhr.responseText);
               }
           });
       });
-  });
-</script>
+   });
+  
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+  <script>
+      $(document).ready(function(){
+          var csrftoken = '{{ csrf_token }}';
+          $('.card-button').on('click', function(){
+              var pk = $(this).data('id');
+              console.log("Primary Key:", pk);  
+              if (!pk) {
+                  console.error('Primary key not found!');
+                  return;
+              }
+  
+              Swal.fire({
+                  title: 'Are you sure?',
+                  text: "Do you want to delete this social media?",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      $.ajax({
+                          type: 'POST',
+                          url: '/admincontrol/about_us_delete/' + pk + '/',
+                          data: {
+                              'csrfmiddlewaretoken': csrftoken
+                          },
+                          success: function(response) {
+                              Swal.fire(
+                                  'Deleted!',
+                                  response.message,
+                                  'success'
+                              ).then(() => {
+                                  location.reload(); 
+                              });
+                          },
+                          error: function(response) {
+                              Swal.fire(
+                                  'Error!',
+                                  'An error occurred while deleting.',
+                                  'error'
+                              );
+                          }
+                      });
+                  }
+              });
+          });
+      });
+  </script>
+  
+  
+
   {% endblock  %}
   
 

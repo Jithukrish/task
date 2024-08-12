@@ -9,14 +9,16 @@ class ThreadForm(forms.ModelForm):
         fields=['first_person', 'second_person']
        
     def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
         super(ThreadForm, self).__init__(*args, **kwargs)
-        self.fields['first_person'].queryset = User.objects.all()
-        self.fields['second_person'].queryset = User.objects.all()
+        if user:
+            print(f"User ID: {user.id}")
+            self.fields['first_person'].queryset = User.objects.exclude(id=user.id)
+            self.fields['second_person'].queryset = User.objects.exclude(id=user.id)
+        else:
+            print("No user passed")
+            self.fields['first_person'].queryset = User.objects.all()
+            self.fields['second_person'].queryset = User.objects.all()
+        print(f"First Person Queryset: {self.fields['first_person'].queryset}")
+        print(f"Second Person Queryset: {self.fields['second_person'].queryset}")
 
-# class ChatMessageForm(forms.ModelForm):
-#     class Meta:
-#         model = ChatMessage
-#         fields = ['phone_number','address','about','profile_picture','first_name','last_name','date_of_birth','gender','education', 'job', 'country', 'skills', 'x', 'facebook', 'linkedin','insta']
-#         widgets = {
-#                     'skills': forms.CheckboxSelectMultiple,
-#                 }

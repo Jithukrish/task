@@ -196,8 +196,7 @@
       {% endfor %}
 
       <li class="dropdown-footer">
-          <a href="#">Show all messages</a>
-      </li>
+        <a href="{% url 'messages'  %}">Start Chat to user</a>      </li>
   </ul><!-- End Messages Dropdown Items -->
 </li>
 <div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog" aria-labelledby="sendMessageModalLabel" aria-hidden="true">
@@ -438,8 +437,6 @@
                   <!-- Messages will be dynamically inserted here -->
               </div>
               <li class="dropdown-footer">
-                  {% comment %} <a href="{% url 'chat' %}">Show all messages</a> {% endcomment %}
-                  <a href="{% url 'create_chat_room' user_id=user.id %}">Start Chat</a>
                   <a href="{% url 'messages'  %}">Start Chat to user</a>
 
               </li>

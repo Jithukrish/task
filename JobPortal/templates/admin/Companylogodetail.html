@@ -959,7 +959,8 @@
                         </div> {% endcomment %}
                         <a href="{% url "company_logo_update" pk=user.id %}">Update</a> 
                           <div class="color">
-                            <a href="{% url "company_logo_update" pk=card.id %}">Update</a> 
+                            <a href="#" class="card-button card-delete-button"  data-id="{{ card.pk }}">Delete</a>
+                            <a href="{% url "company_logo_update" pk=user.id %}">Update</a>
                         </div>   
                         
                         
@@ -1038,6 +1039,58 @@
             });
         });
     });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script>
+  <script>
+      $(document).ready(function(){
+          var csrftoken = '{{ csrf_token }}';
+          $('.card-button').on('click', function(){
+              var pk = $(this).data('id');
+              console.log("Primary Key:", pk);  
+              if (!pk) {
+                  console.error('Primary key not found!');
+                  return;
+              }
+  
+              Swal.fire({
+                  title: 'Are you sure?',
+                  text: "Do you want to delete this social media?",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                      $.ajax({
+                          type: 'POST',
+                          url: '/admincontrol/company_logo_delete/' + pk + '/',
+                          data: {
+                              'csrfmiddlewaretoken': csrftoken
+                          },
+                          success: function(response) {
+                              Swal.fire(
+                                  'Deleted!',
+                                  response.message,
+                                  'success'
+                              ).then(() => {
+                                  location.reload(); 
+                              });
+                          },
+                          error: function(response) {
+                              Swal.fire(
+                                  'Error!',
+                                  'An error occurred while deleting.',
+                                  'error'
+                              );
+                          }
+                      });
+                  }
+              });
+          });
+      });
   </script>
     
   

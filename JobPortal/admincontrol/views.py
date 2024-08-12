@@ -112,17 +112,7 @@ class MenuDeleteView(View):
         menu = Menu.objects.get(pk=pk)
         menu.delete()
         return JsonResponse({'message': 'Item deleted successfully'})
-    
-
-# class ServiceDeleteView(View):
-#     def post(self, request, *args, **kwargs):
-#         pk = self.kwargs.get('pk')
-#         service = Service.objects.get(id=pk)
-#         service.delete()
-#         return JsonResponse({'message': 'Service deleted successfully'})
-    
-
- 
+  
 #------------------------------------------------section1-----------------------------------------------
 class SectionView(CreateView):
     model =Section1
@@ -185,10 +175,7 @@ class SelectJobsForUserView(FormView):
         user_id = self.kwargs['user_id']
         return reverse_lazy('selected_jobs', kwargs={'user_id': user_id})
 
-# def selected_jobs(request, user_id):
-#     user = User.objects.get(pk=user_id)
-#     selected_jobs = SelectedJob.objects.filter(user=user)
-#     return render(request, 'admin/selected_jobs.html', {'selected_jobs': selected_jobs, 'user': user})
+
 class UserDetailView(DetailView):
     model = User
     template_name = 'admin/selected_jobs.html'
@@ -222,41 +209,82 @@ class AboutUsFormView(CreateView):
             }, status=400)
         return super().form_invalid(form)
     
-class AboutUsEditView(UpdateView):
-# class AboutUsEditView(BaseFormView):
+class AboutUsListView(ListView):
+    model=Aboutus
+    template_name='admin/aboutus_list.html'
+    context_object_name='about'
+
+class UpdateAboutUsView(UpdateView):
     model = Aboutus
-    form_class = AboutForm
+   
+    fields = ['title', 'img', 'description', 'element1', 'element2', 'element3']   
+    template_name = 'admin/Update_aboutus.html'
+    success_url = reverse_lazy('admin_dash')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        messages.success(self.request, 'Updated Successfully')
+        return response
+        
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        messages.alert(self.request, 'Updated Failed')
+        return response
+
+    def get_success_url(self):
+        return reverse_lazy('about_us_list') 
+
+
+class UpdateaboutProfileView(View):
     template_name = "admin/aboutus.html"
-    success_url=reverse_lazy('admin_dash')
+    form_class = AboutForm
+    def get(self, request):
+        # if not request.user.is_authenticated or not request.user.is_admin:
+        #     messages.warning(request, 'Permission denied.')
+        #     return redirect('login_user')
 
-# from django.views.generic.edit import ModelFormMixin
-# class BaseFormView(ModelFormMixin, View):
-#     model = Aboutus
-#     form_class = AboutForm
-#     template_name = "admin/aboutus.html"
-#     success_url=reverse_lazy('admin_dash')
-#     def get(self, request, *args, **kwargs):
-#         instance = self.get_object() if self.kwargs.get('pk') else None
-#         form = self.get_form(instance=instance)
-#         return render(request, self.template_name, {'form': form})
+        try:
+            about =Aboutus.objects.first()
+        except Aboutus.DoesNotExist:
+            about =Aboutus()
+        form = self.form_class(instance=about)
+        context = {
+            'form': form,
+            'about': about,
+        }
+        return render(request, self.template_name, context)
+    def post(self, request, *args, **kwargs):
+        # if not request.user.is_authenticated or not request.user.is_admin:
+        #     messages.warning(request, 'Permission denied.')
+        #     return redirect('login_user')        
+        try:
+            about = Aboutus.objects.first()
+        except Aboutus.DoesNotExist:
+            about = Aboutus()
+        form = AboutForm(request.POST, request.FILES, instance=about)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Updated your profile.')
+            return redirect('admin_dash')
+        else:
+            messages.warning(request, 'Something went wrong. Please check the form for errors.')
+        context = {
+            'form': form,
+            'about': about,
+        }
+        return render(request, 'admin/aboutus.html', context)
+            
 
-#     def post(self, request, *args, **kwargs):
-#         instance = self.get_object() if self.kwargs.get('pk') else None
-#         form = self.get_form(instance=instance)
-#         if form.is_valid():
-#             form.save()
-#             return redirect(self.success_url)
-#         return render(request, self.template_name, {'form': form})
-
-#     def get_form(self, instance=None):
-#         if instance:
-#             return self.form_class(instance=instance, data=self.request.POST, files=self.request.FILES)
-#         return self.form_class(data=self.request.POST, files=self.request.FILES)
-
-#     def get_object(self):
-#         if self.kwargs.get('pk'):
-#             return self.model.objects.get(pk=self.kwargs['pk'])
-#         return None
+    
+    
+   
+class aboutusDeleteView(View):
+    def post(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        logo = Aboutus.objects.get(pk=pk)
+        logo.delete()
+        return JsonResponse({'message': 'logo deleted successfully'})
+    
 
 
 
@@ -311,6 +339,15 @@ class CompanyLogoUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('all_comoany_logo') 
+
+
+class MenfrequentDeleteView(View):
+    def post(self, request, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        logo = Companylogo.objects.get(pk=pk)
+        logo.delete()
+        return JsonResponse({'message': 'logo deleted successfully'})
+    
 
 class FeatureFormView(CreateView):
     model = FeaturesTab1
@@ -445,8 +482,6 @@ class ServiceUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('all_service') 
-    
-
 
 # class ServiceDeleteView(DeleteView):
 class ServiceDeleteView(View):

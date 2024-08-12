@@ -346,81 +346,10 @@ class LogoutDoneView(View):
         messages.info(request, 'Logged out successfully')
         return redirect('login_user')
         
-# def logoutdone(request):
-#     logout(request)
-#     print("logout")
-#     messages.info(request, 'Logged out successfully')
-#     return redirect('login_user')
-
- #------------------------------------------------------------------------------------               
-#add profile  employer
-# def update_profile(request):
-#     if not request.user.is_authenticated or not request.user.is_employer:
-#         messages.warning(request, 'Permission denied.')
-#         return redirect('jobseeker_dash')
-
-    # try:
-    #     profile = Profile.objects.get(user=request.user)
-    # except Profile.DoesNotExist:
-    #     profile = Profile(user=request.user)
-    #     # profile=profile.objects.get(user=request.user)
-    #     if request.method == 'POST':
-    #         form=ProfileForm(request.POST, request.FILES, instance=profile)
-    #         if form.is_valid():
-    #             var=form.save(commit=False)
-    #             user=User.objects.get(id=request.user.id)
-    #             user.has_company=True
-    #             var.save()
-    #             user.save()
-    #             messages.info(request, 'Your company is Active. you start create new job')
-    #             return redirect('jobseeker_dash')
-    #         else:
-    #             messages.warning(request, 'something went wrong')
-    #     else:
-    #         form=ProfileForm(instance=profile)
-    #         context={
-    #             'form':form
-    #         }
-    #         return render(request, 'Employer/e_profile.html', context)
-    # else:
-    #     messages.warning(request,'permission denied')
-    #     return redirect('jobseeker_dash')
-#------------------------------------------------------------------------------------------------
 
 
 
-# class Update_profileView(LoginRequiredMixin, View):
-#     login_url = 'login_user'
-#     def get(self, request):
-#         try:
-#             profile=Profile.objects.get(user=request.user)
-#         except Profile.DoesNotExist:
-#             profile= Profile(user=request.user)
-#         form = ProfileForm(instance=profile)
-#         context = {
-#             'form': form
-#         }
-#         return render(request, 'Employer/e_profile.html', context)
-#     def post(self, request):
-#         try:
-#             profile = Profile.objects.get(user=request.user)
-#         except Profile.DoesNotExist:
-#             profile = Profile(user=request.user)
-
-#         form = ProfileForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             request.user.has_company = True
-#             request.user.save()
-#             messages.info(request, 'Your profile has been updated successfully.')
-#             return redirect('update_profile')
-#         else:
-#             messages.warning(request, 'Something went wrong. Please check the form.')
-
-#         context = {
-#             'form': form
-#         }
-#         return render(request, 'Employer/e_profile.html', context)
+ 
 
 class Update_profileView(LoginRequiredMixin, View):
     login_url = 'login_user'
@@ -456,21 +385,7 @@ class Update_profileView(LoginRequiredMixin, View):
         return render(request, 'profile/eprofile.html', context)
     
 
-# class UploadProfilePictureView(LoginRequiredMixin, View):
-#     def post(self, request, *args, **kwargs):
-#         profile = Profile.objects.get(user=request.user)
-#         if 'profile_picture' in request.FILES:
-#             profile.profile_picture = request.FILES['profile_picture']
-#             profile.save()
-#         return redirect(reverse('profile'))  
 
-# class RemoveProfilePictureView(LoginRequiredMixin, View):
-#     def post(self, request, *args, **kwargs):
-#         profile = Profile.objects.get(user=request.user)
-#         if profile.profile_picture:
-#             profile.profile_picture.delete()
-#             profile.save()
-#         return redirect(reverse('profile')) 
 from django.contrib.auth.views import PasswordChangeView as BasePasswordChangeView
 from django.urls import reverse_lazy
 class ChangePasswordView(BasePasswordChangeView):
@@ -492,42 +407,7 @@ class ChangePasswordView(BasePasswordChangeView):
 
 
 
-# def update_profile(request):
-#     if not request.user.is_authenticated or not request.user.is_employer:
-#         messages.warning(request, 'Permission denied.')
-#         return redirect('emp_home')
 
-#     try:
-#         profile=Profile.objects.get(user=request.user)
-#     except Profile.DoesNotExist:
-#         profile= Profile(user=request.user)
-
-#     if request.method == 'POST':
-#         form =ProfileForm(request.POST, request.FILES,instance=profile)
-#         if form.is_valid():
-#             form.save()
-#             user =request.user
-#             user.has_company =True
-#             user.save()
-#             messages.info(request, 'Your profile has been updated successfully.')
-#             return redirect('update_profile')
-#         else:
-#             messages.warning(request, 'Something went wrong. Please check the form.')
-#     else:
-#         form = ProfileForm(instance=profile)
-
-#     context = {
-#         'form': form
-#     }
-#     return render(request, 'Employer/e_profile.html', context)
-
-
-# def profile_detail(request, id):
-#     profile=Profile.objects.get(id=id)
-#     context={
-#         'profile':profile
-#     }
-#     return render(request, 'Employer/profile_detail.html', context)
 class Profile_detailView(DetailView):
    model=Profile
    template_name='Employer/profile_detail.html'
@@ -625,45 +505,8 @@ class DeleteProfilePictureView(LoginRequiredMixin,View):
         return redirect('update_profile_job')
 
  
-# def update_profile_job(request):
-#     if not request.user.is_authenticated or not request.user.is_jobseeker:
-#         messages.warning(request, 'Permission denied.')
-#         return redirect('Seeker_home')
-
-#     try:
-#         profile =jobseeker_Profile.objects.get(user=request.user)
-#     except jobseeker_Profile.DoesNotExist:
-#         profile =jobseeker_Profile(user=request.user)
-
-#     if request.method =='POST':
-#         form = jobseekerProfileForm(request.POST, request.FILES, instance=profile)
-#         if form.is_valid():
-#             var =form.save(commit=False)
-#             user =User.objects.get(id=request.user.id)
-#             user.has_resume = True
-
-#             var.save()
-#             form.save_m2m()
-#             user.save()
-#             messages.info(request, 'Updated your profile.')
-#             return redirect('Seeker_home')
-#         else:
-#             messages.warning(request, 'Something went wrong. Please check the form for errors.')
-    
-#     form = jobseekerProfileForm(instance=profile)
-#     context = {
-#         'form': form,
-#         'profile': profile,
-#     }
-#     return render(request, 'seeker/s_profile.html', context)
 
 
-# def s_profile_detail(request, id):
-#     profile=jobseeker_Profile.objects.get(id=id)
-#     context={
-#         'profile':profile
-#     }
-#     return render(request, 'seeker/s_profile_detail.html', context)
 
 class S_profile_detailView(DetailView):
     model = jobseeker_Profile
