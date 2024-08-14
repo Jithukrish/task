@@ -736,7 +736,7 @@ class RestrictUserView(TemplateView):
         user.save()
         status = 'active' if user.is_active else 'inactive'
         messages.success(request, f"User status updated to {status}.")
-        return redirect('admin_dash')
+        return redirect('restrict_users')
 
 
 class JobRestrictView(TemplateView):
@@ -756,7 +756,7 @@ class JobRestrictView(TemplateView):
         Job.save()
         status = 'active' if Job.is_active else 'deactive'
         messages.success(request,f"status updated successfully {status}")
-        return redirect('admin_dash')
+        return redirect('restrict_jobs')
     
 
 
@@ -777,7 +777,7 @@ class CompanyRestrictView(TemplateView):
         company.save()
         status = 'active' if company.is_active else 'Deactivate'
         messages.success(request,f'company status changed {status}')
-        return redirect('admin_dash')
+        return redirect('restrict_company')
     
 
 
