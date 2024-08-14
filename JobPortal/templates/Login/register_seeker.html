@@ -4,35 +4,38 @@
 <title>Registration Page | Jobseeker</title>
 {% endblock title %}
 {% block style %}
-  <style>
-    #registration-form  div.valid-feedback {
-      font-size: 20px;
-      color: red;
-       display: block;
-    }
+<style>
+  .error {
+    color: red;
+    font-size: 0.875em;
+  }
   
-    input.error {
-      border-color: red;
-    }
+  .is-invalid {
+    border-color: red;
+  }
   
-    .valid-feedback {
-      display: none;
-    }
-  </style>
+  .is-valid {
+    border-color: green;
+  }
+
+</style>
   
   {% endblock style  %}
 
-{% block message %}
-<div class="container">
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-</div>
-{% endblock message %}
+  {% for message in messages %}
+  {% if "register_seeker" in message.tags %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+
+  {% else %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  {% endif %}
+{% endfor %}
 {% block logintitle %}
 <div class="pt-4 pb-2">
     <h5 class="card-title text-center pb-0 fs-4">Jobseeker Registration Form</h5>
@@ -78,36 +81,31 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 		
 		 
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-			<script>
-				$(document).ready(function() {
-					$('#registration-form').validate({
-						rules: {
-							email: "required",
-							password1: "required",  
-							password2: "required",  
-						},
-						messages: {
-							email: "please  enter valid email",
-							password1: "please enter correct password ", 
-							password2: "Re-enter your password", 
-		
-						},
-						submitHandler: function(form) {
-							
-							form.submit();
-						}
-					});
 			
-					$('#datepicker').datepicker({
-						dateFormat: 'yy-mm-dd',
-						changeMonth: true,
-						changeYear: true,
-						yearRange: '-100:2010',
-						maxDate: new Date(2010, 11, 31)
-					});
-				});
-			</script>
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+      <script>
+          $(document).ready(function() {
+              $('#registration-form').validate({
+                  rules: {
+                    password2: "required", 
+                    password1: "required", 
+                    email: "required", 
+                  },
+                  messages: {
+                    password2: "please re-enter password",
+                    password1: "please enter password",
+                    email: "please enter email",
+                      
+                  },
+                  submitHandler: function(form) {
+                      form.submit();
+                  }
+              });
+      
+              
+          });
+      </script>
 
 {% endblock script %}

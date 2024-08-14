@@ -35,19 +35,19 @@
   <link href="{% static 'css/css/style.css' %}" rel="stylesheet">
   {% block style %}
   <style>
-    #loginForm  div.valid-feedback {
-      font-size: 20px;
+    .error {
       color: red;
-       display: block;
+      font-size: 0.875em;
     }
-  
-    input.error {
+    
+    .is-invalid {
       border-color: red;
     }
-  
-    .valid-feedback {
-      display: none;
+    
+    .is-valid {
+      border-color: green;
     }
+  
   </style>
   
   {% endblock style  %}
@@ -208,8 +208,8 @@
 							password: "required",  
 						},
 						messages: {
-							email: "please  enter valid email",
-							password: "please enter correct password ", 
+							email: "please enter valid email",
+							password: "please enter password ", 
 		
 						},
 						submitHandler: function(form) {
