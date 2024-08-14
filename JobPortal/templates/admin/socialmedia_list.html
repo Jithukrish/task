@@ -45,156 +45,128 @@
 
 {% block style %}
 <style>
-    .rwd-table {
-        margin: auto;
-        min-width: 300px;
-        max-width: 100%;
-        border-collapse: collapse;
+ 
+
+  
+  
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    overflow: hidden;
+    
+   td, th{
+      border-top: 1px solid #ECF0F1;
+      padding: 10px;
+    }
+    
+    td{
+      border-left: 1px solid #ECF0F1;
+      border-right: 1px solid #ECF0F1;
+    }
+    
+    th{
+      background-color: #4ECDC4;
+    }
+    
+    tr:nth-of-type(even) td{
+      background-color: lighten(#4ECDC4, 35%);
+    }
+    
+    .total{
+      th{
+        background-color: white;
       }
       
-      .rwd-table tr:first-child {
-        border-top: none;
-        background: #428bca;
-        color: #fff;
+      td{
+        text-align: right;
+        font-weight: 700;
       }
-      
-      .rwd-table tr {
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
-        background-color: #f5f9fc;
-      }
-      
-      .rwd-table tr:nth-child(odd):not(:first-child) {
-        background-color: #ebf3f9;
-      }
-      
-      .rwd-table th {
-        display: none;
-      }
-      
-      .rwd-table td {
-        display: block;
-      }
-      
-      .rwd-table td:first-child {
-        margin-top: .5em;
-      }
-      
-      .rwd-table td:last-child {
-        margin-bottom: .5em;
-      }
-      
-      .rwd-table td:before {
-        content: attr(data-th) ": ";
-        font-weight: bold;
-        width: 120px;
-        display: inline-block;
-        color: #000;
-      }
-      
-      .rwd-table th,
-      .rwd-table td {
-        text-align: left;
-      }
-      
-      .rwd-table {
-        color: #333;
-        border-radius: .4em;
-        overflow: hidden;
-      }
-      
-      .rwd-table tr {
-        border-color: #bfbfbf;
-      }
-      
-      .rwd-table th,
-      .rwd-table td {
-        padding: .5em 1em;
-      }
-      @media screen and (max-width: 601px) {
-        .rwd-table tr:nth-child(2) {
-          border-top: none;
-        }
-      }
-      @media screen and (min-width: 600px) {
-        .rwd-table tr:hover:not(:first-child) {
-          background-color: #d8e7f3;
-        }
-        .rwd-table td:before {
+    }
+  }
+  
+    .mobile-header{
+      display: none;
+    }
+  
+  @media only screen and (max-width: 760px){
+    p{
+      display: block;
+      font-weight: bold;
+    }
+    
+    table{
+      tr{
+        td:not(:first-child), th:not(:first-child), td:not(.total-val){
           display: none;
         }
-        .rwd-table th,
-        .rwd-table td {
-          display: table-cell;
-          padding: .25em .5em;
+        
+        &:nth-of-type(even) td:first-child{
+          background-color: lighten(#4ECDC4, 35%);
         }
-        .rwd-table th:first-child,
-        .rwd-table td:first-child {
-          padding-left: 0;
+        &:nth-of-type(odd) td:first-child{
+          background-color: white;
         }
-        .rwd-table th:last-child,
-        .rwd-table td:last-child {
-          padding-right: 0;
+        
+        &:nth-of-type(even) td:not(:first-child){
+          background-color: white;
         }
-        .rwd-table th,
-        .rwd-table td {
-          padding: 1em !important;
+        
+        th:first-child{
+          width: 100%;
+          display:block;
+        }
+        
+        th:not(:first-child){
+          width: 40%;
+          transition: transform 0.4s ease-out;
+          transform:translateY(-9999px);
+          position: relative;
+          z-index: -1;
+        }
+        
+        td:not(:first-child){
+          transition: transform 0.4s ease-out;
+          transform:translateY(-9999px);
+          width: 60%;
+          position: relative;
+          z-index: -1;
+        }
+        
+        td:first-child{
+          display: block;
+          cursor: pointer;
+        }
+        
+        &.total th{
+          width: 25%;
+          display: inline-block;
+        }
+        
+        td.total-val{
+          display: inline-block;
+          transform: translateY(0);
+          width: 75%;
         }
       }
-      
-      
-      /* THE END OF THE IMPORTANT STUFF */
-      
-      /* Basic Styling */
-      body {
-      background: #4B79A1;
-      background: -webkit-linear-gradient(to left, #4B79A1 , #283E51);
-      background: linear-gradient(to left, #4B79A1 , #283E51);        
+    }
+  }
+  
+  @media only screen and (max-width: 300px){
+    table{
+      tr{
+        th:not(:first-child){
+          width: 50%;
+          font-size: 14px;
+        }
+        
+        td:not(:first-child){
+          width: 50%;
+          font-size: 14px;
+        }
       }
-      h1 {
-        text-align: center;
-        font-size: 2.4em;
-        color: #f2f2f2;
-      }
-      .container {
-        display: block;
-        text-align: center;
-      }
-      h3 {
-        display: inline-block;
-        position: relative;
-        text-align: center;
-        font-size: 1.5em;
-        color: #cecece;
-      }
-      h3:before {
-        content: "\25C0";
-        position: absolute;
-        left: -50px;
-        -webkit-animation: leftRight 2s linear infinite;
-        animation: leftRight 2s linear infinite;
-      }
-      h3:after {
-        content: "\25b6";
-        position: absolute;
-        right: -50px;
-        -webkit-animation: leftRight 2s linear infinite reverse;
-        animation: leftRight 2s linear infinite reverse;
-      }
-      @-webkit-keyframes leftRight {
-        0%    { -webkit-transform: translateX(0)}
-        25%   { -webkit-transform: translateX(-10px)}
-        75%   { -webkit-transform: translateX(10px)}
-        100%  { -webkit-transform: translateX(0)}
-      }
-      @keyframes leftRight {
-        0%    { transform: translateX(0)}
-        25%   { transform: translateX(-10px)}
-        75%   { transform: translateX(10px)}
-        100%  { transform: translateX(0)}
-      }
-     
-      
+    }
+  }
 </style>
 {% endblock  %}
   
@@ -371,12 +343,12 @@
                     <hr class="dropdown-divider">
                     </li>
 
-                    <li>
+                    {% comment %} <li>
                     <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                         <i class="bi bi-question-circle"></i>
                         <span>Need Help?</span>
                     </a>
-                    </li>
+                    </li> {% endcomment %}
                     <li>
                     <hr class="dropdown-divider">
                     </li>
@@ -408,7 +380,7 @@
       
   
         <li class="nav-item">
-          <a class="nav-link collapsed"  href="">
+          <a class="nav-link collapsed"  href="{% url "admin_dash" %}">
             <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
           </a>
         </li>
@@ -430,13 +402,14 @@
                 </a>
               </li>
               <li>
-                <a href="{% url "selected_jobs" pk=user.id %}">
+                <a href="{% url "selected_jobs"  %}">
                   <i class="bi bi-circle"></i><span>Select Jobs</span>
                 </a>
               </li>
+              
               <li>
-                <a href="{% url "about_us" %}">
-                  <i class="bi bi-circle"></i><span>About us </span>
+                <a href="{% url "about_update" %}">
+                  <i class="bi bi-circle"></i><span>About US </span>
                 </a>
               </li>
               
@@ -460,16 +433,8 @@
                   <i class="bi bi-circle"></i><span>Section Five</span>
                 </a>
               </li>
-              <li>
-                <a href="{% url "admin_dash" %}">
-                  <i class="bi bi-circle"></i><span>Report</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "service_section" %}">
-                  <i class="bi bi-circle"></i><span>Section Service</span>
-                </a>
-              </li>
+              
+             
               <li>
                 <a href="{% url "all_service" %}">
                   <i class="bi bi-circle"></i><span>Section Service</span>
@@ -490,9 +455,10 @@
                   <i class="bi bi-circle"></i><span>Social media</span>
                 </a>
               </li>
+              
               <li>
-                <a href="{% url "social_media_list" %}">
-                  <i class="bi bi-circle"></i><span>Social media </span>
+                <a href="{% url "admin_dash" %}">
+                  <i class="bi bi-circle"></i><span>Report</span>
                 </a>
               </li>
         
@@ -513,214 +479,7 @@
             <i class="bi bi-journal-text"></i> <i class=""></i><span>Company Management</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>Status Management</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#cms-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="cms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-            <li>
-              <a class="nav-link collapsed" data-bs-target="#nested-cms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-bar-chart"></i><span> CMS</span><i class="bi bi-chevron-down ms-auto"></i>
-              </a>
-              <ul id="nested-cms-nav" class="nav-content collapse" data-bs-parent="#cms-nav">
-                
-                <li>
-                  <a href="{% url "headersection" %}">
-                    <i class="bi bi-circle"></i><span>Header</span>
-                  </a>
-                </li>
-                
-                <li>
-                  <a href="{% url "section_first" %}">
-                    <i class="bi bi-circle"></i><span>Section1</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "selected_jobs" pk=user.id %}">
-                    <i class="bi bi-circle"></i><span>Select Jobs</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "about_us" %}">
-                    <i class="bi bi-circle"></i><span>About us </span>
-                  </a>
-                </li>
-                
-                <li>
-                  <a href="{% url "all_comoany_logo"  %}">
-                    <i class="bi bi-circle"></i><span>Company Logo</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "feature_section_add" %}">
-                    <i class="bi bi-circle"></i><span>Feature Section</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "section_four" %}">
-                    <i class="bi bi-circle"></i><span>Section Four</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "section_five" %}">
-                    <i class="bi bi-circle"></i><span>Section Five</span>
-                  </a>
-                </li>
-                
-               
-                <li>
-                  <a href="{% url "all_service" %}">
-                    <i class="bi bi-circle"></i><span>Section Service</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "contact_section" %}">
-                    <i class="bi bi-circle"></i><span>Contact section</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "contact_section" %}">
-                    <i class="bi bi-circle"></i><span>Frequently Asked</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "social_media" %}">
-                    <i class="bi bi-circle"></i><span>Social media</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "social_media_list" %}">
-                    <i class="bi bi-circle"></i><span>Social media </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "admin_dash" %}">
-                    <i class="bi bi-circle"></i><span>Report</span>
-                  </a>
-                </li>
-                
-                <!-- Third-level nested item -->
-                <li>
-                  <a class="nav-link collapsed" data-bs-target="#deep-nested-cms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
-                  </a>
-                  <ul id="deep-nested-cms-nav" class="nav-content collapse" data-bs-parent="#nested-cms-nav">
-                    <li>
-                      <a href="{% url "headersection" %}">
-                        <i class="bi bi-circle"></i><span>Header</span>
-                      </a>
-                    </li>
-                    
-                    <li>
-                      <a href="{% url "section_first" %}">
-                        <i class="bi bi-circle"></i><span>Section1</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "selected_jobs" pk=user.id %}">
-                        <i class="bi bi-circle"></i><span>Select Jobs</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "about_us" %}">
-                        <i class="bi bi-circle"></i><span>About us </span>
-                      </a>
-                    </li>
-                    
-                    <li>
-                      <a href="{% url "all_comoany_logo"  %}">
-                        <i class="bi bi-circle"></i><span>Company Logo</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "feature_section_add" %}">
-                        <i class="bi bi-circle"></i><span>Feature Section</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "section_four" %}">
-                        <i class="bi bi-circle"></i><span>Section Four</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "section_five" %}">
-                        <i class="bi bi-circle"></i><span>Section Five</span>
-                      </a>
-                    </li>
-                    
-                   
-                    <li>
-                      <a href="{% url "all_service" %}">
-                        <i class="bi bi-circle"></i><span>Section Service</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "contact_section" %}">
-                        <i class="bi bi-circle"></i><span>Contact section</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "contact_section" %}">
-                        <i class="bi bi-circle"></i><span>Frequently Asked</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "social_media" %}">
-                        <i class="bi bi-circle"></i><span>Social media</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "social_media_list" %}">
-                        <i class="bi bi-circle"></i><span>Social media </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "admin_dash" %}">
-                        <i class="bi bi-circle"></i><span>Report</span>
-                      </a>
-                    </li> 
-                   
-                  </ul>
-                </li>
-              </ul>
-            </li>
-    
-            <!-- More first-level items -->
-            <li>
-              <a href="{% url 'section_five' %}">
-                <i class="bi bi-circle"></i><span>Section Five</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-    
-  
-       
-    
-  
-    
-        
-        
-        
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
-            <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="charts-chartjs.html">
-                <i class="bi bi-circle"></i><span>Chart.js</span>
-              </a>
-            </li>
       
-          </ul>
-        </li>
       <!-- End Charts Nav -->
   
       <li class="nav-heading">Pages</li>
@@ -746,21 +505,7 @@
         </a>
       </li><!-- End Login Page Nav -->
   
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li>
-      <!-- End Error 404 Page Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li>
-      <!-- End Blank Page Nav -->
+   
   
     </ul>
   </aside>
@@ -854,19 +599,9 @@
         </a>
       </li><!-- End Login Page Nav -->
   
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
+    
   
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
+     
   
     </ul>
   
@@ -882,71 +617,81 @@
   {% block main %}
   <main id="main" class="main">
     
-  
+   
       
       <section class="section profile">
           <div class="ever">
 
 <!---------------------------------------message part---------------------------------------------->
-            {% for message in messages %}
-                {% if "update_company" in message.tags %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-            
-                {% else %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endif %}
-            {% endfor %}
+<p> {% for message in messages %}
+   
+  {% if "social_media" in message.tags %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  {% elif "social_media_update" in message.tags %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  
+  {% else %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  {% endif %}
+  {% endfor %}</p>
+                
+                   
 <!---------------------------------------message part end ---------------------------------------------->
+<h3 style="text-align:center;"> Social Media List </h3>
+<table>
+  <thead>
+  <tr class="table-headers">
+    <th>Name</th>
+    <th>Url </th>
+    <th>Edit</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  
+  <tbody>
+    {% for a in socialmedia %}
+    <tr>
+    
+      <th class="mobile-header">Number</th><td> {{a.title}}</td>
+      <th class="mobile-header">Market rate</th><td>  {{a.url_icon  }}</td>
+      <th class="mobile-header">Weight</th><td> <a href="{% url "social_media_update" pk=a.pk %}" class="btn btn-info btn-lg">
+        <span class="glyphicon glyphicon-edit"></span> Edit
+    </a></td>
+      <th class="mobile-header">Value</th><td><button class="delete-social btn btn-danger btn-lg" data-id="{{ a.pk }}">
+        <span class="glyphicon glyphicon-trash"></span> Delete
+    </button> </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  
 
-              <div class="container">
-                <h1>Social Icons </h1>
-                {% csrf_token %}
-                  <table class="rwd-table">
-                    <tbody>
-                      <tr>
-                        <th>Icon</th>
-                        <th>Url</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                      
-                      </tr>
-                      {% for a in socialmedia %}
-                      <tr>
-                        <td data-th="Supplier Code">
-                          {{a.title}}
-                        </td>
-                        <td data-th="Supplier Name">
-                          {{a.url_icon  }}
-                        </td>
-                        <td data-th="Supplier Name">
-                            <a href="{% url "social_media_update" pk=a.pk %}" class="btn btn-info btn-lg">
-                                <span class="glyphicon glyphicon-edit"></span> Edit
-                            </a>
-                        </td>
-                        <td data-th="Supplier Name">
-                          <button class="delete-social btn btn-danger btn-lg" data-id="{{ a.pk }}">
-                            <span class="glyphicon glyphicon-trash"></span> Delete
-                        </button>                         
-                        </td>
-                        
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                  </table>
-                 
-                </div>
+</table>
+
+
+
+
+{% comment %} ----------------------------------------------------------------------------------------------------------- {% endcomment %}
+            
           </div>
       </section>
+      {% comment %} <p> if you want to add item <a href="{% url "social_media" %}">click here </a></p> {% endcomment %}
+
   </main> 
   {% endblock %} 
   {% block footer %}
-  <footer id="footer" class="footer">
+  <footer id="footer" class="footer">   
+  
+    <p> if you want to add item <a class="btn btn-primary" href="{% url "social_media" %}">click here </a></p>
+
   </footer><!-- End Footer -->
   {% endblock footer %}
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
@@ -968,7 +713,7 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> {% endcomment %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 <script>
   var csrftoken = '{{ csrf_token }}';  
@@ -991,21 +736,21 @@
         });
     });
 </script>
-<body>
 
 
-  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {% comment %} <script src="{% static 'js/jquery-3.7.1.min.js' %}"></script> {% endcomment %}
   <script>
       $(document).ready(function(){
+          var csrftoken = '{{ csrf_token }}';
           $('.delete-social').on('click', function(){
               var pk = $(this).data('id');
-              var csrftoken = '{{ csrf_token }}'; 
               console.log("Primary Key:", pk);  
-                if (!pk) {
-                    console.error('Primary key not found!');
-                    return;
-                }
-
+              if (!pk) {
+                  console.error('Primary key not found!');
+                  return;
+              }
+  
               Swal.fire({
                   title: 'Are you sure?',
                   text: "Do you want to delete this social media?",
@@ -1018,7 +763,7 @@
                   if (result.isConfirmed) {
                       $.ajax({
                           type: 'POST',
-                          url: '/social_media_delete/' + pk + '/',
+                          url: '/admincontrol/social_media_delete/' + pk + '/',
                           data: {
                               'csrfmiddlewaretoken': csrftoken
                           },
@@ -1044,6 +789,10 @@
           });
       });
   </script>
+  
+ 
+  
+
 
 
   {% endblock  %}

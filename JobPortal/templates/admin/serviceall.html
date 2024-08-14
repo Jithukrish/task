@@ -21,17 +21,20 @@
  
   <meta content="" name="description">
   <meta content="" name="keywords">
-  <meta name="csrf-token" content="{% csrf_token %}">
+
   <!-- Favicons -->
   <link href="{% static 'img/img/favicon.png' %}" rel="icon">
   <link href="{% static 'img/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Bootstrap Bundle with Popper -->
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> {% endcomment %}
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-  {% comment %} <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <!-- Vendor CSS Files -->
   <link href="{% static 'css/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'css/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
   <link href="{% static 'css/boxicons/css/boxicons.min.css' %} " rel="stylesheet">
@@ -39,8 +42,6 @@
   <link href="{% static 'css/quill/quill.bubble.css' %}" rel="stylesheet">
   <link href="{% static 'css/remixicon/remixicon.css' %}" rel="stylesheet">
   <link href="{% static 'css/simple-datatables/style.css' %}" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
   <link href="{% static 'css/css/style.css' %}" rel="stylesheet">
 
 {% block style %}
@@ -201,9 +202,8 @@
 
 {% block header %}
 {% if request.user.is_admin %}
-    <header id="header" class="header fixed-top d-flex align-items-center">
+  <header id="header" class="header fixed-top d-flex align-items-center">
 
-    
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
                 <img src="{% static 'img/img/setadmin.png' %}" alt="">
@@ -215,7 +215,8 @@
         
     <!-- Search Area start -->
             {% block search %}
-            {% endblock search %} <!-- Search Area end -->
+            {% endblock search %} 
+          <!-- Search Area end -->
 
         <!-- navbar start -->
             <nav class="header-nav ms-auto">
@@ -283,35 +284,34 @@
                 </li>
                 <!-- End Notification Nav -->
 
-            {% block sendToreciveemp %}
-            <li class="nav-item dropdown">
-                <a class="nav-link nav-icon" href="#" id="messagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-chat-left-text"></i>
-                    <span class="badge bg-success badge-number"></span>
-                </a>
-                <!-- End Messages Icon -->
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages" aria-labelledby="messagesDropdown">
-                    <li class="dropdown-header">
-                        You have <span id="newMessagesCount"></span> new messages
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#sendMessageModal">
-                            <span class="badge rounded-pill bg-primary p-2 ms-2"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <hr class="dropdown-divider">
-                    </li>
-                    <!-- Messages will be loaded here via AJAX -->
-                    <div id="messagesContainer">
-                        <!-- Messages will be dynamically inserted here -->
-                    </div>
-                    <li class="dropdown-footer">
-                        {% comment %} <a href="{% url 'chat' %}">Show all messages</a> {% endcomment %}
-                        <a href="{% url 'create_chat_room' user_id=user.id %}">Start Chat</a>
-                        <a href="{% url 'messages'  %}">Start Chat to user</a>
+                {% block sendToreciveemp %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link nav-icon" href="#" id="messagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-chat-left-text"></i>
+                        <span class="badge bg-success badge-number"></span>
+                    </a>
+                    <!-- End Messages Icon -->
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages" aria-labelledby="messagesDropdown">
+                        <li class="dropdown-header">
+                            You have <span id="newMessagesCount"></span> new messages
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#sendMessageModal">
+                                <span class="badge rounded-pill bg-primary p-2 ms-2"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <!-- Messages will be loaded here via AJAX -->
+                        <div id="messagesContainer">
+                            <!-- Messages will be dynamically inserted here -->
+                        </div>
+                        <li class="dropdown-footer">
+                            {% comment %} <a href="{% url 'chat' %}">Show all messages</a> {% endcomment %}
+                            <a href="{% url 'messages'  %}">Start Chat to user</a>
 
-                    </li>
-                </ul><!-- End Messages Dropdown Items -->
-            </li>
+                        </li>
+                    </ul><!-- End Messages Dropdown Items -->
+                </li>
             
         
             
@@ -319,7 +319,7 @@
             
             
             
-            {% endblock %}
+                {% endblock %}
 
             
             
@@ -328,11 +328,9 @@
                 <li class="nav-item dropdown pe-3">
 
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    {% comment %} {% if request.user.profile.profile_picture %} {% endcomment %}
-                        {% comment %} <img src="{{ request.user.profile.profile_picture.url }}" alt="Profile" class="rounded-circle"> {% endcomment %}
-                    {% comment %} {% else %} {% endcomment %}
+                  
                         <img src="{% static 'img/dashboard/admin.png' %}" alt="Default Profile Picture">
-                    {% comment %} {% endif %} {% endcomment %}
+                   
                     
                     <span class="d-none d-md-block dropdown-toggle ps-2">Admin </span>
                 </a><!-- End Profile Iamge Icon -->
@@ -366,12 +364,12 @@
                     <hr class="dropdown-divider">
                     </li>
 
-                    <li>
+                    {% comment %} <li>
                     <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                         <i class="bi bi-question-circle"></i>
                         <span>Need Help?</span>
                     </a>
-                    </li>
+                    </li> {% endcomment %}
                     <li>
                     <hr class="dropdown-divider">
                     </li>
@@ -389,592 +387,675 @@
             </ul>
             </nav><!--  navbar end -->
 
-    </header>
-  {% endif %}
+  </header>
+{% endif %}
 
   {% endblock header %}
 
   <!----------------------------------Sidebar Start job seeeker-------------------------------------------------->
   
-  {% block sidebar %}
-  {% if request.user.is_admin %} 
-  <aside id="sidebar" class="sidebar">
-    <ul class="sidebar-nav" id="sidebar-nav">
-      
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
-          </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
-              <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-          
-            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a href="{% url "headersection" %}">
-                  <i class="bi bi-circle"></i><span>Header</span>
-                </a>
-              </li>
-              
-              <li>
-                <a href="{% url "section_first" %}">
-                  <i class="bi bi-circle"></i><span>Section1</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "selected_jobs" pk=user.id %}">
-                  <i class="bi bi-circle"></i><span>Select Jobs</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "about_us" %}">
-                  <i class="bi bi-circle"></i><span>About us </span>
-                </a>
-              </li>
-              
-              <li>
-                <a href="{% url "all_comoany_logo"  %}">
-                  <i class="bi bi-circle"></i><span>Company Logo</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "feature_section_add" %}">
-                  <i class="bi bi-circle"></i><span>Feature Section</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "section_four" %}">
-                  <i class="bi bi-circle"></i><span>Section Four</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "section_five" %}">
-                  <i class="bi bi-circle"></i><span>Section Five</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "admin_dash" %}">
-                  <i class="bi bi-circle"></i><span>Report</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "service_section" %}">
-                  <i class="bi bi-circle"></i><span>Section Service</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "all_service" %}">
-                  <i class="bi bi-circle"></i><span>Section Service</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "contact_section" %}">
-                  <i class="bi bi-circle"></i><span>Contact section</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "contact_section" %}">
-                  <i class="bi bi-circle"></i><span>Frequently Asked</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "social_media" %}">
-                  <i class="bi bi-circle"></i><span>Social media</span>
-                </a>
-              </li>
-              <li>
-                <a href="{% url "social_media_list" %}">
-                  <i class="bi bi-circle"></i><span>Social media </span>
-                </a>
-              </li>
-        
-            </ul>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed"  href="{% url "restrict_users" %}">
-              <i class="bi bi-journal-text"></i> <i class=""></i><span>User Management</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed"  href="{% url "restrict_jobs" %}">
-                <i class="bi bi-journal-text"></i> <i class=""></i><span>Job Management</span>
-            </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="{% url "restrict_company" %}">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>Company Management</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>Status Management</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#cms-nav" data-bs-toggle="collapse" href="#">
+{% block sidebar %}
+{% if request.user.is_admin %} 
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    
+
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "admin_dash" %}">
+          <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
             <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
-          <ul id="cms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+        
+          <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
             <li>
-              <a class="nav-link collapsed" data-bs-target="#nested-cms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-bar-chart"></i><span> CMS</span><i class="bi bi-chevron-down ms-auto"></i>
+              <a href="{% url "headersection" %}">
+                <i class="bi bi-circle"></i><span>Header</span>
               </a>
-              <ul id="nested-cms-nav" class="nav-content collapse" data-bs-parent="#cms-nav">
-                
-                <li>
-                  <a href="{% url "headersection" %}">
-                    <i class="bi bi-circle"></i><span>Header</span>
-                  </a>
-                </li>
-                
-                <li>
-                  <a href="{% url "section_first" %}">
-                    <i class="bi bi-circle"></i><span>Section1</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "selected_jobs" pk=user.id %}">
-                    <i class="bi bi-circle"></i><span>Select Jobs</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "about_us" %}">
-                    <i class="bi bi-circle"></i><span>About us </span>
-                  </a>
-                </li>
-                
-                <li>
-                  <a href="{% url "all_comoany_logo"  %}">
-                    <i class="bi bi-circle"></i><span>Company Logo</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "feature_section_add" %}">
-                    <i class="bi bi-circle"></i><span>Feature Section</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "section_four" %}">
-                    <i class="bi bi-circle"></i><span>Section Four</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "section_five" %}">
-                    <i class="bi bi-circle"></i><span>Section Five</span>
-                  </a>
-                </li>
-                
-               
-                <li>
-                  <a href="{% url "all_service" %}">
-                    <i class="bi bi-circle"></i><span>Section Service</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "contact_section" %}">
-                    <i class="bi bi-circle"></i><span>Contact section</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "contact_section" %}">
-                    <i class="bi bi-circle"></i><span>Frequently Asked</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "social_media" %}">
-                    <i class="bi bi-circle"></i><span>Social media</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "social_media_list" %}">
-                    <i class="bi bi-circle"></i><span>Social media </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="{% url "admin_dash" %}">
-                    <i class="bi bi-circle"></i><span>Report</span>
-                  </a>
-                </li>
-                
-                <!-- Third-level nested item -->
-                <li>
-                  <a class="nav-link collapsed" data-bs-target="#deep-nested-cms-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-bar-chart"></i><span>CMS</span><i class="bi bi-chevron-down ms-auto"></i>
-                  </a>
-                  <ul id="deep-nested-cms-nav" class="nav-content collapse" data-bs-parent="#nested-cms-nav">
-                    <li>
-                      <a href="{% url "headersection" %}">
-                        <i class="bi bi-circle"></i><span>Header</span>
-                      </a>
-                    </li>
-                    
-                    <li>
-                      <a href="{% url "section_first" %}">
-                        <i class="bi bi-circle"></i><span>Section1</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "selected_jobs" pk=user.id %}">
-                        <i class="bi bi-circle"></i><span>Select Jobs</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "about_us" %}">
-                        <i class="bi bi-circle"></i><span>About us </span>
-                      </a>
-                    </li>
-                    
-                    <li>
-                      <a href="{% url "all_comoany_logo"  %}">
-                        <i class="bi bi-circle"></i><span>Company Logo</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "feature_section_add" %}">
-                        <i class="bi bi-circle"></i><span>Feature Section</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "section_four" %}">
-                        <i class="bi bi-circle"></i><span>Section Four</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "section_five" %}">
-                        <i class="bi bi-circle"></i><span>Section Five</span>
-                      </a>
-                    </li>
-                    
-                   
-                    <li>
-                      <a href="{% url "all_service" %}">
-                        <i class="bi bi-circle"></i><span>Section Service</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "contact_section" %}">
-                        <i class="bi bi-circle"></i><span>Contact section</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "contact_section" %}">
-                        <i class="bi bi-circle"></i><span>Frequently Asked</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "social_media" %}">
-                        <i class="bi bi-circle"></i><span>Social media</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "social_media_list" %}">
-                        <i class="bi bi-circle"></i><span>Social media </span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="{% url "admin_dash" %}">
-                        <i class="bi bi-circle"></i><span>Report</span>
-                      </a>
-                    </li> 
-                   
-                  </ul>
-                </li>
-              </ul>
             </li>
-    
-            <!-- More first-level items -->
+            
             <li>
-              <a href="{% url 'section_five' %}">
+              <a href="{% url "section_first" %}">
+                <i class="bi bi-circle"></i><span>Section1</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "selected_jobs"  %}">
+                <i class="bi bi-circle"></i><span>Select Jobs</span>
+              </a>
+            </li>
+            
+            <li>
+              <a href="{% url "about_update" %}">
+                <i class="bi bi-circle"></i><span>About US </span>
+              </a>
+            </li>
+            
+            <li>
+              <a href="{% url "all_comoany_logo"  %}">
+                <i class="bi bi-circle"></i><span>Company Logo</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "feature_section_add" %}">
+                <i class="bi bi-circle"></i><span>Feature Section</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "section_four" %}">
+                <i class="bi bi-circle"></i><span>Section Four</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "section_five" %}">
                 <i class="bi bi-circle"></i><span>Section Five</span>
               </a>
             </li>
-          </ul>
-        </li>
-    
-  
-       
-    
-  
-    
-        
-        
-        
-  
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
-            <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            
+           
             <li>
-              <a href="charts-chartjs.html">
-                <i class="bi bi-circle"></i><span>Chart.js</span>
+              <a href="{% url "all_service" %}">
+                <i class="bi bi-circle"></i><span>Section Service</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "contact_section" %}">
+                <i class="bi bi-circle"></i><span>Contact section</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "contact_section" %}">
+                <i class="bi bi-circle"></i><span>Frequently Asked</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url "social_media" %}">
+                <i class="bi bi-circle"></i><span>Social media</span>
+              </a>
+            </li>
+            
+            <li>
+              <a href="{% url "admin_dash" %}">
+                <i class="bi bi-circle"></i><span>Report</span>
               </a>
             </li>
       
           </ul>
-        </li>
-      <!-- End Charts Nav -->
-  
-      <li class="nav-heading">Pages</li>
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url "update_profile_job" %}">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url "register_seeker" %}">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url "login_user" %}">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li>
-      <!-- End Error 404 Page Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li>
-      <!-- End Blank Page Nav -->
-  
-    </ul>
-  </aside>
-  <!-- ------------------------------------------- Sidebar employer---------------------------------------------- -->
-  {% elif request.user.is_employer %}
-  <aside id="sidebar" class="sidebar">
-    <ul class="sidebar-nav" id="sidebar-nav">
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
-          <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
-        </a>
-       
-      </li><!-- End Components Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="{% url "update_company" %}">
-          <i class="bi bi-journal-text"></i> <i class=""></i><span>Company</span>
-        </a>
-       
-      </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="{% url "create_job_post" %}">
-            <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job post</span>
+          <a class="nav-link collapsed"  href="{% url "restrict_users" %}">
+            <i class="bi bi-journal-text"></i> <i class=""></i><span>User Management</span>
           </a>
-  
-        </li>
-     
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="{% url "manage_jobs" %}">
-            <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Manage Jobs</span>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link collapsed"  href="{% url "restrict_jobs" %}">
+              <i class="bi bi-journal-text"></i> <i class=""></i><span>Job Management</span>
           </a>
-  
-        </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed"  href="{% url "job_application_list_stats" %}">
-            <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job Application List</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "restrict_company" %}">
+          <i class="bi bi-journal-text"></i> <i class=""></i><span>Company Management</span>
+        </a>
+      </li>
+    
+    <!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile_job" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_seeker" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+ 
+
+  </ul>
+</aside>
+<!-- ------------------------------------------- Sidebar employer---------------------------------------------- -->
+{% elif request.user.is_employer %}
+<aside id="sidebar" class="sidebar">
+  <ul class="sidebar-nav" id="sidebar-nav">
+    <li class="nav-item">
+      <a class="nav-link " href="index.html">
+        <i class="bi bi-grid"></i>
+        <span>Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
+      </a>
+     
+    </li><!-- End Components Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "update_company" %}">
+        <i class="bi bi-journal-text"></i> <i class=""></i><span>Company</span>
+      </a>
+     
+    </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "create_job_post" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job post</span>
+        </a>
+
+      </li>
+   
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "manage_jobs" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Manage Jobs</span>
+        </a>
+
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "job_application_list_stats" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Job Application List</span>
+        </a>
+
+      </li>
+     
+
+    <li class="nav-item">
+      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="charts-chartjs.html">
+            <i class="bi bi-circle"></i><span>Chart.js</span>
           </a>
-  
         </li>
-       
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
-          <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="charts-chartjs.html">
-              <i class="bi bi-circle"></i><span>Chart.js</span>
-            </a>
-          </li>
-          
-          {% comment %} <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>ECharts</span>
-            </a>
-          </li> {% endcomment %}
-        </ul>
-      </li><!-- End Charts Nav -->
-  
-      <li class="nav-heading">Pages</li>
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url "update_profile" %}">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-  
-     
-  
-     
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url "register_employer" %}">
-          <i class="bi bi-card-list"></i>
-          <span>Register</span>
-        </a>
-      </li><!-- End Register Page Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="{% url "login_user" %}">
-          <i class="bi bi-box-arrow-in-right"></i>
-          <span>Login</span>
-        </a>
-      </li><!-- End Login Page Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-  
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
-          <i class="bi bi-file-earmark"></i>
-          <span>Blank</span>
-        </a>
-      </li><!-- End Blank Page Nav -->
-  
-    </ul>
-  
-  </aside>
-  {% endif %}
-  {% endblock  %}
-  
+        
+        {% comment %} <li>
+          <a href="charts-echarts.html">
+            <i class="bi bi-circle"></i><span>ECharts</span>
+          </a>
+        </li> {% endcomment %}
+      </ul>
+    </li><!-- End Charts Nav -->
+
+    <li class="nav-heading">Pages</li>
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "update_profile" %}">
+        <i class="bi bi-person"></i>
+        <span>Profile</span>
+      </a>
+    </li><!-- End Profile Page Nav -->
+
+   
+
+   
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "register_employer" %}">
+        <i class="bi bi-card-list"></i>
+        <span>Register</span>
+      </a>
+    </li><!-- End Register Page Nav -->
+
+    <li class="nav-item">
+      <a class="nav-link collapsed" href="{% url "login_user" %}">
+        <i class="bi bi-box-arrow-in-right"></i>
+        <span>Login</span>
+      </a>
+    </li><!-- End Login Page Nav -->
+
+
+
+  </ul>
+
+</aside>
+{% endif %}
+{% endblock  %}
 
   <!--------------------------------------------------sidebar end both case-------------------------------------------------------------->
 
   
-
   {% block main %}
+  {% if request.user.is_admin %}
   <main id="main" class="main">
     
   
       
-      <section class="section profile">
-          <div class="ever">
+    <section class="section profile">
+        <div class="ever">
 
 <!---------------------------------------message part---------------------------------------------->
-            {% for message in messages %}
-                {% if "update_company" in message.tags %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-            
-                {% else %}
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endif %}
-            {% endfor %}
-<!---------------------------------------message part end ---------------------------------------------->
+          {% for message in messages %}
+              {% if "service_section" in message.tags %}
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+             {% elif "service_update" in message.tags %}
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+            {% elif "service_delete" in message.tags %}
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
           
-                <section id="advertisers" class="advertisers-service-sec pt-5 pb-5">
-                  <div class="container">
-                    <div class="row">
-                      <div class="section-header text-center">
-                        <h2 class="fw-bold fs-1">
-                          Our
-                          <span class="b-class-secondary">All </span>Services
-                        </h2>
-                        <p class="sec-icon"><i class="fa-solid fa-gear"></i></p>
-                      </div>
-                    </div>
-                    <div class="row mt-5 mt-md-4 row-cols-1 row-cols-sm-1 row-cols-md-3 justify-content-center">
-                      {% for d in services %}
-                      <div class="col" id="service-{{ d.id }}">
-                        <div class="service-card">
-                          <div class="icon-wrapper">
-                            <i class="{{ d.icons }}"></i>
-                          </div>
-                          <h3>{{ d.title }}</h3>
-                          <p>{{ d.description }}</p>
-                          <p>
-                            <a href="{% url 'service_update' pk=d.id %}" class="btn btn-primary btn-sm">Update</a>
-                          </p>
-                          <p>
-                            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-service-id="{{ d.id }}">Delete</button>                          </p>
-                        </div>
-                      </div>
-                      {% endfor %}
+              {% else %}
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                      {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+              {% endif %}
+          {% endfor %}
+<!---------------------------------------message part end ---------------------------------------------->
+        
+              <section id="advertisers" class="advertisers-service-sec pt-5 pb-5">
+                <div class="container">
+                  <div class="row">
+                    <div class="section-header text-center">
+                      <h2 class="fw-bold fs-1">
+                        Our
+                        <span class="b-class-secondary">All </span>Services
+                      </h2>
+                      <p class="sec-icon"><i class="fa-solid fa-gear"></i></p>
                     </div>
                   </div>
-                
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                          <div class="modal-content">
-                              <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Delete Service</h5>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                  Are you sure you want to delete this service?
-                              </div>
-                              <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary" id="confirmDeleteBtn">Yes</button>
-                              </div>
-                          </div>
+                  <div class="row mt-5 mt-md-4 row-cols-1 row-cols-sm-1 row-cols-md-3 justify-content-center">
+                    {% for d in services %}
+                    <div class="col" id="service-{{ d.id }}">
+                      <div class="service-card">
+                        <div class="icon-wrapper">
+                          <i class="{{ d.icons }}"></i>
+                        </div>
+                        <h3>{{ d.title }}</h3>
+                        <p>{{ d.description }}</p>
+                        <p>
+                          <a href="{% url 'service_update' pk=d.id %}" class="btn btn-primary btn-sm">Update</a>
+                        </p>
+                        <p>
+                          <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal" data-service-id="{{ d.id }}">Delete</button>                          </p>
                       </div>
                     </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Service</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Are you sure you want to delete this service?
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="confirmDeleteBtn">Yes</button>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
 
-                </section>
-               
+              </section>
+             
+              
+
+
+
+
+
+          </div>
+          
+          
+          <p> ADD MORE SERVICE&nbsp&nbsp<a href="{% url "service_section" %}">Click here</a> </p>
+                
+        </div>
+    </section>
+
+  
+  
+  
+
+</main>
+  <!---------------------------------------------------------Employer page------------------------------------------------>
+  {% elif request.user.is_employer %}
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Dashboard</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Dashboard</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+    <section class="section dashboard">
+      <div class="row">
+          <!-- Total Applied Users Count -->
+          <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                  <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                          <li class="dropdown-header text-start">
+                              <h6>Filter</h6>
+                          </li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="week">This Week</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="month">This Month</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">This Year</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
+                      </ul>
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title">Total Applied Users</h5>
+                      <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="bi bi-briefcase"></i>
+                          </div>
+                          <div class="ps-3">
+                              <h6 id="applied-users-counts">{{ applied_users_count }}</h6>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Accepted Applications Count -->
+          <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                  <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                          <li class="dropdown-header text-start">
+                              <h6>Filter</h6>
+                          </li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
+                      </ul>
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title">Approved Applications</h5>
+                      <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="bi bi-briefcase"></i>
+                          </div>
+                          <div class="ps-3">
+                              <h6 id="accepted-applications-counts">{{ accepted_applications_count }}</h6>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Rejected Applications Count -->
+          <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                  <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                          <li class="dropdown-header text-start">
+                              <h6>Filter</h6>
+                          </li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
+                      </ul>
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title">Rejected Applications</h5>
+                      <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="bi bi-people"></i>
+                          </div>
+                          <div class="ps-3">
+                              <h6 id="rejected-applications-counts">{{ rejected_applications_count }}</h6>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Pending Applications Count -->
+          <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
+                  <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                          <li class="dropdown-header text-start">
+                              <h6>Filter</h6>
+                          </li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
+                      </ul>
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title">Pending Applications</h5>
+                      <div class="d-flex align-items-center">
+                          <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="bi bi-hourglass-split"></i>
+                          </div>
+                          <div class="ps-3">
+                              <h6 id="pending-applications-counts">{{ pending_applications_count }}</h6>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Reports Chart -->
+          <div class="col-12">
+              <div class="card">
+                  <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                          <li class="dropdown-header text-start">
+                              <h6>Filter</h6>
+                          </li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
+                      </ul>
+                  </div>
+                  <div class="card-body">
+                      <h5 class="card-title">Reports</h5>
+                      <p>Filter: <span id="filter-titles">{{ filter_title }}</span></p>
+                      <div>
+                          <canvas id="reportsCharts"></canvas>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="row">
+            <div class="card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start"><h6>Filter</h6></li>
+                  <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
+                    <li><a class="dropdown-item filter-link" href="#" data-filter="week">This Week</a></li>
+                    <li><a class="dropdown-item filter-link" href="#" data-filter="month">This Month</a></li>
+                    <li><a class="dropdown-item filter-link" href="#" data-filter="year">This Year</a></li>
+                    <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Recent Activity <span>| </span></h5>
+                <div class="activity">
+                  {% for job in recently_applied_jobs %}
+                  <div class="activity-item d-flex">
+                    <div class="activite-label">{{ job.timestamp|timesince }}</div>
+                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                    <div class="activity-content">
+                      {{ job.job__title }}
+                    </div>
+                     <div class="activity-content">
+                      {{ job.user__username }}
+                    </div> 
+                  </div>
+                  <!-- End activity item-->
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+      </div>
+   </section>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+          const filterLinks = document.querySelectorAll(".filter-link");
+      
+          filterLinks.forEach(link => {
+              link.addEventListener("click", (e) => {
+                  e.preventDefault();
+                  const filter = e.target.getAttribute("data-filter");
+      
+                  fetch(`/job/total_count/?filter=${filter}`, {
+                      headers: {
+                          'X-Requested-With': 'XMLHttpRequest'
+                      }
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                      console.log(data); 
+                      document.getElementById("applied-users-counts").innerText = data.applied_users_count;
+                      document.getElementById("accepted-applications-counts").innerText = data.accepted_applications_count;
+                     
+                      document.getElementById("rejected-applications-counts").innerText = data.rejected_applications_count;
+                      document.getElementById("pending-applications-counts").innerText = data.pending_applications_count;
+                      document.getElementById("filter-titles").innerText = data.filter_title;
+      
+                      const reportsChart = document.getElementById("reportsCharts");
+                      reportsChart.innerHTML = ""; 
+      
+                      const chartData = data.chart_data; 
+                      const chart = new Chart(reportsChart, {
+                          type: 'bar',
+                          data: {
+                              labels: chartData.labels,
+                              datasets: [{
+                                  label: 'Applications',
+                                  data: chartData.data,
+                                  backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                  borderColor: 'rgba(54, 162, 235, 1)',
+                                  borderWidth: 1
+                              }]
+                          },
+                          options: {
+                              scales: {
+                                  y: {
+                                      beginAtZero: true
+                                  }
+                              }
+                          }
+                      });
+      
+                     updateRecentActivity(data.recently_applied_jobs);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        });
+    });
+
+    function updateRecentActivity(recentlyAppliedJobs) {
+        const activityContainer = document.querySelector('.activity');
+        activityContainer.innerHTML = '';
+        recentlyAppliedJobs.forEach(job => {
+            const activityItem = document.createElement('div');
+            activityItem.classList.add('activity-item', 'd-flex');
+            activityItem.innerHTML = `
+                <div class="activite-label">${new Date(job.timestamp).toLocaleString()}</div>
+                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                <div class="activity-content">
+                    ${job.job__title} - ${job.user__username}
+                </div>
+            `;
+            activityContainer.appendChild(activityItem);
+        });
+    }
+  });
+
+      </script>
+
+
+  
+  
+
+
+
+  
+  
                 
 
 
-
-
-
-            </div>
-            
-            
-            <p> ADD MORE COMPANY IMAGES&nbsp&nbsp<a href="{% url "service_section" %}">Click here</a> </p>
-                  
-          </div>
-      </section>
-
+      
+        
     
+        
+        
+         
+              
+                     
+
+
+  
+      
     
-    
+        
+
+
+ 
+  <!-- End Section -->
   
   </main>
-    
-              
-  
-  {% endblock main %}
+{% endif %}
+  <!-- End #main -->
+  {% endblock  %}
+  <!-- ======= Footer ======= -->
   
   {% block footer %}
+    
+ 
+    
   <footer id="footer" class="footer">
   
   
@@ -983,29 +1064,28 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-
   {% block script %}
   <script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
-    <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
-    <script src="{% static 'js/quill/quill.js'  %}"></script>
-    <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
-    <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-    <script src="{% static 'js/php-email-form/validate.js' %} "></script>
-  
-    <!-- Template Main JS File -->
+  <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
+  <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'js/quill/quill.js'  %}"></script>
+  <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'js/php-email-form/validate.js' %} "></script>
+
+  <script src="{% static 'js/js/main.js' %}"></script>
   <script src="{% static 'js/js/main.js' %}"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> {% endcomment %}
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+{% comment %} <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script> {% endcomment %}
 
 <script>
   let serviceIdToDelete;
@@ -1036,27 +1116,18 @@
       }
   });
 </script>
-
-</body>
-</html>
-
-
-
-</section>
-
   
-     
-      
-  
-         
    
-                
-               
-          
   
+      
+    
+
   
-  {% endblock  %}
-  
+
+
+    
+  {% endblock %}
+    
 
 </body>
 

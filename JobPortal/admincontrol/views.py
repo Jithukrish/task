@@ -114,24 +114,44 @@ class MenuDeleteView(View):
         return JsonResponse({'message': 'Item deleted successfully'})
   
 #------------------------------------------------section1-----------------------------------------------
-class SectionView(CreateView):
-    model =Section1
+
+
+class SectionView(View):
     template_name = "admin/section1.html"
     form_class = SectionForm
-    success_url =reverse_lazy('admin_dash')
+    def get(self, request):
+        try:
+            section =Section1.objects.first()
+        except Section1.DoesNotExist:
+            section =Section1()
+        form = self.form_class(instance=section)
+        context = {
+            'form': form,
+            'section': section,
+        }
+        return render(request, self.template_name, context)
+    def post(self, request, *args, **kwargs):
+              
+        try:
+            section = Section1.objects.first()
+        except Section1.DoesNotExist:
+            section = Section1()
+        form = SectionForm(request.POST, request.FILES, instance=section)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Updated your profile.')
+            return redirect('section_first')
+        else:
+            messages.warning(request, 'Something went wrong. Please check the form for errors.')
+        context = {
+            'form': form,
+            'section': section,
+        }
+        return render(request, "admin/section1.html", context)
+            
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
-    def form_invalid(self, form):
-        print(form.errors)
-        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            return JsonResponse({
-                'success': False,
-                'errors': form.errors
-            }, status=400)
-        return super().form_invalid(form)
     
+
 
 
 
@@ -161,31 +181,37 @@ class SelectJobsForUserView(FormView):
         SelectedJob.objects.filter(user=user).delete()
         for job in selected_jobs:
             SelectedJob.objects.create(user=user, job=job)
+        messages.success(self.request, 'Selected jobs have been successfully added.')
         return super().form_valid(form)
     def form_invalid(self, form):
         print(form.errors)
-        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
-            return JsonResponse({
-                'success': False,
-                'errors': form.errors
-            }, status=400)
+       
         return super().form_invalid(form)
 
     def get_success_url(self):
         user_id = self.kwargs['user_id']
-        return reverse_lazy('selected_jobs', kwargs={'user_id': user_id})
+        return reverse_lazy('select_jobs', kwargs={'user_id': user_id})
+   
 
 
-class UserDetailView(DetailView):
-    model = User
-    template_name = 'admin/selected_jobs.html'
-    context_object_name = 'user'
+# class UserDetailView(DetailView):
+#     model = User
+#     template_name = 'admin/selected_jobs.html'
+#     context_object_name = 'user'
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.get_object()
-        context['selected_jobs'] = SelectedJob.objects.filter(user=user)
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         user = self.get_object()
+#         context['selected_jobs'] = SelectedJob.objects.filter(user=user)
+#         return context
+    
+
+class UserDetailView(ListView):
+    model = SelectedJob
+    form_class = SelectJobForm
+    template_name = 'admin/selected_jobs.html'
+    context_object_name='selected_jobs'
+
  #------------------------------------------------section1-----------------------------------------------
 
 
@@ -254,9 +280,7 @@ class UpdateaboutProfileView(View):
         }
         return render(request, self.template_name, context)
     def post(self, request, *args, **kwargs):
-        # if not request.user.is_authenticated or not request.user.is_admin:
-        #     messages.warning(request, 'Permission denied.')
-        #     return redirect('login_user')        
+              
         try:
             about = Aboutus.objects.first()
         except Aboutus.DoesNotExist:
@@ -301,23 +325,35 @@ class ImageView(View):
         else:
             return JsonResponse({'error': 'pls upload file'}, status=400)
         
-
-
 class CompanyFormView(CreateView):
     model = Companylogo
     template_name = "admin/Companylogo.html"
     form_class = CompanyForm
-    success_url=reverse_lazy('all_comoany_logo')
+
     def form_valid(self, form):
-        print(form.cleaned_data)
-        form.save() 
-        messages.success(self.request, 'Send Successfully ')
+        logo_name = form.cleaned_data['logo_name']
+        logo = form.cleaned_data['logo']
+        
+        if Companylogo.objects.filter(logo_name=logo_name).exists():
+            messages.error(self.request, 'This company name already exists.')
+            return self.form_invalid(form)
+
+
+        if Companylogo.objects.filter(logo__icontains=logo).exists():
+            messages.error(self.request, 'This company image already exists.')
+            return self.form_invalid(form)
+    
+        form.save()
+        messages.success(self.request, 'Added Successfully')
         return super().form_valid(form)
 
     def form_invalid(self, form):
         print(form.errors)
         return super().form_invalid(form)
-    
+
+    def get_success_url(self):
+        return reverse_lazy('all_comoany_logo')
+
 class CompanyLogoDetailview(ListView):
     model = Companylogo
     template_name = 'admin/Companylogodetail.html'
@@ -349,20 +385,56 @@ class MenfrequentDeleteView(View):
         return JsonResponse({'message': 'logo deleted successfully'})
     
 
-class FeatureFormView(CreateView):
-    model = FeaturesTab1
+# class FeatureFormView(CreateView):
+#     model = FeaturesTab1
+#     template_name = "admin/Featuresub.html"
+#     form_class = FeaturesTab1Form
+#     success_url=reverse_lazy('admin_dash')
+#     def form_valid(self, form):
+#         print(form.cleaned_data)
+#         form.save() 
+#         return super().form_valid(form)
+
+#     def form_invalid(self, form):
+#         print(form.errors)
+#         return super().form_invalid(form)
+
+
+class FeatureFormView(View):
     template_name = "admin/Featuresub.html"
     form_class = FeaturesTab1Form
-    success_url=reverse_lazy('admin_dash')
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        form.save() 
-        return super().form_valid(form)
+    def get(self, request):
+        try:
+            feature =FeaturesTab1.objects.first()
+        except FeaturesTab1.DoesNotExist:
+            feature =FeaturesTab1()
+        form = self.form_class(instance=feature)
+        context = {
+            'form': form,
+            'feature': feature,
+        }
+        return render(request, self.template_name, context)
+    def post(self, request, *args, **kwargs):
+              
+        try:
+            feature = FeaturesTab1.objects.first()
+        except FeaturesTab1.DoesNotExist:
+            feature = FeaturesTab1()
+        form = FeaturesTab1Form(request.POST, request.FILES, instance=feature)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Updated successfully.')
+            return redirect('feature_section_add')
+        else:
+            messages.warning(request, 'Something went wrong. Please check the form for errors.')
+        context = {
+            'form': form,
+            'feature': feature,
+        }
+        return render(request, "admin/Featuresub.html", context)
+            
 
-    def form_invalid(self, form):
-        print(form.errors)
-        return super().form_invalid(form)
-    
+        
 
 class SubfeatureView(View):
     def post(self, request, *args, **kwargs):
@@ -383,20 +455,54 @@ class SubfeatureView(View):
 
 
 
-class TabSecondFormView(CreateView):
-    model = FeaturesTab2
+# class TabSecondFormView(CreateView):
+#     model = FeaturesTab2
+#     template_name = "admin/TabSecondFormView.html"
+#     form_class = FeatureTabSecondForm
+#     success_url=reverse_lazy('admin_dash')
+#     def form_valid(self, form):
+#         print(form.cleaned_data)
+#         form.save() 
+#         return super().form_valid(form)
+
+#     def form_invalid(self, form):
+#         print(form.errors)
+#         return super().form_invalid(form)
+
+
+class TabSecondFormView(View):
     template_name = "admin/TabSecondFormView.html"
     form_class = FeatureTabSecondForm
-    success_url=reverse_lazy('admin_dash')
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        form.save() 
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        print(form.errors)
-        return super().form_invalid(form)
-
+    def get(self, request):
+        try:
+            tabsecond =FeaturesTab2.objects.first()
+        except FeaturesTab2.DoesNotExist:
+            tabsecond =FeaturesTab2()
+        form = self.form_class(instance=tabsecond)
+        context = {
+            'form': form,
+            'tabsecond': tabsecond,
+        }
+        return render(request, self.template_name, context)
+    def post(self, request, *args, **kwargs):
+              
+        try:
+            tabsecond = FeaturesTab2.objects.first()
+        except FeaturesTab2.DoesNotExist:
+            tabsecond = FeaturesTab2()
+        form = FeatureTabSecondForm(request.POST, request.FILES, instance=tabsecond)
+        if form.is_valid():
+            form.save()
+            messages.info(request, 'Updated successfully.')
+            return redirect('section_four')
+        else:
+            messages.warning(request, 'Something went wrong. Please check the form for errors.')
+        context = {
+            'form': form,
+            'tabsecond': tabsecond,
+        }
+        return render(request, "admin/TabSecondFormView.html", context)
+            
 
 
 class TabThirdFormView(CreateView):
@@ -577,6 +683,7 @@ class FrequentSectionView(CreateView):
         
         else:
             form.save()
+            messages.success(self.request, 'Question added successfully.')
             return JsonResponse({'success': True})
 
     def form_invalid(self, form):
@@ -678,10 +785,11 @@ class CompanyRestrictView(TemplateView):
 class socialmediaView(CreateView):
     template_name = 'admin/Socialmedia.html'
     form_class = SocialmediaForm
-    success_url=reverse_lazy('admin_dash')
+    success_url=reverse_lazy('social_media_list')
     def form_valid(self, form):
-        # print(form.cleaned_data)
-        form.save() 
+     
+        form.save()
+        messages.success(self.request, "Added successfully")
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -697,6 +805,8 @@ class socialmediaListview(ListView):
     model = Socialmedia
     template_name = 'admin/socialmedia_list.html'
     context_object_name ='socialmedia'
+  
+
 
 
 
@@ -706,20 +816,32 @@ class socialmediaUpdateView(UpdateView):
     fields =['title','url_icon']
     template_name = 'admin/socialmedia_update.html'
     success_url = reverse_lazy('social_media_list')
+    def form_valid(self, form):
+        form.save()
+        messages.success(self.request, " updated successfully")
+        return super().form_valid(form)
+
+
+
 
 
 
 
 class socialDeleteView(View):
+   
+
     def post(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
+        # print(f"Attempting to delete Socialmedia item with ID: {pk}")  
         try:
             service = Socialmedia.objects.get(pk=pk)
             service.delete()
-            return JsonResponse({'message': 'social deleted successfully'})
+            # print(f"Successfully deleted Socialmedia item with ID: {pk}") 
+            return JsonResponse({'message': 'Deleted successfully'})
         except Socialmedia.DoesNotExist:
-            return JsonResponse({'error': 'Social media does not exist'}, status=404)
-
+            # print(f"Socialmedia ID: {pk} does not exist")
+            return JsonResponse({'error': 'Does not exist'}, status=404)
+    
 from django.db.models import Q
 
 
