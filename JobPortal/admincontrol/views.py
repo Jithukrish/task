@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse, reverse_lazy
 from Job.models import Apply_Job, JobPost
 from Company.models import Company
+from Resume.models import Resume
 from admincontrol.models import AddImg, Address_contact, Companylogo, Contact_Main, Contact_contact, FeaturesTab1, FeaturesTab2, FeaturesTab3, Featuresub, Frequently_asked, Head, IconServices, Mail_contact,Menu, Section1, SelectedJob,Aboutus, Service, Socialmedia
 from .forms import CompanyForm, ContactSectionForm, ContactSectionMainForm, FeatureTabFiveForm, FeatureTabSecondForm, FeaturesTab1Form, FeaturesubForm, FrequentlyAskedForm, HeaderForm,HeaderMenuForm,SectionForm, SelectJobForm, AboutForm, ServiceForm, SocialmediaForm
 from django.views.generic.edit import FormView,CreateView,View
@@ -822,24 +823,16 @@ class socialmediaUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-
-
-
-
-
 class socialDeleteView(View):
    
 
     def post(self, request, *args, **kwargs):
         pk = self.kwargs.get('pk')
-        # print(f"Attempting to delete Socialmedia item with ID: {pk}")  
         try:
             service = Socialmedia.objects.get(pk=pk)
             service.delete()
-            # print(f"Successfully deleted Socialmedia item with ID: {pk}") 
             return JsonResponse({'message': 'Deleted successfully'})
         except Socialmedia.DoesNotExist:
-            # print(f"Socialmedia ID: {pk} does not exist")
             return JsonResponse({'error': 'Does not exist'}, status=404)
     
 from django.db.models import Q
@@ -938,8 +931,8 @@ class AdminTotalCountJobView(View):
             applications = Apply_Job.objects.all().order_by('-timestamp')
 
         total_application += applications.count()
-        total_employer+=applications.values('job__company__user').distinct().count()
-        total_jobseeker+=applications.values('job__user').distinct().count()
+        total_employer+=Company.objects.values('user').distinct().count()
+        total_jobseeker+=Resume.objects.values('user').distinct().count()
         # print("+++++++++++++total_employer+++++++++++",total_employer)
         # print("+++++++++++++total_jobseeker+++++++++++",total_employer)
         accepted_count += applications.filter(status='Accepted').count()

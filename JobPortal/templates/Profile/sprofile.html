@@ -4,7 +4,46 @@
 <!------------------------------------------Title section------------------------------------------------>
 {% block title %}
 {% endblock %}
+{% block style %}
+<style>
+    #profile-form label.error {
+        font-size: 17px;
+        color: red;
+    }
+    label.valid {
+        height: 21px;
+        width: 21px;
+        display: block;
+        padding-left: 21px;
+    }
+ /* Style the error message text */
+.errorlist {
+  color: red; /* Change this to your desired color */
+  font-size: 14px; /* Adjust font size */
+  list-style-type: none; /* Remove bullet points */
+  padding: 0;
+  margin-top: 5px;
+}
 
+/* Optional: Additional styling for error list items */
+.errorlist li {
+  margin-left: 0;
+}
+
+
+    
+    
+
+    
+    
+    
+    
+    
+   
+    </style>
+
+  
+{% endblock %}
 <!------------------------------------------header section start------------------------------------------------>
 {% block header %}
 {% if request.user.is_jobseeker%}
@@ -44,7 +83,7 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
+        {% comment %} <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
@@ -117,8 +156,9 @@
 
           </ul><!-- End Notification Dropdown Items -->
 
-        </li><!-- End Notification Nav -->
-
+        </li> {% endcomment %}
+        <!-- End Notification Nav -->
+{% comment %} 
         <li class="nav-item dropdown">
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -183,7 +223,8 @@
 
           </ul><!-- End Messages Dropdown Items -->
 
-        </li><!-- End Messages Nav -->
+        </li> {% endcomment %}
+        <!-- End Messages Nav -->
 
         <li class="nav-item dropdown pe-3">
 
@@ -537,24 +578,7 @@
 
       </li>
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
-        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="charts-chartjs.html">
-            <i class="bi bi-circle"></i><span>Chart.js</span>
-          </a>
-        </li>
-        
-        {% comment %} <li>
-          <a href="charts-echarts.html">
-            <i class="bi bi-circle"></i><span>ECharts</span>
-          </a>
-        </li> {% endcomment %}
-      </ul>
-    </li><!-- End Charts Nav -->
+    
 
     <li class="nav-heading">Pages</li>
 
@@ -565,22 +589,6 @@
       </a>
     </li><!-- End Profile Page Nav -->
 
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-faq.html">
-        <i class="bi bi-question-circle"></i>
-        <span>F.A.Q</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End F.A.Q Page Nav -->
-
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-contact.html">
-        <i class="bi bi-envelope"></i>
-        <span>Contact</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End Contact Page Nav -->
-
     <li class="nav-item">
       <a class="nav-link collapsed" href="{% url "register_seeker" %}">
         <i class="bi bi-card-list"></i>
@@ -589,27 +597,15 @@
     </li><!-- End Register Page Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="{% url "login_user" %}">
+      <a class="nav-link collapsed" href="{% url "logoutdone" %}">
         <i class="bi bi-box-arrow-in-right"></i>
-        <span>Login</span>
+        <span>Sign out</span>
       </a>
     </li><!-- End Login Page Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-dash-circle"></i>
-        <span>Error 404</span>
-      </a>
-    </li>
-    <!-- End Error 404 Page Nav -->
+   
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-file-earmark"></i>
-        <span>Blank</span>
-      </a>
-    </li>
-    <!-- End Blank Page Nav -->
+    
 
   </ul>
 
@@ -658,24 +654,7 @@
       </li>
      
 
-    <li class="nav-item">
-      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
-        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="charts-chartjs.html">
-            <i class="bi bi-circle"></i><span>Chart.js</span>
-          </a>
-        </li>
-        
-        {% comment %} <li>
-          <a href="charts-echarts.html">
-            <i class="bi bi-circle"></i><span>ECharts</span>
-          </a>
-        </li> {% endcomment %}
-      </ul>
-    </li><!-- End Charts Nav -->
+  
 
     <li class="nav-heading">Pages</li>
 
@@ -686,13 +665,7 @@
       </a>
     </li><!-- End Profile Page Nav -->
 
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-faq.html">
-        <i class="bi bi-question-circle"></i>
-        <span>F.A.Q</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End F.A.Q Page Nav -->
+    
 
    
 
@@ -704,25 +677,13 @@
     </li><!-- End Register Page Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="{% url "login_user" %}">
+      <a class="nav-link collapsed" href="{% url "logoutdone" %}">
         <i class="bi bi-box-arrow-in-right"></i>
-        <span>Login</span>
+        <span>logout</span>
       </a>
     </li><!-- End Login Page Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-dash-circle"></i>
-        <span>Error 404</span>
-      </a>
-    </li><!-- End Error 404 Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-file-earmark"></i>
-        <span>Blank</span>
-      </a>
-    </li><!-- End Blank Page Nav -->
+    
 
   </ul>
 
@@ -757,7 +718,7 @@
               <img src="{{ request.user.jobseeker_profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid">
           {% endif %}
 
-              <h2>{{ request.user.jobseeker_profile.first_name}}{{ request.user.jobseeker_profile.last_name}}</h2>
+              <h2>{{ request.user.email}}</h2>
               <h3>{{ request.user.jobseeker_profile.title}}</h3>
               <div class="social-links mt-2">
                 <a href="{{ request.user.jobseeker_profile.x }}" class="twitter"><i class="bi bi-twitter"></i></a>
@@ -801,13 +762,9 @@
                   <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
                 </li>
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-                </li>
+               
 
-                <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-                </li>
+                
                
 
                 
@@ -1136,12 +1093,12 @@
                     job: "required",
                     country: "required",
                     profile_picture: "required",
-                    gender: "required",
+                    //gender: "required",
                     date_of_birth: "required",
-                    skills: "required",
-                    x: "required",
-                    facebook: "required",
-                    linkedin: "required"
+                    //skills: "required",
+                   // x: "required",
+                   // facebook: "required",
+                   // linkedin: "required"
                             
                 },
                 messages: {
@@ -1158,12 +1115,12 @@
                     job: "Please enter your valid job",
                     country: "Please enter your country",
                     profile_picture: "Please add your profile image",
-                    gender: "Please select your gender",
+                    //gender: "Please select your gender",
                     date_of_birth: "Please select a date",
-                    skills: "Please enter skills",
-                    x: "Please enter your valid twitter url",
-                    facebook: "Please enter your valid facebook url",
-                    linkedin: "Please enter your valid linkdin url",
+                   // skills: "Please enter skills",
+                    // x: "Please enter your valid twitter url",
+                    //facebook: "Please enter your valid facebook url",
+                   // linkedin: "Please enter your valid linkdin url", 
 
                 },
                 submitHandler: function(form) {

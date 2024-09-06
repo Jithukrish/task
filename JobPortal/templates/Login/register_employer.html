@@ -2,6 +2,8 @@
 {% block title %}
 {% load widget_tweaks %}
 <title>Registration Page | Jobseeker</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 {% endblock title %}
 {% block style %}
 <style>
@@ -9,14 +11,42 @@
     color: red;
     font-size: 0.875em;
   }
-  
-  .is-invalid {
-    border-color: red;
+  .input-group {
+    display: flex;
+    align-items: center;
   }
+  
+  .input-group .form-control {
+    flex-grow: 1;
+  }
+  
+  /*.invalid-feedback {
+    margin-top: 5px;
+    margin-left: 5px;
+  } */
+  
   
   .is-valid {
     border-color: green;
   }
+
+  /* eye icon*/
+  .password-toggle-icon {
+    margin-top:2px;
+    height:40px;
+    cursor: pointer;
+   }
+
+   .password-toggle-icon i {
+    font-size: 1.2rem;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .password-toggle-icon i:hover {
+    color: #000;
+  }
+
+
 
 </style>
   
@@ -60,12 +90,22 @@
                     </div>
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password1" class="form-control" id="id_password1" required>
+                      <div class="input-group">
+                        <input type="password" name="password1" class="form-control" id="id_password1" required>
+                        <span class="input-group-text password-toggle-icon" id="togglePassword">
+                          <i class="fas fa-eye"></i>
+                        </span>
+                      </div>
                       <div class="invalid-feedback"></div>
                     </div>
                     <div class="col-12">
                         <label for="yourPassword" class="form-label">Confirm Password</label>
-                        <input type="password" name="password2" class="form-control" id="id_password2" required>
+                        <div class="input-group">
+                          <input type="password" name="password2" class="form-control" id="id_password2" required>
+                          <span class="input-group-text password-toggle-icon" id="togglePassword">
+                            <i class="fas fa-eye"></i>
+                          </span>
+                        </div>
                         <div class="invalid-feedback"></div>
                       </div>
                     
@@ -101,6 +141,13 @@
                   email: "please enter email",
                     
                 },
+                errorPlacement: function(error, element) {
+                  if (element.attr("name") == "password") {
+                    error.insertAfter(element.closest('.input-group')); 
+                  } else {
+                    error.insertAfter(element);
+                  }
+                },
                 submitHandler: function(form) {
                     form.submit();
                 }
@@ -110,6 +157,23 @@
         });
     </script>
 
+    <script>
+      document.getElementById("togglePassword").addEventListener("click", function () {
+        const passwordField = document.getElementById("id_password");
+        const icon = this.querySelector("i");
+    
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            icon.classList.remove("fa-eye");
+            icon.classList.add("fa-eye-slash");
+        } else {
+            passwordField.type = "password";
+            icon.classList.remove("fa-eye-slash");
+            icon.classList.add("fa-eye");
+        }
+    });
+    
+    </script>
 		 
 		
 

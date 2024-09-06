@@ -16,14 +16,20 @@
   {% endif %}
   {% endblock %}
   
+  
+  
+ 
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <!-- Favicons -->
   <link href="{% static 'img/img/favicon.png' %}" rel="icon">
   <link href="{% static 'img/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
+  <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  {% comment %} <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet"> {% endcomment %}
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- Vendor CSS Files -->
   <link href="{% static 'css/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -39,58 +45,90 @@
 
 {% block style %}
 <style>
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Center cards horizontally */
+}
 
+.card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+}
 
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
 
-.section.profile {
+.card-content {
     padding: 20px;
-    background-color: #f8f9fa; 
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
-.ever {
-    max-width: 1200px;
-    margin: 0 auto;
+.card-title {
+    font-size: 1.6em;
+    margin: 0 0 10px;
+    color: #333;
 }
 
-.alert-success {
-    background-color: #d4edda; 
-    border-color: #c3e6cb; 
-    color: #155724;
-}
-table {
-  border-collapse: collapse;
-  border: 2px solid rgb(200,200,200);
-  letter-spacing: 1px;
-  font-size: 0.8rem;
+.card-description {
+    font-size: 1em;
+    color: #666;
+    margin: 0 0 20px;
+    flex: 1;
 }
 
-td, th {
-  border: 1px solid rgb(190,190,190);
-  padding: 10px 20px;
+.card-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
 }
 
-th {
-  background-color: rgb(235,235,235);
-}
-
-td {
+.card-button {
+  display: inline-block;
+  padding: 8px 15px;
+  font-size: 0.9em;
+  color: #fff;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background 0.3s, transform 0.3s;
   text-align: center;
+  flex: 1; 
 }
 
-tr:nth-child(even) td {
-  background-color: rgb(250,250,250);
+
+.card-edit-button {
+  background: linear-gradient(135deg, #007bff, #0056b3);
 }
 
-tr:nth-child(odd) td {
-  background-color: rgb(245,245,245);
+.card-edit-button:hover {
+  background: linear-gradient(135deg, #0056b3, #004494);
 }
 
-caption {
-  padding: 10px;
+.card-delete-button {
+  background: linear-gradient(135deg, #ff4c4c, #cc0000);
 }
 
-  
+.card-delete-button:hover {
+  background: linear-gradient(135deg, #cc0000, #990000);
+}
 
+
+@media (max-width: 768px) {
+    .card-container {
+        grid-template-columns: 1fr; 
+    }
+}
 </style>
 {% endblock  %}
   
@@ -114,10 +152,9 @@ caption {
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
         
-        <!-- Search Area start -->
+    <!-- Search Area start -->
             {% block search %}
-            {% endblock search %} 
-            <!-- Search Area end -->
+            {% endblock search %} <!-- Search Area end -->
 
         <!-- navbar start -->
             <nav class="header-nav ms-auto">
@@ -519,9 +556,9 @@ caption {
         </a>
       </li><!-- End Login Page Nav -->
   
-      
+     
   
-      
+    
   
     </ul>
   
@@ -542,8 +579,14 @@ caption {
       <section class="section profile">
           <div class="ever">
 
+<!---------------------------------------message part---------------------------------------------->
             {% for message in messages %}
-                {% if "restrict_users" in message.tags %}
+                {% if "contact_section" in message.tags %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% elif "frequency_asked_edit" in message.tags %}
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -556,127 +599,68 @@ caption {
                     </div>
                 {% endif %}
             {% endfor %}
+<!---------------------------------------message part end ---------------------------------------------->
 
-              <h2 style="text-align: center; color: black; font-size: 40px;">Selected Jobs</h2>
+              <h2 style="text-align: center; color: black; font-size: 40px;">Report Jobs</h2>
+              
+
+
+
+<div class="card-container">
+  {% for check in report_list %}
+  <div class="card">
+      <div class="card-content">
+          <h2 class="card-title">{{ check.user.jobseeker_profile.first_name }}{{ check.user.jobseeker_profile.last_name }}</h2>
+          <p class="card-description">{{ check.job }}</p>
+          <p class="card-description">{{ check.report_type }}</p>
+          <p class="card-description">{{ check.descriptionreport_type }}</p>
+      </div>
+  </div>
+  {% endfor %}
+</div>
+
+              
             
-<table>
-      
-      <tr>
-        <th>User name</th>
-        <th>Address</th>
-        <th>Phone</th>
-      
-        <th>Active /inactive</th>
-      </tr>
-      
-      {% for user in users %}
-      <tr>
-          <td>{{ user.username }}</td>
-          <td>
-            {% if user.profile.address or user.jobseeker_profile.address %}
-            {{ user.profile.address }}{{ user.jobseeker_profile.address }}
-            {% else %}
-                Not Added information
-            {% endif %}
-          <td>
-            {% if user.profile.phone_number or user.jobseeker_profile.phone_number %}
-                {{ user.profile.phone_number }}{{ user.jobseeker_profile.phone_number }}
-            {% else %}
-            Not Added information
-            {% endif %}
-          
-          
-          <td>{% if user.is_active %}
-            Active
-        {% else %}
-            Inactive
-        {% endif %}</td>
-          <td>
-              <form method="post" action="{% url 'restrict_users' %}" class="status-form">
-                  {% csrf_token %}
-                  <input type="hidden" name="user_id" value="{{ user.id }}">
-                  <input type="hidden" name="new_status" value="{% if user.is_active %}Active{% else %}Inactive{% endif %}">
-                  <button type="submit" class="btn {% if user.is_active %}btn-success{%else%}btn-warning{%endif%}">
-                    {% if user.is_active %}Deactivate{%else%}Activate{%endif%}
-                      
-                  </button>
-              </form>
-          </td>
-      </tr>
-      {% endfor %}
-   
-     
-     
-    </table>
-  
-    </section>
+           </div>
 
+           <p>check jobs<a href="{% url "restrict_jobs" %}">click here</a></p>
+      </section> 
+
+     
+     
+     
+    
+    
+      
+    
+    
+  
   </main>
-   
+    
+              
+  
   {% endblock main %}
   
   {% block footer %}
   <footer id="footer" class="footer">
   
-  </footer>
-  <!-- End Footer -->
+  
+  </footer><!-- End Footer -->
   {% endblock footer %}
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
+  <!-- Vendor JS Files -->
 
   {% block script %}
-  <script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
-  <script src="{% static 'js/echarts/echarts.min.js' %}"></script>
-  <script src="{% static 'js/quill/quill.js'  %}"></script>
-  <script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
-  <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-  <script src="{% static 'js/php-email-form/validate.js' %} "></script>
-  
-<script src="{% static 'js/js/main.js' %}"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-{% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> {% endcomment %}
+<script src="{% static 'js/apexcharts/apexcharts.min.js' %}"></script>
+<script src="{% static 'js/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/chart.js/chart.umd.js' %}"></script>
+<script src="{% static 'js/echarts/echarts.min.js' %}"></script>
+<script src="{% static 'js/quill/quill.js'  %}"></script>
+<script src="{% static 'js/simple-datatables/simple-datatables.js' %}"></script>
+<script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+<script src="{% static 'js/php-email-form/validate.js' %} "></script>
 
-  <script>
-    $(document).ready(function() {
-        
-        $('#add-menu-btn').click(function() {
-            $('#menu-modal').modal('show');
-        });
-    
-        
-        $('#menu-form').submit(function(event) {
-            event.preventDefault(); 
-    
-            var formData = $(this).serialize();
-    
-            $.ajax({
-                type: 'POST',
-                url: '{% url "Menubar" %}', 
-                data: formData,
-                success: function(response) {
-                    $('#menu-modal').modal('hide'); 
-                    var menuName = response.name; 
-                    var menuOption = '<option value="' + menuName + '">' + menuName + '</option>';
-                    $('#id_name').append(menuOption); 
-                },
-                error: function(xhr, status, error) {
-                    console.error("AJAX request failed: ", status, error);
-                }
-            });
-        });
-    });
-  </script>
-    
-  
-  {% endblock  %}
-  
-
-</body>
+{% endblock %}
 
 </html>

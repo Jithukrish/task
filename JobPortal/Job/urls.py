@@ -1,5 +1,5 @@
 from django.urls import path
-from . views import AcceptedApplicationsCountView, AcceptedApplicationsView, AppliedJobSeekersListView, CreateJobPostView,AddEducationView, JobAppliListview, JobApplicationCountView, JobPostCountRecivedView, JobPostCountView, JobseekerReportsView, PendingApplicationsCountView, PendingApplicationsView, RecentAppliedJobsListView, RejectedApplicationsCountView, RejectedApplicationsView, ReportJobView, ReportsView, ReportsstatusView, SavedJobView, SavedListView, SearchAppliedJobs, SearchManageView, SearchStatusListview, SekkerSearchAllJobsView, TotalCountJobView, TotalCountView, UnsavedView
+from . views import AcceptedApplicationsCountView, AcceptedApplicationsView, AppliedJobSeekersListView, CreateJobPostView,AddEducationView, JobAppliListview, JobApplicationCountView, JobPostCountRecivedView, JobPostCountView, JobseekerReportsView, PendingApplicationsCountView, PendingApplicationsView, RecentAppliedJobsListView, RejectedApplicationsCountView, RejectedApplicationsView, ReportJobView, ReportListView, ReportsView, ReportsstatusView, SavedJobView, SavedListView, SearchAppliedJobs, SearchManageView, SearchStatusListview, SekkerSearchAllJobsView, TotalCountJobView, TotalCountView, UnsavedView
 from .import views
 
 urlpatterns = [
@@ -21,8 +21,8 @@ urlpatterns = [
     path('applied_job',views.AppliedJobView.as_view(),name="applied_job"),
     # path('jobPapplyseeker/<int:pk>/',views.JobApplyView.as_view(),name="jobPapplyseeker"),
     path('job_apply_seeker/<int:id>/',views.JobApplyView.as_view(),name="job_apply_seeker"),
-    path('seeker_viewmore/<int:id>/',views.SeekViewMoreView.as_view(),name="seeker_viewmore"),
-    path('job_application/<int:id>/',views.JobApplicationView.as_view(),name="job_application"),
+path('seeker_viewmore/<int:pk>/',views.SeekViewMoreView.as_view(),name="seeker_viewmore"), 
+   path('job_application/<int:id>/',views.JobApplicationView.as_view(),name="job_application"),
     # path('job_application/<int:id>/',views.job_application,name="job_application"),
     path('status_track_seeker',views.StatusTarckSeekerView.as_view(),name="status_track_seeker"),
     # path('job_application_list_stat',views.JobApplicationListStatView.as_view(),name="job_application_list_stat"),
@@ -65,9 +65,10 @@ urlpatterns = [
     
     #--------------------SAVED JOBSjob/save_job/<int:Job_id>/
     path('save_job/<int:Job_id>', SavedJobView.as_view(), name='save_job'),
-    path('unsave_job/<int:job_id>/', UnsavedView.as_view(), name='unsave_job'),
+    path('unsave_job/<int:Job_id>/', UnsavedView.as_view(), name='unsave_job'),
     path('saved_list/',SavedListView.as_view(),name="saved_list"),
     path('report_job/<int:job_id>/',ReportJobView.as_view(),name="report_job"),
+    path('report_list/',ReportListView.as_view(),name="report_list")
 
  
   

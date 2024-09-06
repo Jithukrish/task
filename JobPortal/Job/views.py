@@ -223,10 +223,13 @@ class AllJobSeekerView(ListView):
     model=JobPost
     template_name='job/seeker_view_job.html'
     context_object_name='jobs'
-    queryset=JobPost.objects.filter(is_active=True).order_by('-timestamp')
     def get_queryset(self):
-        return JobPost.objects.filter(is_active=True).order_by('-timestamp')
-
+        jobs = JobPost.objects.filter(is_active=True,company__is_active=True).order_by('-timestamp')
+        saved_jobs = SavedJob.objects.filter(user=self.request.user).values_list('job_id', flat=True)
+        for job in jobs:
+            job.saved = job.id in saved_jobs
+        return jobs
+    
 
 
 class SearchAllJobsView(ListView):
@@ -346,7 +349,7 @@ class SeekViewMoreView(DetailView):
     model = JobPost
     template_name = 'Job/seeker_more_jobdetails.html'
     context_object_name = 'jobs'
-    pk_url_kwarg = 'id'
+    pk_url_kwarg = 'pk'
 
 
 
@@ -378,9 +381,8 @@ class SearchAppliedJobs(View):
 
 
 
-
-
-
+  
+       
    
 class JobApplyView(DetailView):
     model = JobPost
@@ -411,6 +413,9 @@ class JobApplyView(DetailView):
         return render(request, self.template_name, context)
 
 
+     
+
+
    
 class JobApplicationView(DetailView, FormView):
     model = JobPost
@@ -423,19 +428,26 @@ class JobApplicationView(DetailView, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        try:
-            context['resume'] = Resume.objects.get(user=self.request.user)
-        except Resume.DoesNotExist:
-            messages.error(self.request, 'You cannot apply to a job without uploading a resume.')
-            return redirect('update_resume')  
+        if not self.has_resume():
+            messages.error(self.request, 'You cannot apply to a job without uploading a resume.',extra_tags="resumepart")
+            return redirect('update_resume')
         return context
+    def has_resume(self):
+        return Resume.objects.filter(user=self.request.user).exists()
+
     def form_valid(self, form):
+        if not self.has_resume():
+            if self.request.is_ajax():
+                return JsonResponse({'error': 'You cannot apply to a job without uploading a resume.'}, status=400)
+            messages.error(self.request, 'You cannot apply to a job without uploading a resume.',extra_tags="resumepart")
+            return redirect('seeker_view_all_jobs')
         job = self.get_object()
         apply_job = form.save(commit=False)
         apply_job.user = self.request.user
         apply_job.job = job
         apply_job.save()
-    
+        if self.request.is_ajax():
+            return JsonResponse({'success': 'Job applied successfully!'})
         messages.success(self.request, 'Job applied successfully!')
         return redirect('seeker_view_all_jobs')
     def form_invalid(self, form):
@@ -1436,15 +1448,23 @@ class SavedJobView(LoginRequiredMixin, View):
         except JobPost.DoesNotExist:
             pass
         return redirect('saved_list')
+
+
 class UnsavedView(LoginRequiredMixin, View):
-    def post(self, request, Job_id, *args, **kwargs):
-        job = JobPost.objects.get(id=Job_id)
+    def post(self, request, *args, **kwargs):
+        job_id = kwargs.get('Job_id')  
+      
+        if not job_id:
+            return JsonResponse({'success': False, 'error': 'Job_id not provided'}, status=400)
         try:
-            saved_job = SavedJob.objects.get(user=request.user, job=job)
+            saved_job = SavedJob.objects.get(id=job_id, user=request.user)
+            job = saved_job.job 
+            print(f"-------------------{job.id}")  
             saved_job.delete()
+            # return JsonResponse({'success': True, 'redirect': '/seeker_view_all_jobs/'})
+            return redirect('seeker_view_all_jobs')
         except SavedJob.DoesNotExist:
-            pass  
-        return redirect('saved_list')
+            return JsonResponse({'success': False, 'error': 'Saved job not found', 'redirect': '/saved_list/'})
 
         
     
@@ -1456,8 +1476,10 @@ class SavedListView(LoginRequiredMixin,ListView):
     context_object_name = 'saved_jobs'
 
     def get_queryset(self):
-        return SavedJob.objects.filter(user = self.request.user).select_related('job')
-    
+        saved_job =SavedJob.objects.filter(user = self.request.user)
+        active_jobs = saved_job.filter(job__company__is_active=True).select_related('job')
+        return active_jobs
+   
 
 
 class ReportJobView(CreateView):
@@ -1467,12 +1489,26 @@ class ReportJobView(CreateView):
     def get_success_url(self):
         return reverse_lazy('seeker_view_all_jobs')
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        # form.instance.user = self.request.user
+        job_id = self.kwargs.get('job_id')
+        user = self.request.user
+        if DisableJob.objects.filter(user=user, job_id=job_id).exists():
+            messages.error(self.request, 'You have already reported this job.', extra_tags='report')
+            return redirect(self.get_success_url())
+        messages.success(self.request, 'Report submit successful',extra_tags='report')
         return super().form_valid(form)
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['job_id'] = self.kwargs.get('job_id')
         return kwargs
+
+
+
+class ReportListView(ListView):
+    model = DisableJob
+    template_name = 'admin/report_by_user.html'
+    context_object_name ='report_list'
+
 
             
 

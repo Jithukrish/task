@@ -178,9 +178,11 @@ class Registration_seekerView(View):
             messages.info(request,"Successfully created Your Account.Please login")  
             return redirect('login_user')    
         else:
+            print("Form errors:", form.errors)
             messages.warning(request,"check your email , password")
         return render(request, self.template_name, {'form': form})
     
+
 class VerifyEmailView(View):
     def get(self ,request,token):
         try:
@@ -454,7 +456,7 @@ class UpdateJobSeekerProfileView(View):
     form_class = jobseekerProfileForm
     def get(self, request):
         if not request.user.is_authenticated or not request.user.is_jobseeker:
-            messages.warning(request, 'Permission denied.')
+            messages.warning(request, 'Permission denied.',extra_tags="updateprofile")
             return redirect('update_profile_job')
 
         try:
@@ -469,7 +471,7 @@ class UpdateJobSeekerProfileView(View):
         return render(request, self.template_name, context)
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated or not request.user.is_jobseeker:
-            messages.warning(request, 'Permission denied.')
+            messages.warning(request, 'You are not authorized to access this page.')
             return redirect('update_profile_job')
         
         try:

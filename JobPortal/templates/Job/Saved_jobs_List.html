@@ -406,14 +406,14 @@
       <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
         <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
       </a>
-     
+    
     </li><!-- End Components Nav -->
 
     <li class="nav-item">
       <a class="nav-link collapsed"  href="{% url "update_resume" %}">
         <i class="bi bi-journal-text"></i> <i class=""></i><span>Upload Resume</span>
       </a>
-     
+    
     </li>
       <li class="nav-item">
         <a class="nav-link collapsed"  href="{% url "seeker_view_all_jobs" %}">
@@ -431,28 +431,17 @@
         <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
           <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Status Tracker</span>
         </a>
-
       </li>
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
-        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="charts-chartjs.html">
-            <i class="bi bi-circle"></i><span>Chart.js</span>
-          </a>
-        </li>
-        
-        {% comment %} <li>
-          <a href="charts-echarts.html">
-            <i class="bi bi-circle"></i><span>ECharts</span>
-          </a>
-        </li> {% endcomment %}
-      </ul>
-    </li><!-- End Charts Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "saved_list" %}">
+          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Saved jobs</span>
+        </a>
+      </li>
+      
+      
 
+    
     <li class="nav-heading">Pages</li>
 
     <li class="nav-item">
@@ -462,51 +451,12 @@
       </a>
     </li><!-- End Profile Page Nav -->
 
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-faq.html">
-        <i class="bi bi-question-circle"></i>
-        <span>F.A.Q</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End F.A.Q Page Nav -->
-
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-contact.html">
-        <i class="bi bi-envelope"></i>
-        <span>Contact</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End Contact Page Nav -->
-
     <li class="nav-item">
       <a class="nav-link collapsed" href="{% url "register_seeker" %}">
         <i class="bi bi-card-list"></i>
         <span>Register</span>
       </a>
     </li><!-- End Register Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="{% url "login_user" %}">
-        <i class="bi bi-box-arrow-in-right"></i>
-        <span>Login</span>
-      </a>
-    </li><!-- End Login Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-dash-circle"></i>
-        <span>Error 404</span>
-      </a>
-    </li>
-    <!-- End Error 404 Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-file-earmark"></i>
-        <span>Blank</span>
-      </a>
-    </li>
-    <!-- End Blank Page Nav -->
 
   </ul>
 
@@ -677,17 +627,20 @@
                         </p>
                         <p><strong>Active:</strong> {{ job.job.timestamp|naturaltime }}</p>
                         <div class="action-icons">
-                            <a href="{% url 'seeker_viewmore' id=job.id %}" class="apply-now">Easily Apply</a>
+                            <a href="{% url 'seeker_viewmore' pk=job.pk %}" class="apply-now">Easily Apply</a>
                             <div class="save-job-icon">
-                                <form action="{% url 'save_job' job.id %}" method="post" style="display: inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" style="background: none; border: none; cursor: pointer;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="45px" height="45px">
-                                            <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/>
-                                        </svg>
-                                        Save Job
-                                    </button>
+                             
+                                
+                                <form action="{% url 'unsave_job' job.id %}" method="post" style="display: inline;">
+                                  {% csrf_token %}
+                                  <button type="submit" style="background: none; border: none; cursor: pointer;">
+                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="45px" height="45px">
+                                          <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2zm0 15l-5-2.18L7 18V5h10v13z"/>
+                                      </svg>
+                                      Unsave
+                                  </button>
                                 </form>
+                             
                             </div>
                             
                             <div class="report-job-icon">
@@ -790,37 +743,49 @@
 }); 
 </script>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-     document.querySelectorAll('.save-job-link').forEach(link => {
-         link.addEventListener('click', (event) => {
-             event.preventDefault();
-             
-             const jobId = link.getAttribute('data-job-id');
-             const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-             
-             fetch(`/job/unsave_job/${jobId}/`, {
-                 method: 'POST',
-                 headers: {
-                     'Content-Type': 'application/json',
-                     'X-CSRFToken': csrfToken
-                 },
-                 body: JSON.stringify({ job_id: jobId })
-             })
-             .then(response => {
-                 if (response.ok) {
-                     console.log('Job saved successfully');
-                     window.location.reload();
-                 } else {
-                     console.error('Failed to save job');
-                 }
-             })
-             .catch(error => {
-                 console.error('Error:', error);
-             });
-         });
-     });
-   }); 
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.save-job-link').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            
+            const jobId = link.getAttribute('data-job-id');
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            
+            fetch(`/job/unsave_job/${jobId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                // `job_id` is not required in the body if using it in the URL
+                body: JSON.stringify({})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    } else {
+                        console.log('Job unsaved successfully');
+                        window.location.reload();
+                    }
+                } else {
+                    console.error('Failed to unsave job:', data.error);
+                    if (data.redirect) {
+                        window.location.href = data.redirect;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    });
+});
+
 </script>
+
+
 
 
 {% endblock script %}

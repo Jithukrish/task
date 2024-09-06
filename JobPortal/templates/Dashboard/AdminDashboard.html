@@ -199,22 +199,22 @@
                     <hr class="dropdown-divider">
                     </li>
 
-                    <li>
+                    {% comment %} <li>
                     <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile" %}">
                         <i class="bi bi-person"></i>
                         <span>My Profile</span>
                     </a>
-                    </li>
+                    </li> {% endcomment %}
                     <li>
                     <hr class="dropdown-divider">
                     </li>
 
-                    <li>
+                    {% comment %} <li>
                     <a class="dropdown-item d-flex align-items-center" href="{% url "update_profile" %}">
                         <i class="bi bi-gear"></i>
                         <span>Account Settings</span>
                     </a>
-                    </li>
+                    </li> {% endcomment %}
                     <li>
                     <hr class="dropdown-divider">
                     </li>
@@ -336,10 +336,15 @@
           </ul>
       </li>
       <li class="nav-item">
-          <a class="nav-link collapsed"  href="{% url "restrict_users" %}">
-            <i class="bi bi-journal-text"></i> <i class=""></i><span>User Management</span>
+          <a class="nav-link collapsed"  href="{% url "report_list" %}">
+            <i class="bi bi-journal-text"></i> <i class=""></i><span>Report List</span>
           </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "restrict_users" %}">
+          <i class="bi bi-journal-text"></i> <i class=""></i><span>User Management</span>
+        </a>
+    </li>
       <li class="nav-item">
           <a class="nav-link collapsed"  href="{% url "restrict_jobs" %}">
               <i class="bi bi-journal-text"></i> <i class=""></i><span>Job Management</span>
@@ -470,19 +475,9 @@
       </a>
     </li><!-- End Login Page Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-dash-circle"></i>
-        <span>Error 404</span>
-      </a>
-    </li><!-- End Error 404 Page Nav -->
+    
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-file-earmark"></i>
-        <span>Blank</span>
-      </a>
-    </li><!-- End Blank Page Nav -->
+    
 
   </ul>
 
