@@ -85,119 +85,14 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 7 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
+     
 
 {% block sendTorecive %}
 
 <li class="nav-item dropdown">
-  <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-      <i class="bi bi-chat-left-text"></i>
-      <span class="badge bg-success badge-number">{{ messages.count }}</span>
-  </a><!-- End Messages Icon -->
+ 
 
-  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-      <li class="dropdown-header">
-          You have {{ messages.count }} new messages
-          <a href="#" data-bs-toggle="modal" data-bs-target="#sendMessageModal"><span class="badge rounded-pill bg-primary p-2 ms-2">Send </span></a>
-      </li>
-      <li>
-          <hr class="dropdown-divider">
-      </li>
-
-      <!-- List of Messages -->
-      {% for message in messages %}
-      <li class="message-item">
-          <a href="#">
-              <img src="{{ message.sender.img.url}}" alt="" class="rounded-circle">
-              <div>
-                  <h4>{{ message.sender.username }}</h4>
-                  <p>{{ message.message }}</p>
-                  <p>{{ message.timestamp }}</p>
-              </div>
-          </a>
-          <a href="#"  data-bs-toggle="modal" data-bs-target="#sendMessageModal"><span class="badge rounded-pill bg-primary p-2 ms-2">Send</span></a>
-      </li>
-      <li>
-          <hr class="dropdown-divider">
-      </li>
-      {% endfor %}
-
-      <li class="dropdown-footer">
-        <a href="{% url 'messages'  %}">Start Chat to user</a>      </li>
-  </ul><!-- End Messages Dropdown Items -->
+ 
 </li>
 <div class="modal fade" id="sendMessageModal" tabindex="-1" role="dialog" aria-labelledby="sendMessageModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -309,12 +204,12 @@
               <hr class="dropdown-divider">
             </li>
 
-            <li>
+            {% comment %} <li>
               <a class="dropdown-item d-flex align-items-center" href="#">
                 <i class="bi bi-question-circle"></i>
                 <span>Need Help?</span>
               </a>
-            </li>
+            </li> {% endcomment %}
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -358,100 +253,7 @@
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">{{ notification_count }}</span>
-          </a><!-- End Notification Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              {% if notification_count %}
-              You have {{notification_count}} new notifications
-              {% else %}
-              You have no new notifications
-              {% endif %}
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            {% for notification in notification_count %}
-            <li class="notification-item">
-              {% if notification.type == 'warning' %}
-                    <i class="bi bi-exclamation-circle text-warning"></i>
-                {% elif notification.type == 'error' %}
-                    <i class="bi bi-x-circle text-danger"></i>
-                {% elif notification.type == 'success' %}
-                    <i class="bi bi-check-circle text-success"></i>
-                {% elif notification.type == 'info' %}
-                    <i class="bi bi-info-circle text-primary"></i>
-                {% endif %}
-              
-              <div>
-                <h4>{{ notification.title}}</h4>
-                <p>{{notification.message}}</p>
-                <p>{{notification.time_stamp}}</p>
-              </div>
-            </li>
-           
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            {% endfor %}
-            
-
-           
-
-           
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li>
-        <!-- End Notification Nav -->
-
-      {% block sendToreciveemp %}
-      <li class="nav-item dropdown">
-          <a class="nav-link nav-icon" href="#" id="messagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-chat-left-text"></i>
-              <span class="badge bg-success badge-number"></span>
-          </a>
-          <!-- End Messages Icon -->
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages" aria-labelledby="messagesDropdown">
-              <li class="dropdown-header">
-                  You have <span id="newMessagesCount"></span> new messages
-                  <a href="#" data-bs-toggle="modal" data-bs-target="#sendMessageModal">
-                      <span class="badge rounded-pill bg-primary p-2 ms-2"></span>
-                  </a>
-              </li>
-              <li>
-                  <hr class="dropdown-divider">
-              </li>
-              <!-- Messages will be loaded here via AJAX -->
-              <div id="messagesContainer">
-                  <!-- Messages will be dynamically inserted here -->
-              </div>
-              <li class="dropdown-footer">
-                  <a href="{% url 'messages'  %}">Start Chat to user</a>
-
-              </li>
-          </ul><!-- End Messages Dropdown Items -->
-      </li>
-      
- 
-      
-     
-      
-      
-      
-      {% endblock %}
-
-     
     
         <!-- End Messages Nav -->
 
@@ -496,12 +298,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
+           
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -529,130 +326,90 @@
   
   {% block sidebar %}
   {% if request.user.is_jobseeker %} 
-<aside id="sidebar" class="sidebar">
-  <ul class="sidebar-nav" id="sidebar-nav">
-    <li class="nav-item">
-      <a class="nav-link " href="index.html">
-        <i class="bi bi-grid"></i>
-        <span>Dashboard</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
-        <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
-      </a>
-     
-    </li><!-- End Components Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed"  href="{% url "update_resume" %}">
-        <i class="bi bi-journal-text"></i> <i class=""></i><span>Upload Resume</span>
-      </a>
-     
-    </li>
+  <aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="{% url "seeker_view_all_jobs" %}">
-          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>View All jobs</span>
-        </a>
-
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="{% url "applied_job" %}">
-          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Applied job</span>
-        </a>
-
-      </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
-          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Status Tracker</span>
+        <a class="nav-link " href="{% url "jobseeker_dash" %}">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
         </a>
       </li>
-
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
-          <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Saved jobs</span>
+        <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
+          <i class="bi bi-journal-text"></i> <i class=""></i><span>Home</span>
         </a>
-      </li>
       
-      
+      </li><!-- End Components Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="{% url "jobseeker_dash" %}">
-        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="charts-chartjs.html">
-            <i class="bi bi-circle"></i><span>Chart.js</span>
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{% url "update_resume" %}">
+          <i class="bi bi-journal-text"></i> <i class=""></i><span>Upload Resume</span>
+        </a>
+      
+      </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed"  href="{% url "seeker_view_all_jobs" %}">
+            <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>View All jobs</span>
+          </a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed"  href="{% url "applied_job" %}">
+            <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Applied job</span>
+          </a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link collapsed"  href="{% url "status_track_seeker" %}">
+            <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Status Tracker</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link collapsed"  href="{% url "saved_list" %}">
+            <i class="bi bi-layout-text-window-reverse"></i><i class=""></i><span>Saved jobs</span>
           </a>
         </li>
         
-        {% comment %} <li>
-          <a href="charts-echarts.html">
-            <i class="bi bi-circle"></i><span>ECharts</span>
-          </a>
-        </li> {% endcomment %}
-      </ul>
-    </li><!-- End Charts Nav -->
+        
 
-    <li class="nav-heading">Pages</li>
+      <li class="nav-item">
+       
+        
+      </li><!-- End Charts Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="{% url "update_profile_job" %}">
-        <i class="bi bi-person"></i>
-        <span>Profile</span>
-      </a>
-    </li><!-- End Profile Page Nav -->
+      <li class="nav-heading">Pages</li>
 
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-faq.html">
-        <i class="bi bi-question-circle"></i>
-        <span>F.A.Q</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End F.A.Q Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url "update_profile_job" %}">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li>
 
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-contact.html">
-        <i class="bi bi-envelope"></i>
-        <span>Contact</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End Contact Page Nav -->
+      
+     
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="{% url "register_seeker" %}">
-        <i class="bi bi-card-list"></i>
-        <span>Register</span>
-      </a>
-    </li><!-- End Register Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url "register_seeker" %}">
+          <i class="bi bi-card-list"></i>
+          <span>Register</span>
+        </a>
+      </li><!-- End Register Page Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="{% url "login_user" %}">
-        <i class="bi bi-box-arrow-in-right"></i>
-        <span>Login</span>
-      </a>
-    </li><!-- End Login Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{% url "logoutdone" %}">
+          <i class="bi bi-box-arrow-in-right"></i>
+          <span>Logout</span>
+        </a>
+      </li><!-- End Login Page Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-dash-circle"></i>
-        <span>Error 404</span>
-      </a>
-    </li>
-    <!-- End Error 404 Page Nav -->
+     
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-file-earmark"></i>
-        <span>Blank</span>
-      </a>
-    </li>
-    <!-- End Blank Page Nav -->
+    
+    </ul>
 
-  </ul>
-
-</aside>
+  </aside>
 <!-- ------------------------------------------- Sidebar employer---------------------------------------------- -->
 {% elif request.user.is_employer %}
 <aside id="sidebar" class="sidebar">
@@ -697,24 +454,7 @@
       </li>
      
 
-    <li class="nav-item">
-      <a class="nav-link collapsed"  href="{% url "jobseeker_dash" %}">
-        <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-      </a>
-      <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-        <li>
-          <a href="charts-chartjs.html">
-            <i class="bi bi-circle"></i><span>Chart.js</span>
-          </a>
-        </li>
-        
-        {% comment %} <li>
-          <a href="charts-echarts.html">
-            <i class="bi bi-circle"></i><span>ECharts</span>
-          </a>
-        </li> {% endcomment %}
-      </ul>
-    </li><!-- End Charts Nav -->
+   
 
     <li class="nav-heading">Pages</li>
 
@@ -725,16 +465,6 @@
       </a>
     </li><!-- End Profile Page Nav -->
 
-    {% comment %} <li class="nav-item">
-      <a class="nav-link collapsed" href="pages-faq.html">
-        <i class="bi bi-question-circle"></i>
-        <span>F.A.Q</span>
-      </a>
-    </li> {% endcomment %}
-    <!-- End F.A.Q Page Nav -->
-
-   
-
     <li class="nav-item">
       <a class="nav-link collapsed" href="{% url "register_employer" %}">
         <i class="bi bi-card-list"></i>
@@ -743,26 +473,14 @@
     </li><!-- End Register Page Nav -->
 
     <li class="nav-item">
-      <a class="nav-link collapsed" href="{% url "login_user" %}">
+      <a class="nav-link collapsed" href="{% url "logoutdone" %}">
         <i class="bi bi-box-arrow-in-right"></i>
-        <span>Login</span>
+        <span>Logout</span>
       </a>
     </li><!-- End Login Page Nav -->
 
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-dash-circle"></i>
-        <span>Error 404</span>
-      </a>
-    </li><!-- End Error 404 Page Nav -->
-
-    <li class="nav-item">
-      <a class="nav-link collapsed" href="#">
-        <i class="bi bi-file-earmark"></i>
-        <span>Blank</span>
-      </a>
-    </li><!-- End Blank Page Nav -->
-
+   
+   
   </ul>
 
 </aside>
