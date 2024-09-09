@@ -489,12 +489,12 @@
                       Swal.fire({
                           icon: 'error',
                           title: 'Oops...',
-                          text: 'Something went wrong. Please try again.',
+                          text: 'Resume not added . Please add',
                           confirmButtonColor: '#3085d6',
                           confirmButtonText: 'OK'
                       })
                       .then(function() {
-                        window.location.href = '{% url "seeker_view_all_jobs" %}';
+                        window.location.href = '{% url "update_resume" %}';
                     });
                   }
               });

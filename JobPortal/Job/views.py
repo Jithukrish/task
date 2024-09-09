@@ -437,7 +437,9 @@ class JobApplicationView(DetailView, FormView):
 
     def form_valid(self, form):
         if not self.has_resume():
-            if self.request.is_ajax():
+            # if self.request.is_ajax():
+            #     return JsonResponse({'error': 'You cannot apply to a job without uploading a resume.'}, status=400)
+            if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
                 return JsonResponse({'error': 'You cannot apply to a job without uploading a resume.'}, status=400)
             messages.error(self.request, 'You cannot apply to a job without uploading a resume.',extra_tags="resumepart")
             return redirect('seeker_view_all_jobs')
@@ -446,9 +448,9 @@ class JobApplicationView(DetailView, FormView):
         apply_job.user = self.request.user
         apply_job.job = job
         apply_job.save()
-        if self.request.is_ajax():
+        if self.request.headers.get('x-requested-with') == 'XMLHttpRequest':
             return JsonResponse({'success': 'Job applied successfully!'})
-        messages.success(self.request, 'Job applied successfully!')
+        messages.success(self.request, 'Job applied successfully!',extra_tags="resumepart")
         return redirect('seeker_view_all_jobs')
     def form_invalid(self, form):
         messages.error(self.request, 'Failed to apply for the job. Please check the form.')

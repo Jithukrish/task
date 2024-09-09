@@ -160,15 +160,32 @@
           $(document).ready(function() {
               $('#registration-form').validate({
                   rules: {
-                    password2: "required", 
-                    password1: "required", 
-                    email: "required", 
+                    password2:{
+                      equalTo: "#id_password1",
+                      required: true
+                    } , 
+                    password1: {
+                      required: true,
+                      minlength: 8,
+                    }, 
+                    email: {
+                      required: true,
+                      email: true
+                    }, 
                   },
                   messages: {
-                    password2: "please re-enter password",
-                    password1: "please enter password",
-                    email: "please enter email",
-                      
+                    email: {
+                      required: "Please enter your email",
+                      email: "Please enter a valid email address"
+                  },
+                  password1: {
+                      required: "Please enter a password",
+                      minlength: "Password must be at least 8 characters long"
+                  },
+                  password2: {
+                      required: "Please re-enter your password",
+                      equalTo: "Passwords do not match"
+                  },
                   },
                   errorPlacement: function(error, element) {
                     if (element.attr("name") == "password1" || element.attr("name") == "password2") {

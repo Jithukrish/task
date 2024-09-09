@@ -931,8 +931,9 @@ class AdminTotalCountJobView(View):
             applications = Apply_Job.objects.all().order_by('-timestamp')
 
         total_application += applications.count()
-        total_employer+=Company.objects.values('user').distinct().count()
-        total_jobseeker+=Resume.objects.values('user').distinct().count()
+        # total_employer+=Company.objects.values('user').distinct().count()
+        total_employer+=User.objects.filter(is_employer=True).distinct().count()
+        total_jobseeker+=User.objects.filter(is_jobseeker=True).distinct().count()
         # print("+++++++++++++total_employer+++++++++++",total_employer)
         # print("+++++++++++++total_jobseeker+++++++++++",total_employer)
         accepted_count += applications.filter(status='Accepted').count()
