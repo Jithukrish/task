@@ -204,12 +204,7 @@
               <hr class="dropdown-divider">
             </li>
 
-            {% comment %} <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li> {% endcomment %}
+            
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -518,7 +513,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">This Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">This Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">This Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">This Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -548,7 +543,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -578,7 +573,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -608,7 +603,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -640,7 +635,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -663,7 +658,7 @@
               <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                 <li><a class="dropdown-item filter-link" href="#" data-filter="week">This Week</a></li>
                 <li><a class="dropdown-item filter-link" href="#" data-filter="month">This Month</a></li>
-                <li><a class="dropdown-item filter-link" href="#" data-filter="year">This Year</a></li>
+                <li><a class="dropdown-item filter-link active" href="#" data-filter="year">This Year</a></li>
                 <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
             </ul>
           </div>
@@ -692,82 +687,8 @@
 
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-   {% comment %} <script>
-     document.addEventListener("DOMContentLoaded", () => {
-         const filterLinks = document.querySelectorAll(".filter-link");
-     
-         filterLinks.forEach(link => {
-             link.addEventListener("click", (e) => {
-                 e.preventDefault();
-                 const filter = e.target.getAttribute("data-filter");
-     
-                 fetch(`/job/total_count_c/?filter=${filter}`, {
-                     headers: {
-                         'X-Requested-With': 'XMLHttpRequest'
-                     }
-                 })
-                 .then(response => response.json())
-                 .then(data => {
-                     console.log(data); 
-                     document.getElementById("all-application-count").innerText = data.total_application;
-                     document.getElementById("accepted-applications-count").innerText = data.accepted_applications_count;
-                     document.getElementById("rejected-applications-count").innerText = data.rejected_applications_count;
-                     document.getElementById("pending-applications-count").innerText = data.pending_applications_count;
-                     document.getElementById("filter-title").innerText = data.filter_title;
-     
-                     const reportsChart = document.getElementById("reportsCharts");
-                     reportsChart.innerHTML = ""; 
-     
-                     const chartData = data.chart_datas; 
-                     const chart = new Chart(reportsCharts, {
-                         type: 'bar',
-                         data: {
-                             labels: chartData.labels,
-                             datasets: [{
-                                 label: 'Applications',
-                                 data: chartData.data,
-                                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                                 borderColor: 'rgba(54, 162, 235, 1)',
-                                 borderWidth: 1
-                             }]
-                         },
-                         options: {
-                             scales: {
-                                 y: {
-                                     beginAtZero: true
-                                 }
-                             }
-                         }
-                     });
-     
-                    updateRecentActivity(data.recently_applied_jobs);
-           })
-           .catch(error => {
-               console.error('Error fetching data:', error);
-           });
-       });
-    });
-
-      function updateRecentActivity(recentlyAppliedJobs) {
-          const activityContainer = document.querySelector('.activity');
-          activityContainer.innerHTML = '';
-          recentlyAppliedJobs.forEach(job => {
-              const activityItem = document.createElement('div');
-              activityItem.classList.add('activity-item', 'd-flex');
-              activityItem.innerHTML = `
-                  <div class="activite-label">${new Date(job.timestamp).toLocaleString()}</div>
-                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                      ${job.job__title} - ${job.user__username}
-                  </div>
-              `;
-              activityContainer.appendChild(activityItem);
-          });
-      }
-    });
-
-  </script> {% endcomment %}
-<script>
+   
+{% comment %} <script>
   document.addEventListener("DOMContentLoaded", () => {
     const filterLinks = document.querySelectorAll(".filter-link");
 
@@ -848,11 +769,107 @@
             activityContainer.appendChild(activityItem);
         });
     }
+  });
+</script> {% endcomment %}
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterLinks = document.querySelectorAll(".filter-link");
+
+    // Default filter value set to 'year'
+    const defaultFilter = 'year';
+
+    // Function to fetch data based on the filter
+    function fetchData(filter) {
+        fetch(`/job/total_count_c/?filter=${filter}`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Received data:', data);
+
+            document.getElementById("all-application-count").innerText = data.all_application_count;
+            document.getElementById("accepted-applications-count").innerText = data.accepted_applications_counts;
+            document.getElementById("rejected-applications-count").innerText = data.rejected_applications_counts;
+            document.getElementById("pending-applications-count").innerText = data.pending_applications_counts;
+            document.getElementById("filter-title").innerText = data.filter_titles;
+
+            updateReportsChart(data.chart_datas);
+            updateRecentActivity(data.recently_applied_jobs);
+
+           
+            filterLinks.forEach(link => link.classList.remove('active'));
+            document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+        })
+        .catch(error => {
+            console.error('Error fetching data:', error);
+        });
+    }
+
+   
+    fetchData(defaultFilter);
+
+    
+    filterLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const filter = e.target.getAttribute("data-filter");
+            fetchData(filter); 
+        });
+    });
+
+    
+    function updateReportsChart(chartData) {
+        const reportsChart = document.getElementById("reportsChart");
+        reportsChart.innerHTML = ""; 
+
+        new Chart(reportsChart, {
+            type: 'bar',
+            data: {
+                labels: ['Accepted', 'Rejected', 'Pending'],
+                datasets: [{
+                    label: 'Applications',
+                    data: [chartData.data[0], chartData.data[1], chartData.data[2]],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+   
+    function updateRecentActivity(recentlyAppliedJobs) {
+        const activityContainer = document.querySelector('.activity');
+        activityContainer.innerHTML = '';
+
+        recentlyAppliedJobs.forEach(job => {
+            const activityItem = document.createElement('div');
+            activityItem.classList.add('activity-item', 'd-flex');
+            activityItem.innerHTML = `
+                <div class="activity-label">${new Date(job.timestamp).toLocaleString()}</div>
+                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                <div class="activity-content">
+                    ${job.job__title} - ${job.user__username}
+                </div>
+            `;
+            activityContainer.appendChild(activityItem);
+        });
+    }
 });
- 
-
-
-
 </script>
 
 
@@ -887,7 +904,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">This Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">This Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">This Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">This Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -917,7 +934,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -947,7 +964,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -977,7 +994,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -1007,7 +1024,7 @@
                           <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="week">Week</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="month">Month</a></li>
-                          <li><a class="dropdown-item filter-link" href="#" data-filter="year">Year</a></li>
+                          <li><a class="dropdown-item filter-link active" href="#" data-filter="year">Year</a></li>
                           <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                       </ul>
                   </div>
@@ -1031,7 +1048,7 @@
                   <li><a class="dropdown-item filter-link" href="#" data-filter="today">Today</a></li>
                     <li><a class="dropdown-item filter-link" href="#" data-filter="week">This Week</a></li>
                     <li><a class="dropdown-item filter-link" href="#" data-filter="month">This Month</a></li>
-                    <li><a class="dropdown-item filter-link" href="#" data-filter="year">This Year</a></li>
+                    <li><a class="dropdown-item filter-link active" href="#" data-filter="year">This Year</a></li>
                     <li><a class="dropdown-item filter-link" href="#" data-filter="all">All</a></li>
                 </ul>
               </div>
@@ -1057,12 +1074,12 @@
           </div>
           
       </div>
-  </section>
+    </section>
 
   
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script>
+  {% comment %} <script>
       document.addEventListener("DOMContentLoaded", () => {
           const filterLinks = document.querySelectorAll(".filter-link");
       
@@ -1116,9 +1133,9 @@
                 console.error('Error fetching data:', error);
             });
         });
-    });
+      });
 
-    function updateRecentActivity(recentlyAppliedJobs) {
+     function updateRecentActivity(recentlyAppliedJobs) {
         const activityContainer = document.querySelector('.activity');
         activityContainer.innerHTML = '';
         recentlyAppliedJobs.forEach(job => {
@@ -1133,10 +1150,96 @@
             `;
             activityContainer.appendChild(activityItem);
         });
-    }
-});
+      }
+      });
 
-      </script>
+  </script> {% endcomment %}
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const filterLinks = document.querySelectorAll(".filter-link");
+
+        const defaultFilter = 'year';
+        fetchData(defaultFilter);
+
+        filterLinks.forEach(link => {
+            link.addEventListener("click", (e) => {
+                e.preventDefault();
+                const filter = e.target.getAttribute("data-filter");
+
+                fetchData(filter);
+
+                filterLinks.forEach(link => link.classList.remove('active'));
+                e.target.classList.add('active');
+            });
+        });
+
+        function fetchData(filter) {
+            fetch(`/job/total_count/?filter=${filter}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); 
+
+                document.getElementById("applied-users-counts").innerText = data.applied_users_count;
+                document.getElementById("accepted-applications-counts").innerText = data.accepted_applications_count;
+                document.getElementById("rejected-applications-counts").innerText = data.rejected_applications_count;
+                document.getElementById("pending-applications-counts").innerText = data.pending_applications_count;
+                document.getElementById("filter-titles").innerText = data.filter_title;
+
+                const reportsChart = document.getElementById("reportsCharts");
+                reportsChart.innerHTML = ""; 
+
+                const chartData = data.chart_data; 
+                const chart = new Chart(reportsChart, {
+                    type: 'bar',
+                    data: {
+                        labels: chartData.labels,
+                        datasets: [{
+                            label: 'Applications',
+                            data: chartData.data,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                updateRecentActivity(data.recently_applied_jobs);
+            })
+            .catch(error => {
+                console.error('Error fetching data:', error);
+            });
+        }
+
+        function updateRecentActivity(recentlyAppliedJobs) {
+            const activityContainer = document.querySelector('.activity');
+            activityContainer.innerHTML = ''; 
+
+            recentlyAppliedJobs.forEach(job => {
+                const activityItem = document.createElement('div');
+                activityItem.classList.add('activity-item', 'd-flex');
+                activityItem.innerHTML = `
+                    <div class="activity-label">${new Date(job.timestamp).toLocaleString()}</div>
+                    <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                    <div class="activity-content">
+                        ${job.job__title} - ${job.user__username}
+                    </div>
+                `;
+                activityContainer.appendChild(activityItem);
+            });
+        }
+    });
+</script>
 
 
   

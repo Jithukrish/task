@@ -1309,7 +1309,7 @@ class TotalCountJobView(View):
         if start_date:
             applications = Apply_Job.objects.filter(user=jobseeker, timestamp__gte=start_date).order_by('-timestamp')
         else:
-            applications = Apply_Job.objects.all(user=jobseeker).order_by('-timestamp')
+            applications = Apply_Job.objects.filter(user=jobseeker).order_by('-timestamp')
 
         total_application += applications.count()
         accepted_count += applications.filter(status='Accepted').count()
